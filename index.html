@@ -3,2205 +3,1737 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Musgo</title>
-<meta name="theme-color" content="#2d5016">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="Musgo">
-<link rel="manifest" id="pwa-manifest">
-<link rel="apple-touch-icon" id="pwa-icon">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<title>M\u00eda</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-:root {
-  --cream:     #f5f0e8;
-  --cream2:    #ede6d6;
-  --cream3:    #e4dbc8;
-  --paper:     #faf7f2;
-  --forest:    #2d5016;
-  --forest2:   #3d6b20;
-  --moss:      #5a7f35;
-  --sage:      #8aab6a;
-  --sage-light:#c5dba8;
-  --sage-pale: #e8f0df;
-  --ink:       #1a1a14;
-  --ink2:      #3a3a2e;
-  --ink3:      #6b6b58;
-  --ink4:      #9a9a85;
-  --red-soft:  #c0392b;
-  --amber:     #b8841a;
-  --blue-soft: #2c5f8a;
-  --pink-soft: #9e4d6e;
-  --r: 8px;
-}
+  :root {
+    --cream: #FAF7F2;
+    --warm-white: #F5F1EA;
+    --sage: #8FAF8A;
+    --sage-light: #C5D9C2;
+    --sage-pale: #EAF1E9;
+    --rose: #D4A5A0;
+    --rose-light: #EDD5D2;
+    --rose-pale: #F7EDEC;
+    --amber: #C8A96E;
+    --amber-light: #E8D5B0;
+    --amber-pale: #F5EDD8;
+    --earth: #9C8070;
+    --earth-light: #C4B0A4;
+    --earth-pale: #EDE5E0;
+    --text-dark: #2C2520;
+    --text-mid: #5C504A;
+    --text-light: #9C8E88;
+    --border: #E8E0D8;
+    --white: #FFFFFF;
+  }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
-body {
-  background: var(--cream);
-  color: var(--ink);
-  font-family: 'DM Sans', sans-serif;
-  font-weight: 300;
-  min-height: 100vh;
-  font-size: 15px;
-}
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text-dark);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
 
-/* ── HEADER ── */
-header {
-  background: var(--paper);
-  border-bottom: 1px solid var(--cream3);
-  padding: 0 28px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: sticky;
-  top: 0;
-  z-index: 200;
-  gap: 12px;
-  flex-wrap: wrap;
-}
+  /* APP SHELL */
+  .app {
+    max-width: 420px;
+    margin: 0 auto;
+    min-height: 100vh;
+    background: var(--cream);
+    position: relative;
+  }
 
-.logo-wrap { padding: 16px 0; display: flex; flex-direction: column; }
-.logo {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: var(--forest);
-  letter-spacing: -0.5px;
-  line-height: 1;
-}
-.logo-date {
-  font-size: 0.72rem;
-  color: var(--ink4);
-  margin-top: 2px;
-  letter-spacing: 0.04em;
-}
+  /* HEADER */
+  .header {
+    padding: 52px 28px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
 
-.hstats {
-  display: flex;
-  gap: 20px;
-  align-items: center;
-  flex-wrap: wrap;
-  padding: 10px 0;
-}
-.hstat {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1px;
-}
-.hstat-val {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: var(--forest);
-  line-height: 1;
-}
-.hstat-lbl {
-  font-size: 0.62rem;
-  color: var(--ink4);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-.hsep { width: 1px; height: 28px; background: var(--cream3); }
+  .logo {
+    font-family: 'Fraunces', serif;
+    font-size: 32px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--text-dark);
+    letter-spacing: -0.5px;
+  }
 
-/* ── NAV ── */
-nav {
-  background: var(--paper);
-  border-bottom: 1px solid var(--cream3);
-  display: flex;
-  overflow-x: auto;
-  scrollbar-width: none;
-  padding: 0 20px;
-}
-nav::-webkit-scrollbar { display: none; }
+  .date-badge {
+    font-size: 11px;
+    font-weight: 400;
+    color: var(--text-light);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-align: right;
+    line-height: 1.6;
+  }
 
-.nb {
-  background: none;
-  border: none;
-  border-bottom: 2px solid transparent;
-  color: var(--ink4);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.75rem;
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  padding: 12px 16px;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: color 0.2s, border-color 0.2s;
-}
-.nb:hover { color: var(--ink2); }
-.nb.active { color: var(--forest); border-bottom-color: var(--forest); }
+  /* NAV */
+  .nav {
+    display: flex;
+    gap: 6px;
+    padding: 0 28px 24px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .nav::-webkit-scrollbar { display: none; }
 
-/* ── MAIN ── */
-main {
-  max-width: 1080px;
-  margin: 0 auto;
-  padding: 28px 20px;
-}
+  .nav-btn {
+    flex-shrink: 0;
+    padding: 7px 16px;
+    border-radius: 20px;
+    border: 1.5px solid var(--border);
+    background: transparent;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--text-light);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+  }
 
-.page { display: none; }
-.page.active { display: block; }
+  .nav-btn.active {
+    border-color: transparent;
+    color: var(--text-dark);
+    font-weight: 500;
+  }
 
-/* ── SECTION LABEL ── */
-.slabel {
-  font-size: 0.65rem;
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--ink4);
-  margin-bottom: 12px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.slabel::after { content: ''; flex: 1; height: 1px; background: var(--cream3); }
+  .nav-btn[data-section="dashboard"].active { background: var(--amber-pale); border-color: var(--amber-light); }
+  .nav-btn[data-section="medicacion"].active { background: var(--rose-pale); border-color: var(--rose-light); }
+  .nav-btn[data-section="universidad"].active { background: var(--sage-pale); border-color: var(--sage-light); }
+  .nav-btn[data-section="ciclo"].active { background: var(--rose-pale); border-color: var(--rose-light); }
+  .nav-btn[data-section="habitos"].active { background: var(--sage-pale); border-color: var(--sage-light); }
+  .nav-btn[data-section="journal"].active { background: var(--earth-pale); border-color: var(--earth-light); }
+  .nav-btn[data-section="meditacion"].active { background: var(--amber-pale); border-color: var(--amber-light); }
+  .nav-btn[data-section="github"].active { background: var(--earth-pale); border-color: var(--earth-light); }
 
-.mb16 { margin-bottom: 16px; }
-.mb24 { margin-bottom: 24px; }
-.mb32 { margin-bottom: 32px; }
+  /* SCREENS */
+  .screen { display: none; padding: 0 28px 100px; animation: fadeIn 0.25s ease; }
+  .screen.active { display: block; }
 
-/* ── CARD ── */
-.card {
-  background: var(--paper);
-  border: 1px solid var(--cream3);
-  border-radius: var(--r);
-  padding: 20px;
-}
-.card + .card { margin-top: 12px; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
-/* ── GRIDS ── */
-.g2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
-.g3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
-.g4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
+  /* SECTION TITLE */
+  .section-title {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 300;
+    color: var(--text-dark);
+    margin-bottom: 20px;
+    letter-spacing: -0.3px;
+  }
 
-/* ── CHAR PANEL ── */
-.char-panel {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 24px;
-  align-items: center;
-  padding: 24px;
-  margin-bottom: 28px;
-}
+  /* CARDS */
+  .card {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 12px;
+    border: 1px solid var(--border);
+  }
 
-.level-circle {
-  width: 72px; height: 72px;
-  border: 2px solid var(--sage);
-  border-radius: 50%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: var(--sage-pale);
-  flex-shrink: 0;
-}
-.level-num {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: var(--forest);
-  line-height: 1;
-}
-.level-word {
-  font-size: 0.55rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--moss);
-  margin-top: 1px;
-}
+  .card-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 8px;
+  }
 
-.char-name-big {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.3rem;
-  color: var(--ink);
-  margin-bottom: 2px;
-}
-.char-class-tag {
-  font-size: 0.72rem;
-  color: var(--moss);
-  letter-spacing: 0.05em;
-  margin-bottom: 14px;
-  font-style: italic;
-}
+  .card-title {
+    font-family: 'Fraunces', serif;
+    font-size: 17px;
+    font-weight: 400;
+    color: var(--text-dark);
+    margin-bottom: 4px;
+  }
 
-/* ── BARS ── */
-.bar-row { margin-bottom: 8px; }
-.bar-meta { display: flex; justify-content: space-between; margin-bottom: 4px; }
-.bar-name { font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink4); }
-.bar-vals { font-size: 0.72rem; color: var(--ink3); }
+  .card-sub {
+    font-size: 13px;
+    color: var(--text-light);
+    line-height: 1.5;
+  }
 
-.bar-track {
-  height: 6px;
-  background: var(--cream2);
-  border-radius: 3px;
-  overflow: hidden;
-}
-.bar-fill {
-  height: 100%;
-  border-radius: 3px;
-  transition: width 0.5s ease;
-}
-.bf-xp { background: var(--moss); }
-.bf-hp { background: #c0392b; }
-.bf-water { background: var(--blue-soft); }
+  /* DASHBOARD */
+  .dash-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
 
-/* ── HABITS ── */
-.habit-row {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 11px 0;
-  border-bottom: 1px solid var(--cream2);
-  cursor: pointer;
-  transition: opacity 0.15s;
-  user-select: none;
-}
-.habit-row:last-child { border-bottom: none; padding-bottom: 0; }
-.habit-row:first-child { padding-top: 0; }
-.habit-row:hover { opacity: 0.75; }
-.habit-row.done { opacity: 0.45; }
-.habit-row.done .h-name { text-decoration: line-through; }
+  .dash-tile {
+    border-radius: 16px;
+    padding: 18px;
+    cursor: pointer;
+    transition: transform 0.15s ease;
+    border: 1px solid transparent;
+  }
+  .dash-tile:hover { transform: scale(0.98); }
 
-.h-check {
-  width: 18px; height: 18px;
-  border: 1.5px solid var(--cream3);
-  border-radius: 4px;
-  flex-shrink: 0;
-  display: flex; align-items: center; justify-content: center;
-  transition: all 0.15s;
-  background: var(--paper);
-}
-.habit-row.done .h-check {
-  background: var(--moss);
-  border-color: var(--moss);
-}
-.h-check svg { display: none; }
-.habit-row.done .h-check svg { display: block; }
+  .dash-tile.amber { background: var(--amber-pale); border-color: var(--amber-light); }
+  .dash-tile.rose { background: var(--rose-pale); border-color: var(--rose-light); }
+  .dash-tile.sage { background: var(--sage-pale); border-color: var(--sage-light); }
+  .dash-tile.earth { background: var(--earth-pale); border-color: var(--earth-light); }
 
-.h-name { flex: 1; font-size: 0.9rem; color: var(--ink2); }
-.h-xp { font-size: 0.65rem; color: var(--sage); letter-spacing: 0.04em; }
-.h-streak { font-size: 0.65rem; color: var(--amber); margin-left: 4px; }
+  .dash-tile-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 8px;
+  }
 
-/* ── STAT MINI CARDS ── */
-.mini-card {
-  background: var(--paper);
-  border: 1px solid var(--cream3);
-  border-radius: var(--r);
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-.mc-label { font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink4); }
-.mc-val {
-  font-family: 'Playfair Display', serif;
-  font-size: 2rem;
-  font-weight: 600;
-  color: var(--forest);
-  line-height: 1;
-}
-.mc-sub { font-size: 0.72rem; color: var(--ink4); }
+  .dash-tile-value {
+    font-family: 'Fraunces', serif;
+    font-size: 24px;
+    font-weight: 300;
+    color: var(--text-dark);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
 
-/* ── WATER ── */
-.water-dots {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin: 12px 0;
-}
-.wdot {
-  width: 34px; height: 34px;
-  border-radius: 50%;
-  border: 1.5px solid var(--cream3);
-  background: var(--cream);
-  cursor: pointer;
-  transition: all 0.15s;
-  position: relative;
-  overflow: hidden;
-}
-.wdot::after {
-  content: '';
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 0;
-  background: var(--blue-soft);
-  transition: height 0.2s ease;
-  border-radius: 0 0 50% 50%;
-}
-.wdot.filled::after { height: 100%; border-radius: 50%; }
-.wdot.filled { border-color: var(--blue-soft); }
+  .dash-tile-info {
+    font-size: 11px;
+    color: var(--text-mid);
+  }
 
-/* ── TIMER ── */
-.timer-face {
-  font-family: 'Playfair Display', serif;
-  font-size: 3.5rem;
-  font-weight: 400;
-  color: var(--forest);
-  text-align: center;
-  letter-spacing: -2px;
-  padding: 20px 0 12px;
-}
-.timer-label-line {
-  text-align: center;
-  font-size: 0.65rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--ink4);
-  margin-bottom: 20px;
-}
-.timer-btns { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+  .dash-wide {
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: transform 0.15s ease;
+  }
+  .dash-wide:hover { transform: scale(0.99); }
 
-/* ── BUTTONS ── */
-.btn {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  padding: 8px 18px;
-  border-radius: 40px;
-  cursor: pointer;
-  border: 1px solid;
-  transition: all 0.15s;
-  white-space: nowrap;
-}
-.btn-forest { background: var(--forest); border-color: var(--forest); color: var(--cream); }
-.btn-forest:hover { background: var(--forest2); border-color: var(--forest2); }
-.btn-outline { background: transparent; border-color: var(--cream3); color: var(--ink3); }
-.btn-outline:hover { border-color: var(--ink4); color: var(--ink); }
-.btn-sage { background: var(--sage-pale); border-color: var(--sage-light); color: var(--forest); }
-.btn-sage:hover { background: var(--sage-light); }
-.btn-sm { padding: 6px 14px; font-size: 0.68rem; }
-.btn-danger { background: transparent; border-color: #ddd; color: var(--ink4); }
-.btn-danger:hover { border-color: var(--red-soft); color: var(--red-soft); }
+  .dash-wide.journal-tile { background: var(--earth-pale); border: 1px solid var(--earth-light); }
+  .dash-wide.med-tile { background: var(--rose-pale); border: 1px solid var(--rose-light); }
 
-/* ── TEXTAREA / INPUT ── */
-.field {
-  width: 100%;
-  background: var(--cream);
-  border: 1px solid var(--cream3);
-  border-radius: var(--r);
-  color: var(--ink);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.88rem;
-  font-weight: 300;
-  padding: 10px 14px;
-  outline: none;
-  transition: border-color 0.15s;
-  resize: none;
-}
-.field:focus { border-color: var(--sage); }
-.field-inline { flex: 1; min-width: 120px; }
+  .dash-wide-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 6px;
+  }
 
-/* ── MED TRACKER ── */
-.med-card {
-  background: var(--paper);
-  border: 1px solid var(--cream3);
-  border-radius: var(--r);
-  padding: 18px 20px;
-  margin-bottom: 10px;
-}
-.med-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 12px; flex-wrap: wrap; }
-.med-name-big {
-  font-family: 'Playfair Display', serif;
-  font-size: 1rem;
-  color: var(--ink);
-}
-.med-note { font-size: 0.72rem; color: var(--ink4); margin-top: 2px; font-style: italic; }
+  .dash-wide-text {
+    font-family: 'Fraunces', serif;
+    font-size: 15px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--text-dark);
+    line-height: 1.5;
+  }
 
-.mg-selector {
-  display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
-  margin-bottom: 14px;
-}
-.mg-btn {
-  padding: 5px 12px;
-  border-radius: 20px;
-  border: 1px solid var(--cream3);
-  background: var(--cream);
-  font-size: 0.72rem;
-  cursor: pointer;
-  color: var(--ink3);
-  transition: all 0.15s;
-  font-family: 'DM Sans', sans-serif;
-}
-.mg-btn:hover { border-color: var(--sage); color: var(--forest); }
-.mg-btn.sel { background: var(--sage-pale); border-color: var(--sage); color: var(--forest); font-weight: 500; }
+  /* BUTTONS */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border-radius: 12px;
+    border: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
 
-.med-log {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  max-height: 160px;
-  overflow-y: auto;
-}
-.med-entry {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 7px 12px;
-  background: var(--sage-pale);
-  border-radius: 6px;
-  font-size: 0.8rem;
-}
-.med-entry-time { color: var(--forest); font-weight: 500; }
-.med-entry-mg { color: var(--moss); }
-.med-entry-del { background: none; border: none; color: var(--ink4); cursor: pointer; font-size: 0.75rem; }
-.med-entry-del:hover { color: var(--red-soft); }
-.med-empty { font-size: 0.8rem; color: var(--ink4); font-style: italic; padding: 8px 0; }
+  .btn-primary { background: var(--text-dark); color: var(--white); }
+  .btn-primary:hover { background: var(--text-mid); }
 
-.take-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .btn-rose { background: var(--rose-pale); color: var(--text-dark); border: 1px solid var(--rose-light); }
+  .btn-sage { background: var(--sage-pale); color: var(--text-dark); border: 1px solid var(--sage-light); }
+  .btn-amber { background: var(--amber-pale); color: var(--text-dark); border: 1px solid var(--amber-light); }
+  .btn-earth { background: var(--earth-pale); color: var(--text-dark); border: 1px solid var(--earth-light); }
+  .btn-outline { background: transparent; color: var(--text-dark); border: 1.5px solid var(--border); }
 
-/* ── CYCLE ── */
-.cycle-ctrl { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 16px; }
-.ctrl-lbl { font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink4); }
-input[type="date"], input[type="number"] {
-  background: var(--cream);
-  border: 1px solid var(--cream3);
-  border-radius: 6px;
-  color: var(--ink);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.85rem;
-  padding: 7px 10px;
-  outline: none;
-}
-input[type="number"] { width: 72px; }
-input[type="date"]:focus, input[type="number"]:focus { border-color: var(--sage); }
-input[type="date"]::-webkit-calendar-picker-indicator { opacity: 0.5; cursor: pointer; }
+  .btn:hover { opacity: 0.85; transform: scale(0.98); }
 
-.phase-strip {
-  background: var(--sage-pale);
-  border: 1px solid var(--sage-light);
-  border-radius: var(--r);
-  padding: 14px 18px;
-  margin-bottom: 16px;
-}
-.phase-strip-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 0.95rem;
-  font-style: italic;
-  color: var(--forest);
-  margin-bottom: 4px;
-}
-.phase-strip-desc { font-size: 0.8rem; color: var(--ink3); line-height: 1.5; }
+  .btn-full { width: 100%; justify-content: center; margin-bottom: 10px; }
 
-.cal-head {
-  display: grid;
-  grid-template-columns: repeat(7,1fr);
-  gap: 2px;
-  text-align: center;
-  font-size: 0.6rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--ink4);
-  margin-bottom: 4px;
-}
-.cal-grid {
-  display: grid;
-  grid-template-columns: repeat(7,1fr);
-  gap: 2px;
-}
-.cday {
-  aspect-ratio: 1;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 0.72rem;
-  border-radius: 4px;
-  cursor: default;
-  color: var(--ink3);
-  background: transparent;
-  transition: all 0.1s;
-}
-.cday.period   { background: rgba(192,57,43,0.12); color: var(--red-soft); }
-.cday.fertile  { background: rgba(90,127,53,0.12); color: var(--moss); }
-.cday.ovulation{ background: rgba(184,132,26,0.2); color: var(--amber); font-weight: 500; }
-.cday.today    { background: var(--forest); color: var(--cream); border-radius: 50%; font-weight: 500; }
+  /* INPUTS */
+  .input-group { margin-bottom: 16px; }
+  .input-label { font-size: 12px; font-weight: 500; color: var(--text-mid); margin-bottom: 6px; display: block; letter-spacing: 0.02em; }
 
-.cal-legend { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 12px; }
-.cal-leg { display: flex; align-items: center; gap: 5px; font-size: 0.7rem; color: var(--ink4); }
-.cal-dot { width: 8px; height: 8px; border-radius: 50%; }
+  .input, .textarea, .select {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1.5px solid var(--border);
+    background: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: var(--text-dark);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .input:focus, .textarea:focus, .select:focus { border-color: var(--earth-light); }
+  .textarea { resize: none; line-height: 1.6; }
 
-.sym-wrap { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
-.sym-tag {
-  padding: 5px 12px;
-  border-radius: 20px;
-  border: 1px solid var(--cream3);
-  background: var(--cream);
-  font-size: 0.75rem;
-  cursor: pointer;
-  color: var(--ink3);
-  transition: all 0.15s;
-}
-.sym-tag:hover { border-color: var(--pink-soft); color: var(--pink-soft); }
-.sym-tag.active { background: rgba(158,77,110,0.1); border-color: var(--pink-soft); color: var(--pink-soft); }
+  /* TOGGLE GROUP */
+  .toggle-group { display: flex; gap: 8px; flex-wrap: wrap; }
+  .toggle-btn {
+    padding: 8px 14px;
+    border-radius: 8px;
+    border: 1.5px solid var(--border);
+    background: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    color: var(--text-mid);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .toggle-btn.selected { background: var(--rose-pale); border-color: var(--rose-light); color: var(--text-dark); font-weight: 500; }
 
-/* ── TASKS ── */
-.task-form { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
-.task-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 0;
-  border-bottom: 1px solid var(--cream2);
-}
-.task-row:last-child { border-bottom: none; }
-.task-row.done-t .task-text { text-decoration: line-through; color: var(--ink4); }
-.t-check {
-  width: 16px; height: 16px;
-  border: 1.5px solid var(--cream3);
-  border-radius: 3px;
-  flex-shrink: 0;
-  cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  transition: all 0.15s;
-}
-.task-row.done-t .t-check { background: var(--moss); border-color: var(--moss); }
-.task-cat-tag {
-  font-size: 0.62rem;
-  letter-spacing: 0.06em;
-  color: var(--ink4);
-  background: var(--cream2);
-  padding: 2px 7px;
-  border-radius: 10px;
-  white-space: nowrap;
-}
-.task-text { flex: 1; font-size: 0.88rem; color: var(--ink2); }
+  /* DIVIDER */
+  .divider { height: 1px; background: var(--border); margin: 20px 0; }
 
-/* ── BADGES ── */
-.badges-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-  gap: 10px;
-}
-.badge-card {
-  background: var(--paper);
-  border: 1px solid var(--cream3);
-  border-radius: var(--r);
-  padding: 14px 10px;
-  text-align: center;
-  transition: all 0.15s;
-}
-.badge-card.earned {
-  border-color: var(--sage);
-  background: var(--sage-pale);
-}
-.badge-card.locked { opacity: 0.3; }
-.badge-icon-wrap {
-  width: 36px; height: 36px;
-  margin: 0 auto 8px;
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  background: var(--cream2);
-  font-size: 0; /* no emoji fallback */
-}
-.badge-card.earned .badge-icon-wrap {
-  background: var(--sage-light);
-}
-/* SVG icons for badges */
-.badge-icon-wrap svg { width: 18px; height: 18px; }
-.badge-name {
-  font-size: 0.62rem;
-  letter-spacing: 0.04em;
-  color: var(--ink4);
-  line-height: 1.3;
-}
-.badge-card.earned .badge-name { color: var(--forest); font-weight: 500; }
+  /* STATUS PILL */
+  .pill {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+  .pill-rose { background: var(--rose-pale); color: var(--rose); }
+  .pill-sage { background: var(--sage-pale); color: var(--sage); }
+  .pill-amber { background: var(--amber-pale); color: var(--amber); }
+  .pill-earth { background: var(--earth-pale); color: var(--earth); }
 
-/* ── TOAST ── */
-#toast {
-  position: fixed;
-  bottom: 24px; right: 24px;
-  background: var(--forest);
-  color: var(--cream);
-  border-radius: var(--r);
-  padding: 12px 18px;
-  font-size: 0.82rem;
-  z-index: 1000;
-  transform: translateY(80px);
-  opacity: 0;
-  transition: all 0.25s ease;
-  max-width: 280px;
-  line-height: 1.4;
-  box-shadow: 0 4px 24px rgba(45,80,22,0.2);
-}
-#toast.show { transform: translateY(0); opacity: 1; }
-.toast-xp { font-size: 0.72rem; color: var(--sage-light); margin-top: 3px; }
+  /* LOG ENTRY */
+  .log-entry {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .log-entry:last-child { border-bottom: none; }
 
-/* ── XP FLOAT ── */
-.xpf {
-  position: fixed;
-  font-size: 0.72rem;
-  letter-spacing: 0.06em;
-  color: var(--forest);
-  font-weight: 500;
-  pointer-events: none;
-  z-index: 999;
-  animation: floatUp 1.3s ease forwards;
-}
-@keyframes floatUp {
-  0%   { transform: translateY(0);    opacity: 1; }
-  100% { transform: translateY(-60px); opacity: 0; }
-}
+  .log-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-top: 6px;
+    flex-shrink: 0;
+  }
+  .log-dot-rose { background: var(--rose); }
+  .log-dot-sage { background: var(--sage); }
+  .log-dot-amber { background: var(--amber); }
 
-/* ── NOTES LABEL ── */
-.notes-hint { font-size: 0.68rem; color: var(--ink4); margin-top: 6px; font-style: italic; }
+  .log-time { font-size: 12px; color: var(--text-light); margin-bottom: 2px; }
+  .log-text { font-size: 14px; color: var(--text-dark); }
+  .log-sub { font-size: 12px; color: var(--text-light); margin-top: 2px; }
 
-/* ── INSTALL BTN ── */
-.btn-install {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.68rem;
-  font-weight: 500;
-  letter-spacing: 0.04em;
-  padding: 6px 14px;
-  border-radius: 40px;
-  cursor: pointer;
-  border: 1px solid var(--sage);
-  background: var(--sage-pale);
-  color: var(--forest);
-  transition: all 0.15s;
-  display: none;
-  align-items: center;
-  gap: 6px;
-  white-space: nowrap;
-}
-.btn-install:hover { background: var(--sage-light); }
-.btn-install.visible { display: flex; }
-@media(max-width:580px){
-  .char-panel { grid-template-columns: 1fr; }
-  .level-circle { margin: 0 auto; }
-  .timer-face { font-size: 2.5rem; }
-  header { padding: 0 16px; }
-  main { padding: 20px 14px; }
-}
+  /* HABIT ROW */
+  .habit-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .habit-row:last-child { border-bottom: none; }
 
-/* ── SELECT ── */
-select.field {
-  appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%239a9a85'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 12px center;
-  padding-right: 30px;
-  cursor: pointer;
-}
+  .habit-info { flex: 1; }
+  .habit-name { font-size: 15px; color: var(--text-dark); font-weight: 400; }
+  .habit-meta { font-size: 12px; color: var(--text-light); margin-top: 2px; }
+
+  .check-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    background: var(--white);
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: transparent;
+    flex-shrink: 0;
+  }
+  .check-btn.done {
+    background: var(--sage-pale);
+    border-color: var(--sage);
+    color: var(--sage);
+  }
+
+  /* CALENDAR STRIP */
+  .cal-strip {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding-bottom: 4px;
+    margin-bottom: 20px;
+  }
+  .cal-strip::-webkit-scrollbar { display: none; }
+
+  .cal-day {
+    flex-shrink: 0;
+    width: 44px;
+    height: 60px;
+    border-radius: 12px;
+    border: 1.5px solid var(--border);
+    background: var(--white);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .cal-day.today { background: var(--text-dark); border-color: var(--text-dark); }
+  .cal-day.today .cal-d { color: var(--white); }
+  .cal-day.today .cal-wd { color: rgba(255,255,255,0.6); }
+  .cal-day.marked { border-color: var(--rose); background: var(--rose-pale); }
+  .cal-day.marked .cal-dot { display: block; }
+
+  .cal-wd { font-size: 9px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-light); }
+  .cal-d { font-size: 16px; font-weight: 500; color: var(--text-dark); font-family: 'Fraunces', serif; }
+  .cal-dot { display: none; width: 5px; height: 5px; border-radius: 50%; background: var(--rose); }
+
+  /* PROGRESS BAR */
+  .progress-bar { height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; margin-top: 10px; }
+  .progress-fill { height: 100%; border-radius: 3px; transition: width 0.4s ease; }
+  .progress-fill.sage { background: var(--sage); }
+  .progress-fill.rose { background: var(--rose); }
+  .progress-fill.amber { background: var(--amber); }
+  .progress-fill.earth { background: var(--earth); }
+
+  /* WATER TRACKER */
+  .water-dots { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+  .water-dot {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid var(--sage-light);
+    background: var(--white);
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: transparent;
+  }
+  .water-dot.filled { background: var(--sage-pale); border-color: var(--sage); color: var(--sage); }
+
+  /* JOURNAL */
+  .prompt-card {
+    background: var(--earth-pale);
+    border: 1px solid var(--earth-light);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 16px;
+  }
+  .prompt-tag { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--earth); font-weight: 500; margin-bottom: 10px; }
+  .prompt-text { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 300; color: var(--text-dark); line-height: 1.5; font-style: italic; }
+
+  /* MEDITATION */
+  .breathe-ring {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    border: 3px solid var(--amber-light);
+    margin: 20px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: transform 4s ease-in-out;
+  }
+  .breathe-inner {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: var(--amber-pale);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    color: var(--text-mid);
+    font-weight: 400;
+    transition: all 4s ease-in-out;
+    text-align: center;
+    padding: 10px;
+    line-height: 1.3;
+  }
+  .breathe-ring.inhale { transform: scale(1.2); border-color: var(--amber); }
+  .breathe-ring.inhale .breathe-inner { width: 110px; height: 110px; background: var(--amber-light); }
+  .breathe-ring.exhale { transform: scale(0.9); border-color: var(--amber-light); }
+  .breathe-ring.exhale .breathe-inner { width: 70px; height: 70px; }
+
+  /* GITHUB */
+  .github-card {
+    background: var(--text-dark);
+    border-radius: 16px;
+    padding: 24px;
+    color: var(--white);
+    margin-bottom: 12px;
+  }
+  .github-card .card-label { color: rgba(255,255,255,0.5); }
+  .github-card .card-title { color: var(--white); font-family: 'Fraunces', serif; font-size: 20px; font-weight: 300; }
+  .code-block {
+    background: rgba(255,255,255,0.08);
+    border-radius: 10px;
+    padding: 14px;
+    margin-top: 14px;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    color: rgba(255,255,255,0.85);
+    line-height: 1.8;
+    overflow-x: auto;
+  }
+  .code-comment { color: rgba(255,255,255,0.35); }
+
+  .step-row {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .step-row:last-child { border-bottom: none; }
+
+  .step-num {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--amber-pale);
+    border: 1px solid var(--amber-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-dark);
+    flex-shrink: 0;
+  }
+
+  .step-content {}
+  .step-title { font-size: 14px; font-weight: 500; color: var(--text-dark); margin-bottom: 3px; }
+  .step-desc { font-size: 13px; color: var(--text-light); line-height: 1.5; }
+
+  /* NOTIFICATION */
+  .toast {
+    position: fixed;
+    bottom: 90px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--text-dark);
+    color: var(--white);
+    padding: 12px 20px;
+    border-radius: 24px;
+    font-size: 13px;
+    font-weight: 400;
+    opacity: 0;
+    transition: all 0.3s ease;
+    pointer-events: none;
+    white-space: nowrap;
+    z-index: 100;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* BOTTOM NAV */
+  .bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 420px;
+    background: rgba(250,247,242,0.92);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0 20px;
+    z-index: 50;
+  }
+
+  .bnav-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px 12px;
+    transition: opacity 0.2s;
+  }
+  .bnav-icon {
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .bnav-icon svg { width: 20px; height: 20px; stroke: var(--text-light); fill: none; stroke-width: 1.5; stroke-linecap: round; }
+  .bnav-label { font-size: 9px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-light); font-weight: 400; }
+  .bnav-btn.active .bnav-icon svg { stroke: var(--text-dark); }
+  .bnav-btn.active .bnav-label { color: var(--text-dark); font-weight: 500; }
+
+  /* ICON */
+  .app-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, var(--amber-pale) 0%, var(--rose-pale) 50%, var(--sage-pale) 100%);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* TASK */
+  .task-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .task-row:last-child { border-bottom: none; }
+  .task-check {
+    width: 20px;
+    height: 20px;
+    border-radius: 6px;
+    border: 2px solid var(--border);
+    background: var(--white);
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    color: transparent;
+  }
+  .task-check.done { background: var(--sage-pale); border-color: var(--sage); color: var(--sage); font-weight: 700; }
+  .task-text { font-size: 14px; color: var(--text-dark); flex: 1; }
+  .task-date { font-size: 11px; color: var(--text-light); }
+
+  /* TIMER */
+  .timer-display {
+    text-align: center;
+    font-family: 'Fraunces', serif;
+    font-size: 52px;
+    font-weight: 300;
+    color: var(--text-dark);
+    margin: 20px 0;
+    letter-spacing: -2px;
+  }
+
+  /* TAGS */
+  .tag-row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+  .tag {
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 400;
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    color: var(--text-mid);
+  }
+
+  /* NOTES QUICK */
+  .note-card {
+    background: var(--amber-pale);
+    border: 1px solid var(--amber-light);
+    border-radius: 12px;
+    padding: 14px;
+    margin-bottom: 8px;
+    font-size: 13px;
+    color: var(--text-dark);
+    line-height: 1.5;
+  }
+  .note-card-time { font-size: 11px; color: var(--text-light); margin-bottom: 4px; }
+
+  /* CYCLE VISUAL */
+  .cycle-bar {
+    height: 8px;
+    border-radius: 4px;
+    background: var(--border);
+    margin: 16px 0 8px;
+    overflow: hidden;
+    position: relative;
+  }
+  .cycle-fill {
+    height: 100%;
+    border-radius: 4px;
+    background: linear-gradient(90deg, var(--rose-light), var(--rose));
+    transition: width 0.5s ease;
+  }
+  .cycle-phases { display: flex; justify-content: space-between; }
+  .cycle-phase { font-size: 10px; color: var(--text-light); }
+
+  /* INFO ROW */
+  .info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .info-row:last-child { border-bottom: none; }
+  .info-key { font-size: 13px; color: var(--text-light); }
+  .info-val { font-size: 13px; color: var(--text-dark); font-weight: 500; }
+
+  /* SLEEP */
+  .sleep-row { display: flex; gap: 10px; }
+  .sleep-row .input { flex: 1; }
 </style>
 </head>
 <body>
 
-<header>
-  <div class="logo-wrap">
-    <div class="logo-date" id="header-date" style="font-size:0.9rem;color:var(--ink2);padding:4px 0;font-family:'Playfair Display',serif;font-style:italic"></div>
-  </div>
-  <div class="hstats">
-    <div class="hstat"><div class="hstat-val" id="h-xp">0</div><div class="hstat-lbl">XP</div></div>
-    <div class="hsep"></div>
-    <div class="hstat"><div class="hstat-val" id="h-lvl">1</div><div class="hstat-lbl">Nivel</div></div>
-    <div class="hsep"></div>
-    <div class="hstat"><div class="hstat-val" id="h-str">0</div><div class="hstat-lbl">Racha</div></div>
-    <div class="hsep"></div>
-    <div class="hstat"><div class="hstat-val" id="h-hp">100</div><div class="hstat-lbl">Vida</div></div>
-    <button class="btn-install" id="install-btn" onclick="installPWA()">
-      <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M8 2v9M4 8l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 13h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-      Instalar app
-    </button>
-  </div>
-</header>
-
-<nav>
-  <button class="nb active" onclick="showPage('inicio')">Inicio</button>
-  <button class="nb" onclick="showPage('estudio')">Estudio</button>
-  <button class="nb" onclick="showPage('salud')">Salud</button>
-  <button class="nb" onclick="showPage('medicacion')">Medicación</button>
-  <button class="nb" onclick="showPage('ciclo')">Ciclo</button>
-  <button class="nb" onclick="showPage('tareas')">Tareas</button>
-  <button class="nb" onclick="showPage('asignaturas')">Asignaturas</button>
-  <button class="nb" onclick="showPage('examenes')">Exámenes</button>
-  <button class="nb" onclick="showPage('proyectos')">Proyectos</button>
-  <button class="nb" onclick="showPage('logros')">Logros</button>
-</nav>
-
-<main>
-
-<!-- ═══════════ INICIO ═══════════ -->
-<div id="page-inicio" class="page active">
-
-  <div class="card char-panel mb24">
-    <div class="level-circle">
-      <div class="level-num" id="c-level">1</div>
-      <div class="level-word">nivel</div>
-    </div>
-    <div>
-      <div class="char-name-big">Aventurera</div>
-      <div class="char-class-tag" id="c-class">Estudiante Novata</div>
-      <div class="bar-row">
-        <div class="bar-meta"><span class="bar-name">Experiencia</span><span class="bar-vals" id="xp-text">0 / 100</span></div>
-        <div class="bar-track"><div class="bar-fill bf-xp" id="xp-bar" style="width:0%"></div></div>
+<div class="app">
+  <div class="header">
+    <div style="display:flex;align-items:center;gap:12px;">
+      <div class="app-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 3C12 3 7 7 7 12C7 14.76 9.24 17 12 17C14.76 17 17 14.76 17 12C17 7 12 3 12 3Z" fill="#C8A96E" opacity="0.6"/>
+          <path d="M12 17V21" stroke="#9C8070" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M9 20H15" stroke="#9C8070" stroke-width="1.5" stroke-linecap="round"/>
+          <circle cx="12" cy="12" r="2" fill="#D4A5A0"/>
+        </svg>
       </div>
-      <div class="bar-row">
-        <div class="bar-meta"><span class="bar-name">Vida</span><span class="bar-vals" id="hp-text">100 / 100</span></div>
-        <div class="bar-track"><div class="bar-fill bf-hp" id="hp-bar" style="width:100%"></div></div>
+      <span class="logo">M\u00eda</span>
+    </div>
+    <div class="date-badge" id="headerDate"></div>
+  </div>
+
+  <div class="nav" id="mainNav">
+    <button class="nav-btn active" data-section="dashboard" onclick="showSection('dashboard')">Inicio</button>
+    <button class="nav-btn" data-section="medicacion" onclick="showSection('medicacion')">Medicaci\u00f3n</button>
+    <button class="nav-btn" data-section="universidad" onclick="showSection('universidad')">Universidad</button>
+    <button class="nav-btn" data-section="ciclo" onclick="showSection('ciclo')">Ciclo</button>
+    <button class="nav-btn" data-section="habitos" onclick="showSection('habitos')">H\u00e1bitos</button>
+    <button class="nav-btn" data-section="journal" onclick="showSection('journal')">Journal</button>
+    <button class="nav-btn" data-section="meditacion" onclick="showSection('meditacion')">Meditaci\u00f3n</button>
+    <button class="nav-btn" data-section="github" onclick="showSection('github')">Descargar</button>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div class="screen active" id="screen-dashboard">
+    <p class="section-title">Hola, \u00bfc\u00f3mo est\u00e1s hoy?</p>
+
+    <div class="dash-grid">
+      <div class="dash-tile amber" onclick="showSection('medicacion')">
+        <div class="dash-tile-label">Tramadol</div>
+        <div class="dash-tile-value" id="dashTramadol">\u2014</div>
+        <div class="dash-tile-info">\u00faltima toma</div>
+      </div>
+      <div class="dash-tile rose" onclick="showSection('ciclo')">
+        <div class="dash-tile-label">Ciclo</div>
+        <div class="dash-tile-value" id="dashCiclo">\u2014</div>
+        <div class="dash-tile-info">d\u00eda actual</div>
+      </div>
+      <div class="dash-tile sage" onclick="showSection('habitos')">
+        <div class="dash-tile-label">H\u00e1bitos</div>
+        <div class="dash-tile-value" id="dashHabitos">0/4</div>
+        <div class="dash-tile-info">completados</div>
+      </div>
+      <div class="dash-tile earth" onclick="showSection('universidad')">
+        <div class="dash-tile-label">Tareas</div>
+        <div class="dash-tile-value" id="dashTareas">\u2014</div>
+        <div class="dash-tile-info">pendientes</div>
       </div>
     </div>
-  </div>
 
-  <div class="slabel mb16">Resumen del día</div>
+    <div class="dash-wide med-tile" onclick="showSection('medicacion')">
+      <div class="dash-wide-label">Cimzia</div>
+      <div class="dash-wide-text" id="dashCimzia">Pr\u00f3xima dosis: sin registrar</div>
+    </div>
 
-  <div class="g3 mb24">
-    <div class="mini-card">
-      <div class="mc-label">Racha actual</div>
-      <div class="mc-val" id="d-streak">0</div>
-      <div class="mc-sub">días consecutivos</div>
-    </div>
-    <div class="mini-card">
-      <div class="mc-label">Agua hoy</div>
-      <div class="mc-val"><span id="d-water">0</span><span style="font-size:1rem;color:var(--ink4)">/8</span></div>
-      <div class="mc-sub">vasos</div>
-    </div>
-    <div class="mini-card">
-      <div class="mc-label">Estudio hoy</div>
-      <div class="mc-val" style="font-size:1.2rem" id="d-study">0 h</div>
-      <div class="mc-sub" id="d-study-sessions">0 sesiones</div>
+    <div class="dash-wide journal-tile" onclick="showSection('journal')">
+      <div class="dash-wide-label">Prompt de hoy</div>
+      <div class="dash-wide-text" id="dashPrompt">Cargando...</div>
     </div>
   </div>
 
-  <div class="slabel mb16">Hábitos de hoy</div>
-  <div class="g2 mb24">
+  <!-- MEDICACION -->
+  <div class="screen" id="screen-medicacion">
+    <p class="section-title">Medicaci\u00f3n</p>
+
     <div class="card">
-      <div style="font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--moss);margin-bottom:10px">Estudio</div>
-      <div id="h-est-prev"></div>
+      <div class="card-label">Tramadol \u2014 registrar toma</div>
+      <div class="input-group" style="margin-top:12px;">
+        <label class="input-label">Gotas</label>
+        <input type="number" class="input" id="tramadolGotas" placeholder="Ej. 15" min="1" max="50">
+      </div>
+      <div class="input-group">
+        <label class="input-label">Tomado con</label>
+        <div class="toggle-group" id="tramadolCon">
+          <button class="toggle-btn selected" onclick="selectToggle(this,'tramadolCon')">Solo</button>
+          <button class="toggle-btn" onclick="selectToggle(this,'tramadolCon')">Ibuprofeno</button>
+          <button class="toggle-btn" onclick="selectToggle(this,'tramadolCon')">Paracetamol</button>
+        </div>
+      </div>
+      <div class="input-group">
+        <label class="input-label">Nota (opcional)</label>
+        <textarea class="textarea" id="tramadolNota" rows="2" placeholder="Ej. dolor 7/10, antes de dormir..."></textarea>
+      </div>
+      <button class="btn btn-rose btn-full" onclick="registrarTramadol()">Registrar toma</button>
     </div>
+
+    <div class="card" id="tramadolLog">
+      <div class="card-label">Historial de hoy</div>
+      <div id="tramadolEntries"><p style="font-size:13px;color:var(--text-light);margin-top:10px;">Sin registros hoy.</p></div>
+    </div>
+
+    <div class="divider"></div>
+
     <div class="card">
-      <div style="font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--moss);margin-bottom:10px">Bienestar</div>
-      <div id="h-sal-prev"></div>
+      <div class="card-label">Cimzia \u2014 pinchazos</div>
+      <div class="info-row" style="padding-top:0;">
+        <span class="info-key">\u00daltima administraci\u00f3n</span>
+        <span class="info-val" id="cimziaUltima">\u2014</span>
+      </div>
+      <div class="info-row">
+        <span class="info-key">Pr\u00f3xima dosis</span>
+        <span class="info-val" id="cimziaProxima">\u2014</span>
+      </div>
+      <div class="info-row">
+        <span class="info-key">Recoger en farmacia</span>
+        <span class="info-val" id="cimziaRecoger">\u2014</span>
+      </div>
+      <div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap;">
+        <button class="btn btn-rose" onclick="registrarCimzia()">Marcar como puesto hoy</button>
+        <button class="btn btn-outline" onclick="alert('Recordatorio configurado para 2 dias antes')">Recordatorio farmacia</button>
+      </div>
     </div>
   </div>
 
-</div>
+  <!-- UNIVERSIDAD -->
+  <div class="screen" id="screen-universidad">
+    <p class="section-title">Universidad</p>
 
-<!-- ═══════════ ESTUDIO ═══════════ -->
-<div id="page-estudio" class="page">
-
-  <div class="slabel mb16">Hábitos de Estudio</div>
-  <div class="card mb24" id="h-est-full"></div>
-
-  <div class="slabel mb16">Tiempo de estudio</div>
-  <div class="card mb24">
-    <div style="display:flex;gap:8px;margin-bottom:10px;border-bottom:1px solid var(--cream2);padding-bottom:10px">
-      <button class="btn btn-sm" id="mode-range-btn" onclick="setStudyMode('range')" style="background:var(--forest);border-color:var(--forest);color:var(--cream);">Hora inicio — fin</button>
-      <button class="btn btn-outline btn-sm" id="mode-dur-btn" onclick="setStudyMode('dur')">Solo duración</button>
-    </div>
-
-    <!-- MODE: range -->
-    <div id="study-mode-range">
-      <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;margin-bottom:10px">
-        <div>
-          <div style="font-size:0.62rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink4);margin-bottom:4px">Inicio</div>
-          <input type="time" id="study-from" style="background:var(--cream);border:1px solid var(--cream3);border-radius:6px;color:var(--ink);font-family:'DM Sans',sans-serif;font-size:0.9rem;padding:8px 10px;outline:none;width:130px;">
+    <div class="card">
+      <div class="card-label">Nueva tarea</div>
+      <div style="margin-top:12px;">
+        <div class="input-group">
+          <label class="input-label">Asignatura</label>
+          <select class="select" id="nuevaAsignatura">
+            <option value="">Seleccionar...</option>
+            <option>Anatom\u00eda</option>
+            <option>Bioqu\u00edmica</option>
+            <option>Fisiolog\u00eda</option>
+            <option>Estad\u00edstica</option>
+            <option>Otra</option>
+          </select>
         </div>
-        <div>
-          <div style="font-size:0.62rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink4);margin-bottom:4px">Fin</div>
-          <input type="time" id="study-to" style="background:var(--cream);border:1px solid var(--cream3);border-radius:6px;color:var(--ink);font-family:'DM Sans',sans-serif;font-size:0.9rem;padding:8px 10px;outline:none;width:130px;">
+        <div class="input-group">
+          <label class="input-label">Tarea o examen</label>
+          <input class="input" id="nuevaTarea" placeholder="Ej. Entrega pr\u00e1ctica 3">
+        </div>
+        <div class="input-group">
+          <label class="input-label">Fecha l\u00edmite</label>
+          <input type="date" class="input" id="nuevaFecha">
+        </div>
+        <button class="btn btn-sage btn-full" onclick="agregarTarea()">A\u00f1adir tarea</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Tareas pendientes</div>
+      <div id="tareasList"><p style="font-size:13px;color:var(--text-light);margin-top:10px;">Sin tareas registradas.</p></div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Temporizador de estudio</div>
+      <div style="margin-top:12px;">
+        <div class="input-group">
+          <label class="input-label">Asignatura</label>
+          <select class="select" id="timerAsignatura">
+            <option>Anatom\u00eda</option>
+            <option>Bioqu\u00edmica</option>
+            <option>Fisiolog\u00eda</option>
+            <option>Estad\u00edstica</option>
+            <option>Otra</option>
+          </select>
+        </div>
+      </div>
+      <div class="timer-display" id="timerDisplay">00:00</div>
+      <div style="display:flex;gap:8px;justify-content:center;">
+        <button class="btn btn-sage" id="timerBtn" onclick="toggleTimer()">Iniciar</button>
+        <button class="btn btn-outline" onclick="resetTimer()">Reiniciar</button>
+      </div>
+      <div style="margin-top:16px;">
+        <div class="card-label">Sesiones de hoy</div>
+        <div id="sesionesLog" style="font-size:13px;color:var(--text-light);margin-top:8px;">Sin sesiones registradas.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Apuntes r\u00e1pidos</div>
+      <div class="input-group" style="margin-top:12px;">
+        <textarea class="textarea" id="notaRapida" rows="3" placeholder="Apunta cualquier idea o cosa que no quieras olvidar..."></textarea>
+      </div>
+      <button class="btn btn-amber btn-full" onclick="guardarNota()">Guardar nota</button>
+      <div id="notasGuardadas" style="margin-top:12px;"></div>
+    </div>
+  </div>
+
+  <!-- CICLO -->
+  <div class="screen" id="screen-ciclo">
+    <p class="section-title">Ciclo menstrual</p>
+
+    <div class="card">
+      <div class="card-label">Estado actual</div>
+      <div style="margin-top:12px;">
+        <div class="info-row" style="padding-top:0;">
+          <span class="info-key">D\u00eda del ciclo</span>
+          <span class="info-val" id="cicloDia">\u2014</span>
+        </div>
+        <div class="info-row">
+          <span class="info-key">Fase actual</span>
+          <span class="info-val" id="cicloFase">\u2014</span>
+        </div>
+        <div class="info-row">
+          <span class="info-key">Pr\u00f3xima menstruaci\u00f3n</span>
+          <span class="info-val" id="cicloProximo">\u2014</span>
+        </div>
+      </div>
+      <div class="cycle-bar"><div class="cycle-fill" id="cycleFill" style="width:0%"></div></div>
+      <div class="cycle-phases">
+        <span class="cycle-phase">Menstruaci\u00f3n</span>
+        <span class="cycle-phase">Ovulaci\u00f3n</span>
+        <span class="cycle-phase">L\u00fatea</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Registrar inicio de ciclo</div>
+      <div style="margin-top:12px;">
+        <div class="input-group">
+          <label class="input-label">Fecha de inicio</label>
+          <input type="date" class="input" id="cicloFechaInicio">
+        </div>
+        <div class="input-group">
+          <label class="input-label">Duraci\u00f3n media del ciclo (d\u00edas)</label>
+          <input type="number" class="input" id="cicloDuracion" value="28" min="21" max="40">
+        </div>
+        <button class="btn btn-rose btn-full" onclick="registrarCiclo()">Guardar</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">S\u00edntomas de hoy</div>
+      <div class="input-group" style="margin-top:12px;">
+        <label class="input-label">\u00bfC\u00f3mo est\u00e1s hoy?</label>
+        <div class="toggle-group" id="sintomasToggle">
+          <button class="toggle-btn" onclick="selectToggle(this,'sintomasToggle')">Dolor</button>
+          <button class="toggle-btn" onclick="selectToggle(this,'sintomasToggle')">Cansancio</button>
+          <button class="toggle-btn" onclick="selectToggle(this,'sintomasToggle')">Hinchaz\u00f3n</button>
+          <button class="toggle-btn" onclick="selectToggle(this,'sintomasToggle')">Buen d\u00eda</button>
+          <button class="toggle-btn" onclick="selectToggle(this,'sintomasToggle')">Irritable</button>
+        </div>
+      </div>
+      <button class="btn btn-rose btn-full" onclick="showToast('S\u00edntomas registrados')">Guardar s\u00edntomas</button>
+    </div>
+  </div>
+
+  <!-- HABITOS -->
+  <div class="screen" id="screen-habitos">
+    <p class="section-title">H\u00e1bitos</p>
+
+    <div class="card">
+      <div class="card-label">Hoy</div>
+      <div id="habitosList">
+        <div class="habit-row">
+          <div class="habit-info">
+            <div class="habit-name">Agua</div>
+            <div class="habit-meta" id="waterMeta">0 de 8 vasos</div>
+          </div>
+          <button class="check-btn" id="habitoAgua" onclick="toggleHabito('agua')">\u2713</button>
+        </div>
+        <div class="habit-row">
+          <div class="habit-info">
+            <div class="habit-name">Pausas de estudio</div>
+            <div class="habit-meta">Cada 45 min</div>
+          </div>
+          <button class="check-btn" id="habitoPausa" onclick="toggleHabito('pausa')">\u2713</button>
+        </div>
+        <div class="habit-row">
+          <div class="habit-info">
+            <div class="habit-name">Mindfulness</div>
+            <div class="habit-meta">5 minutos</div>
+          </div>
+          <button class="check-btn" id="habitoMind" onclick="toggleHabito('mind')">\u2713</button>
+        </div>
+        <div class="habit-row">
+          <div class="habit-info">
+            <div class="habit-name">Sue\u00f1o</div>
+            <div class="habit-meta" id="suenoMeta">Sin registrar</div>
+          </div>
+          <button class="check-btn" id="habitoSueno" onclick="toggleHabito('sueno')">\u2713</button>
         </div>
       </div>
     </div>
 
-    <!-- MODE: duration -->
-    <div id="study-mode-dur" style="display:none">
-      <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;margin-bottom:10px">
-        <div>
-          <div style="font-size:0.62rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink4);margin-bottom:4px">Horas</div>
-          <input type="number" id="study-dur-h" min="0" max="12" value="0" style="background:var(--cream);border:1px solid var(--cream3);border-radius:6px;color:var(--ink);font-family:'DM Sans',sans-serif;font-size:0.9rem;padding:8px 10px;outline:none;width:80px;">
+    <div class="card">
+      <div class="card-label">Agua \u2014 vasos hoy</div>
+      <div class="water-dots" id="waterDots"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Sue\u00f1o de anoche</div>
+      <div style="margin-top:12px;">
+        <div class="input-group">
+          <label class="input-label">Me acost\u00e9</label>
+          <input type="time" class="input" id="suenoAcoste">
         </div>
-        <div>
-          <div style="font-size:0.62rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink4);margin-bottom:4px">Minutos</div>
-          <input type="number" id="study-dur-m" min="0" max="59" value="0" style="background:var(--cream);border:1px solid var(--cream3);border-radius:6px;color:var(--ink);font-family:'DM Sans',sans-serif;font-size:0.9rem;padding:8px 10px;outline:none;width:80px;">
+        <div class="input-group">
+          <label class="input-label">Me levant\u00e9</label>
+          <input type="time" class="input" id="suenoLevante">
+        </div>
+        <button class="btn btn-sage btn-full" onclick="registrarSueno()">Guardar sue\u00f1o</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Semana \u2014 resumen visual</div>
+      <div id="weekView" style="margin-top:12px;"></div>
+    </div>
+  </div>
+
+  <!-- JOURNAL -->
+  <div class="screen" id="screen-journal">
+    <p class="section-title">Journal</p>
+
+    <div class="prompt-card">
+      <div class="prompt-tag" id="promptTag">\u2014</div>
+      <div class="prompt-text" id="promptText">Cargando el prompt de hoy...</div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Escribe aqu\u00ed</div>
+      <div style="margin-top:12px;">
+        <textarea class="textarea" id="journalText" rows="8" placeholder="Empieza a escribir..."></textarea>
+        <button class="btn btn-earth btn-full" style="margin-top:10px;" onclick="guardarJournal()">Guardar entrada</button>
+      </div>
+    </div>
+
+    <div class="card" id="journalHistorial">
+      <div class="card-label">Entradas anteriores</div>
+      <div id="journalEntries" style="margin-top:8px;"><p style="font-size:13px;color:var(--text-light);">Sin entradas a\u00fan.</p></div>
+    </div>
+  </div>
+
+  <!-- MEDITACION -->
+  <div class="screen" id="screen-meditacion">
+    <p class="section-title">Meditaci\u00f3n</p>
+
+    <div class="card">
+      <div class="card-label">Consejo del d\u00eda</div>
+      <div style="margin-top:10px;font-size:14px;color:var(--text-dark);line-height:1.6;" id="medTip"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">\u00bfC\u00f3mo est\u00e1s ahora?</div>
+      <div class="toggle-group" style="margin-top:12px;" id="medEstado">
+        <button class="toggle-btn selected" onclick="selectToggle(this,'medEstado');setMedGuia('dolor')">Dolor</button>
+        <button class="toggle-btn" onclick="selectToggle(this,'medEstado');setMedGuia('cansancio')">Cansancio</button>
+        <button class="toggle-btn" onclick="selectToggle(this,'medEstado');setMedGuia('ansiedad')">Ansiedad</button>
+        <button class="toggle-btn" onclick="selectToggle(this,'medEstado');setMedGuia('pausa')">Solo pausar</button>
+      </div>
+    </div>
+
+    <div class="card" id="medGuiaCard">
+      <div class="card-label" id="medGuiaTipo">Meditaci\u00f3n para el dolor \u2014 5 min</div>
+      <div style="font-size:13px;color:var(--text-mid);line-height:1.7;margin-top:10px;" id="medGuiaTexto"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Respiraci\u00f3n guiada</div>
+      <p style="font-size:13px;color:var(--text-light);margin:10px 0;">Sigue el ritmo. Inhala 4s, mant\u00e9n 4s, exhala 4s.</p>
+      <div class="breathe-ring" id="breatheRing">
+        <div class="breathe-inner" id="breatheText">Inhala</div>
+      </div>
+      <div style="display:flex;gap:8px;justify-content:center;margin-top:8px;">
+        <button class="btn btn-amber" id="breatheBtn" onclick="toggleBreathe()">Iniciar</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Registro</div>
+      <div class="habit-row" style="border:none;padding:12px 0 0;">
+        <div class="habit-info">
+          <div class="habit-name">Meditaci\u00f3n de hoy</div>
+          <div class="habit-meta">5 minutos</div>
+        </div>
+        <button class="check-btn" id="medCheck" onclick="toggleMedCheck()">\u2713</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- GITHUB -->
+  <div class="screen" id="screen-github">
+    <p class="section-title">Descargar M\u00eda</p>
+
+    <div class="github-card">
+      <div class="card-label">Repositorio</div>
+      <div class="card-title" style="color:white;margin-bottom:4px;">mia-app</div>
+      <p style="font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:0;">Tu app personal \u2014 c\u00f3digo abierto y privado</p>
+      <div class="code-block">
+        <span class="code-comment"># Clonar repositorio</span><br>
+        git clone https://github.com/tuusuario/mia-app<br><br>
+        <span class="code-comment"># Entrar al proyecto</span><br>
+        cd mia-app<br><br>
+        <span class="code-comment"># Instalar dependencias</span><br>
+        npm install<br><br>
+        <span class="code-comment"># Arrancar en local</span><br>
+        npm run dev
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Pasos para publicarla</div>
+      <div style="margin-top:4px;">
+        <div class="step-row">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <div class="step-title">Crea una cuenta en GitHub</div>
+            <div class="step-desc">Ve a github.com y reg\u00edstrate con tu correo. Es gratuito.</div>
+          </div>
+        </div>
+        <div class="step-row">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <div class="step-title">Crea un repositorio nuevo</div>
+            <div class="step-desc">Ll\u00e1malo <strong>mia-app</strong> y m\u00e1rcalo como privado si quieres que solo lo veas t\u00fa.</div>
+          </div>
+        </div>
+        <div class="step-row">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <div class="step-title">Sube este archivo HTML</div>
+            <div class="step-desc">Arrastra el archivo a tu repositorio o usa el bot\u00f3n "Add file". GitHub lo guardar\u00e1 con historial de versiones.</div>
+          </div>
+        </div>
+        <div class="step-row">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <div class="step-title">Activa GitHub Pages</div>
+            <div class="step-desc">En Settings > Pages, selecciona la rama main y la carpeta root. Tu app tendr\u00e1 una URL p\u00fablica solo para ti.</div>
+          </div>
+        </div>
+        <div class="step-row">
+          <div class="step-num">5</div>
+          <div class="step-content">
+            <div class="step-title">A\u00f1\u00e1dela a tu pantalla de inicio</div>
+            <div class="step-desc">En Chrome/Safari, abre tu URL y usa "A\u00f1adir a pantalla de inicio" para tenerla como app.</div>
+          </div>
         </div>
       </div>
     </div>
 
-    <div style="display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;margin-bottom:14px">
-      <div style="flex:1;min-width:140px">
-        <div style="font-size:0.62rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink4);margin-bottom:4px">Materia / nota</div>
-        <input type="text" id="study-label" class="field" placeholder="">
+    <div class="card">
+      <div class="card-label">Estructura del proyecto</div>
+      <div class="code-block" style="background:var(--warm-white);color:var(--text-mid);border:1px solid var(--border);margin-top:12px;">
+        mia-app/<br>
+        &nbsp;&nbsp;\u251c\u2500\u2500 index.html &nbsp;&nbsp;&nbsp;<span style="color:var(--text-light)">\u2190 este archivo</span><br>
+        &nbsp;&nbsp;\u251c\u2500\u2500 README.md &nbsp;&nbsp;&nbsp;<span style="color:var(--text-light)">\u2190 descripci\u00f3n</span><br>
+        &nbsp;&nbsp;\u2514\u2500\u2500 icon.png &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--text-light)">\u2190 icono app</span>
       </div>
-      <button class="btn btn-forest" onclick="addStudySession()" style="align-self:flex-end">Registrar sesión</button>
     </div>
 
-    <div id="study-log"></div>
-    <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--cream2);display:flex;justify-content:space-between;align-items:center">
-      <span style="font-size:0.65rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink4)">Total hoy</span>
-      <span style="font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--forest)" id="study-total-disp">0 h 0 min</span>
+    <div class="card">
+      <div class="card-label">Sobre tus datos</div>
+      <p style="font-size:13px;color:var(--text-mid);line-height:1.7;margin-top:8px;">Todos los datos se guardan en tu navegador (localStorage). Nadie tiene acceso a ellos. Si borras el cach\u00e9 del navegador, se borrar\u00e1n tambi\u00e9n, as\u00ed que exporta o haz copia de vez en cuando.</p>
     </div>
+
+    <button class="btn btn-primary btn-full" style="margin-top:8px;" onclick="descargarApp()">Descargar archivo HTML</button>
   </div>
 
-  <div class="slabel mb16">Notas rápidas</div>
-  <div class="card">
-    <textarea class="field" id="notas-area" rows="5" placeholder=""></textarea>
-    <div class="notes-hint">Guardado automáticamente.</div>
-  </div>
+</div><!-- end app -->
 
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+  <button class="bnav-btn active" data-bnav="dashboard" onclick="showSection('dashboard')">
+    <div class="bnav-icon">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2"/></svg>
+    </div>
+    <span class="bnav-label">Inicio</span>
+  </button>
+  <button class="bnav-btn" data-bnav="medicacion" onclick="showSection('medicacion')">
+    <div class="bnav-icon">
+      <svg viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V9l-6-6z"/><path d="M9 3v6h6"/></svg>
+    </div>
+    <span class="bnav-label">Meds</span>
+  </button>
+  <button class="bnav-btn" data-bnav="habitos" onclick="showSection('habitos')">
+    <div class="bnav-icon">
+      <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+    </div>
+    <span class="bnav-label">H\u00e1bitos</span>
+  </button>
+  <button class="bnav-btn" data-bnav="journal" onclick="showSection('journal')">
+    <div class="bnav-icon">
+      <svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+    </div>
+    <span class="bnav-label">Journal</span>
+  </button>
+  <button class="bnav-btn" data-bnav="meditacion" onclick="showSection('meditacion')">
+    <div class="bnav-icon">
+      <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20A10 10 0 0012 2z"/><path d="M12 6v6l4 2"/></svg>
+    </div>
+    <span class="bnav-label">Calma</span>
+  </button>
 </div>
 
-<!-- ═══════════ SALUD ═══════════ -->
-<div id="page-salud" class="page">
-
-  <div class="slabel mb16">Hábitos de Bienestar</div>
-  <div class="card mb24" id="h-sal-full"></div>
-
-  <div class="slabel mb16">Rutina Nocturna</div>
-  <div class="card mb24" id="h-noc-full"></div>
-
-  <div class="slabel mb16">Hidratación</div>
-  <div class="card">
-    <div style="font-size:0.8rem;color:var(--ink3);margin-bottom:8px">Meta diaria: 8 vasos — clave con artritis e hiperlaxitud</div>
-    <div class="water-dots" id="water-dots"></div>
-    <div class="bar-row" style="margin-top:10px">
-      <div class="bar-meta"><span class="bar-name">Progreso</span><span class="bar-vals" id="water-lbl">0 / 8</span></div>
-      <div class="bar-track"><div class="bar-fill bf-water" id="water-bar" style="width:0%"></div></div>
-    </div>
-  </div>
-
-</div>
-
-<!-- ═══════════ MEDICACIÓN ═══════════ -->
-<div id="page-medicacion" class="page">
-
-  <div class="slabel mb16">Adolonta (Tramadol) — Registro diario</div>
-
-  <div class="med-card">
-    <div class="med-top">
-      <div>
-        <div class="med-name-big">Adolonta · Tramadol</div>
-        <div class="med-note">Registra cada toma con dosis. Máximo recomendado: 400 mg/día.</div>
-      </div>
-      <div style="text-align:right">
-        <div style="font-size:0.65rem;color:var(--ink4);letter-spacing:0.08em;text-transform:uppercase">Total hoy</div>
-        <div style="font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--forest)" id="med-total-today">0 mg</div>
-      </div>
-    </div>
-
-    <div style="font-size:0.72rem;color:var(--ink4);margin-bottom:8px;letter-spacing:0.06em;text-transform:uppercase">Dosis a registrar</div>
-    <div class="mg-selector" id="mg-selector">
-      <div class="mg-btn" onclick="selMg(50)">50 mg</div>
-      <div class="mg-btn" onclick="selMg(100)">100 mg</div>
-      <div class="mg-btn" onclick="selMg(150)">150 mg</div>
-      <div class="mg-btn" onclick="selMg(200)">200 mg</div>
-    </div>
-
-    <div class="take-row">
-      <button class="btn btn-forest btn-sm" onclick="takeMed()">Registrar toma</button>
-      <span style="font-size:0.72rem;color:var(--ink4)">o ajusta la hora:</span>
-      <input type="time" id="med-time-override" class="field" style="width:110px;padding:6px 10px;font-size:0.82rem;">
-    </div>
-
-    <div style="height:1px;background:var(--cream2);margin:16px 0"></div>
-
-    <div style="font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink4);margin-bottom:8px">Registro de hoy</div>
-    <div class="med-log" id="med-log">
-      <div class="med-empty">Sin tomas registradas hoy.</div>
-    </div>
-  </div>
-
-  <div class="card" style="margin-top:12px">
-    <div style="font-size:0.72rem;color:var(--ink3);line-height:1.6">
-      <strong style="color:var(--forest)">Recuerda:</strong> El Tramadol es un opioide. Tómalo según indicación médica.
-      Si sientes que el dolor no mejora, consulta a tu médico antes de aumentar la dosis.
-    </div>
-  </div>
-
-</div>
-
-<!-- ═══════════ CICLO ═══════════ -->
-<div id="page-ciclo" class="page">
-
-  <div class="slabel mb16">Ciclo Menstrual</div>
-  <div class="card mb16">
-    <div class="cycle-ctrl">
-      <span class="ctrl-lbl">Inicio último período</span>
-      <input type="date" id="cycle-start">
-      <span class="ctrl-lbl">Duración ciclo</span>
-      <input type="number" id="cycle-len" value="28" min="21" max="35">
-      <span class="ctrl-lbl">Días período</span>
-      <input type="number" id="period-len" value="5" min="2" max="8">
-      <button class="btn btn-forest btn-sm" onclick="updateCycle()">Actualizar</button>
-    </div>
-
-    <div class="phase-strip" id="phase-strip">
-      <div class="phase-strip-title" id="phase-title">Configura tu ciclo arriba</div>
-      <div class="phase-strip-desc" id="phase-desc">Ingresa la fecha de tu último período para ver la fase actual y predicciones.</div>
-    </div>
-
-    <div class="cal-head"><div>D</div><div>L</div><div>M</div><div>X</div><div>J</div><div>V</div><div>S</div></div>
-    <div class="cal-grid" id="cycle-cal"></div>
-
-    <div class="cal-legend">
-      <div class="cal-leg"><div class="cal-dot" style="background:rgba(192,57,43,0.5)"></div>Menstruación</div>
-      <div class="cal-leg"><div class="cal-dot" style="background:var(--moss)"></div>Período fértil</div>
-      <div class="cal-leg"><div class="cal-dot" style="background:var(--amber)"></div>Ovulación</div>
-      <div class="cal-leg"><div class="cal-dot" style="background:var(--forest)"></div>Hoy</div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div style="font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink4);margin-bottom:10px">Síntomas de hoy</div>
-    <div class="sym-wrap" id="sym-wrap"></div>
-    <textarea class="field" id="cycle-notes" rows="3" placeholder=""></textarea>
-  </div>
-
-</div>
-
-<!-- ═══════════ TAREAS ═══════════ -->
-<div id="page-tareas" class="page">
-
-  <!-- Universidad -->
-  <div class="slabel mb16">Universidad</div>
-  <div class="card mb24">
-    <div class="task-form">
-      <input class="field field-inline" type="text" id="task-uni-input" placeholder="" onkeydown="if(event.key==='Enter')addTask('uni')">
-      <select class="field" style="width:auto" id="task-uni-cat">
-        <option value="Entrega">Entrega</option>
-        <option value="Examen">Examen</option>
-        <option value="Lectura">Lectura</option>
-        <option value="Apuntes">Apuntes</option>
-        <option value="Otro">Otro</option>
-      </select>
-      <button class="btn btn-forest btn-sm" onclick="addTask('uni')">Añadir</button>
-    </div>
-    <div id="task-list-uni"></div>
-  </div>
-
-  <!-- Casa -->
-  <div class="slabel mb16">Casa</div>
-  <div class="card mb24">
-    <div class="task-form">
-      <input class="field field-inline" type="text" id="task-casa-input" placeholder="" onkeydown="if(event.key==='Enter')addTask('casa')">
-      <select class="field" style="width:auto" id="task-casa-cat">
-        <option value="Limpieza">Limpieza</option>
-        <option value="Compras">Compras</option>
-        <option value="Cocina">Cocina</option>
-        <option value="Gestión">Gestión</option>
-        <option value="Otro">Otro</option>
-      </select>
-      <button class="btn btn-forest btn-sm" onclick="addTask('casa')">Añadir</button>
-    </div>
-    <div id="task-list-casa"></div>
-  </div>
-
-  <!-- Personal -->
-  <div class="slabel mb16">Personal</div>
-  <div class="card">
-    <div class="task-form">
-      <input class="field field-inline" type="text" id="task-per-input" placeholder="" onkeydown="if(event.key==='Enter')addTask('per')">
-      <select class="field" style="width:auto" id="task-per-cat">
-        <option value="Salud">Salud</option>
-        <option value="Social">Social</option>
-        <option value="Cita">Cita</option>
-        <option value="Ocio">Ocio</option>
-        <option value="Otro">Otro</option>
-      </select>
-      <button class="btn btn-forest btn-sm" onclick="addTask('per')">Añadir</button>
-    </div>
-    <div id="task-list-per"></div>
-  </div>
-
-</div>
-
-<!-- ═══════════ LOGROS ═══════════ -->
-<div id="page-logros" class="page">
-
-  <div class="slabel mb16">Estudio</div>
-  <div class="badges-grid mb24" id="badges-estudio"></div>
-
-  <div class="slabel mb16">Bienestar</div>
-  <div class="badges-grid mb24" id="badges-salud"></div>
-
-  <div class="slabel mb16">Constancia</div>
-  <div class="badges-grid mb24" id="badges-constancia"></div>
-
-  <div class="slabel mb16">Especiales</div>
-  <div class="badges-grid mb24" id="badges-especiales"></div>
-
-  <div class="slabel mb16">Estadísticas globales</div>
-  <div class="g4">
-    <div class="mini-card"><div class="mc-label">Hábitos</div><div class="mc-val" id="sg-habits">0</div></div>
-    <div class="mini-card"><div class="mc-label">Horas estudio</div><div class="mc-val" id="sg-pomos">0</div></div>
-    <div class="mini-card"><div class="mc-label">Tomas med.</div><div class="mc-val" id="sg-meds">0</div></div>
-    <div class="mini-card"><div class="mc-label">Tareas</div><div class="mc-val" id="sg-tasks">0</div></div>
-  </div>
-
-</div>
-
-<!-- ═══════════ ASIGNATURAS ═══════════ -->
-<div id="page-asignaturas" class="page">
-
-  <div class="slabel mb16">Asignaturas</div>
-
-  <!-- Add subject form -->
-  <div class="card mb16" id="asig-form-card">
-    <div style="font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--moss);margin-bottom:14px">Añadir asignatura</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
-      <div>
-        <div style="font-size:0.62rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink4);margin-bottom:4px">Nombre</div>
-        <input type="text" id="asig-nombre" class="field">
-      </div>
-      <div>
-        <div style="font-size:0.62rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink4);margin-bottom:4px">Créditos ECTS</div>
-        <input type="number" id="asig-ects" min="1" max="12" value="6" style="background:var(--cream);border:1px solid var(--cream3);border-radius:6px;color:var(--ink);font-family:'DM Sans',sans-serif;font-size:0.9rem;padding:8px 10px;outline:none;width:100%">
-      </div>
-      <div>
-        <div style="font-size:0.62rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink4);margin-bottom:4px">Cuatrimestre</div>
-        <select id="asig-cuatri" class="field">
-          <option value="1">1er cuatrimestre</option>
-          <option value="2">2o cuatrimestre</option>
-          <option value="anual">Anual</option>
-        </select>
-      </div>
-      <div>
-        <div style="font-size:0.62rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink4);margin-bottom:4px">Tipo evaluación</div>
-        <select id="asig-eval" class="field">
-          <option value="continua">Evaluación continua</option>
-          <option value="final">Examen final</option>
-          <option value="mixta">Mixta</option>
-          <option value="proyecto">Por proyecto</option>
-        </select>
-      </div>
-    </div>
-    <div style="margin-bottom:10px">
-      <div style="font-size:0.62rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink4);margin-bottom:4px">Notas (estructura de evaluación, pesos...)</div>
-      <textarea id="asig-notas" class="field" rows="2"></textarea>
-    </div>
-    <button class="btn btn-forest" onclick="addAsignatura()">Guardar asignatura</button>
-  </div>
-
-  <div id="asig-list"></div>
-
-</div>
-
-<!-- ═══════════ EXÁMENES ═══════════ -->
-<div id="page-examenes" class="page">
-
-  <div class="slabel mb16">Planificación de exámenes</div>
-
-  <div class="card mb16">
-    <div style="font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--moss);margin-bottom:14px">Añadir examen</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
-      <div>
-        <div style="font-size:0.62rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink4);margin-bottom:4px">Asignatura</div>
-        <input type="text" id="exam-asig" class="field" list="asig-datalist">
-        <datalist id="asig-datalist"></datalist>
-      </div>
-      <div>
-        <div style="font-size:0.62rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink4);margin-bottom:4px">Fecha</div>
-        <input type="date" id="exam-fecha" style="background:var(--cream);border:1px solid var(--cream3);border-radius:6px;color:var(--ink);font-family:'DM Sans',sans-serif;font-size:0.9rem;padding:8px 10px;outline:none;width:100%">
-      </div>
-      <div>
-        <div style="font-size:0.62rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink4);margin-bottom:4px">Hora</div>
-        <input type="time" id="exam-hora" style="background:var(--cream);border:1px solid var(--cream3);border-radius:6px;color:var(--ink);font-family:'DM Sans',sans-serif;font-size:0.9rem;padding:8px 10px;outline:none;width:100%">
-      </div>
-      <div>
-        <div style="font-size:0.62rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink4);margin-bottom:4px">Tipo</div>
-        <select id="exam-tipo" class="field">
-          <option value="Parcial">Parcial</option>
-          <option value="Final">Final</option>
-          <option value="Práctica">Práctica</option>
-          <option value="Oral">Oral</option>
-          <option value="Entrega">Entrega</option>
-        </select>
-      </div>
-      <div>
-        <div style="font-size:0.62rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink4);margin-bottom:4px">Peso en nota (%)</div>
-        <input type="number" id="exam-peso" min="0" max="100" value="50" style="background:var(--cream);border:1px solid var(--cream3);border-radius:6px;color:var(--ink);font-family:'DM Sans',sans-serif;font-size:0.9rem;padding:8px 10px;outline:none;width:100%">
-      </div>
-      <div>
-        <div style="font-size:0.62rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink4);margin-bottom:4px">Nota obtenida (opcional)</div>
-        <input type="number" id="exam-nota" min="0" max="10" step="0.1" style="background:var(--cream);border:1px solid var(--cream3);border-radius:6px;color:var(--ink);font-family:'DM Sans',sans-serif;font-size:0.9rem;padding:8px 10px;outline:none;width:100%">
-      </div>
-    </div>
-    <div style="margin-bottom:10px">
-      <div style="font-size:0.62rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink4);margin-bottom:4px">Temas / notas</div>
-      <textarea id="exam-temas" class="field" rows="2"></textarea>
-    </div>
-    <button class="btn btn-forest" onclick="addExamen()">Guardar examen</button>
-  </div>
-
-  <!-- Próximos -->
-  <div class="slabel mb16">Próximos</div>
-  <div id="exam-proximos" class="mb24"></div>
-
-  <!-- Pasados -->
-  <div class="slabel mb16">Realizados</div>
-  <div id="exam-pasados"></div>
-
-</div>
-
-<!-- ═══════════ PROYECTOS ═══════════ -->
-<div id="page-proyectos" class="page">
-
-  <div class="slabel mb16">Prácticas y Proyectos</div>
-
-  <div class="card mb16">
-    <div style="font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--moss);margin-bottom:14px">Añadir proyecto / práctica</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
-      <div>
-        <div style="font-size:0.62rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink4);margin-bottom:4px">Nombre</div>
-        <input type="text" id="proy-nombre" class="field">
-      </div>
-      <div>
-        <div style="font-size:0.62rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink4);margin-bottom:4px">Asignatura</div>
-        <input type="text" id="proy-asig" class="field" list="asig-datalist">
-      </div>
-      <div>
-        <div style="font-size:0.62rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink4);margin-bottom:4px">Entrega</div>
-        <input type="date" id="proy-fecha" style="background:var(--cream);border:1px solid var(--cream3);border-radius:6px;color:var(--ink);font-family:'DM Sans',sans-serif;font-size:0.9rem;padding:8px 10px;outline:none;width:100%">
-      </div>
-      <div>
-        <div style="font-size:0.62rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink4);margin-bottom:4px">Tipo</div>
-        <select id="proy-tipo" class="field">
-          <option value="Práctica lab">Práctica lab</option>
-          <option value="Proyecto grupo">Proyecto grupo</option>
-          <option value="Proyecto individual">Proyecto individual</option>
-          <option value="Memoria">Memoria</option>
-          <option value="Presentación">Presentación</option>
-        </select>
-      </div>
-      <div>
-        <div style="font-size:0.62rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink4);margin-bottom:4px">Peso en nota (%)</div>
-        <input type="number" id="proy-peso" min="0" max="100" value="20" style="background:var(--cream);border:1px solid var(--cream3);border-radius:6px;color:var(--ink);font-family:'DM Sans',sans-serif;font-size:0.9rem;padding:8px 10px;outline:none;width:100%">
-      </div>
-      <div>
-        <div style="font-size:0.62rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink4);margin-bottom:4px">Estado</div>
-        <select id="proy-estado" class="field">
-          <option value="Sin empezar">Sin empezar</option>
-          <option value="En progreso">En progreso</option>
-          <option value="Entregado">Entregado</option>
-          <option value="Calificado">Calificado</option>
-        </select>
-      </div>
-    </div>
-    <div style="margin-bottom:10px">
-      <div style="font-size:0.62rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink4);margin-bottom:4px">Descripción / objetivos</div>
-      <textarea id="proy-desc" class="field" rows="2"></textarea>
-    </div>
-    <button class="btn btn-forest" onclick="addProyecto()">Guardar proyecto</button>
-  </div>
-
-  <div id="proy-list"></div>
-
-</div>
-
-</main>
-
-<div id="toast"><div id="toast-msg"></div></div>
+<div class="toast" id="toast"></div>
 
 <script>
-// ─────────────────────────────────────────
-// STATE
-// ─────────────────────────────────────────
-let S = JSON.parse(localStorage.getItem('musgo_v1') || 'null') || {
-  xp:0, level:1, hp:100, streak:0, lastDate:'',
-  totalHabits:0, totalStudyHours:0, totalMedTakes:0, totalTasks:0,
-  water:0, habits:{}, medLog:[], studySessions:[],
-  tasks:{uni:[], casa:[], per:[]},
-  notas:'', cycleStart:'', cycleLen:28, periodLen:5,
-  cycleSymptoms:{}, cycleNotes:{}, earnedBadges:[],
-  asignaturas:[], examenes:[], proyectos:[]
+// \u2500\u2500\u2500 DATA \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+const PROMPTS = [
+  {tag:"Gratitud", text:"\u00bfQu\u00e9 peque\u00f1a cosa de hoy te alegra haber notado?"},
+  {tag:"Gratitud", text:"\u00bfQu\u00e9 parte de tu cuerpo agradeces hoy, aunque a veces te d\u00e9 guerra?"},
+  {tag:"Gratitud", text:"\u00bfQu\u00e9 error pasado ahora ves como un regalo?"},
+  {tag:"Gratitud", text:"\u00bfQu\u00e9 habilidad tuya das demasiado por sentada?"},
+  {tag:"Gratitud", text:"\u00bfQu\u00e9 momento de esta semana querr\u00edas guardar en un frasco?"},
+  {tag:"Gratitud", text:"\u00bfDe qu\u00e9 aprendizaje del \u00faltimo mes est\u00e1s agradecida?"},
+  {tag:"Gratitud", text:"\u00bfQu\u00e9 tiene tu situaci\u00f3n actual, aunque sea dif\u00edcil, de valioso?"},
+  {tag:"Gratitud", text:"\u00bfQu\u00e9 logro peque\u00f1o de esta semana merece ser celebrado?"},
+  {tag:"Gratitud", text:"\u00bfQu\u00e9 versi\u00f3n de ti misma de hace unos a\u00f1os estar\u00eda orgullosa de d\u00f3nde est\u00e1s?"},
+  {tag:"Gratitud", text:"\u00bfQu\u00e9 te da esperanza hoy?"},
+  {tag:"Miedos", text:"\u00bfQu\u00e9 preocupaci\u00f3n llevas cargando esta semana que no has dicho en voz alta?"},
+  {tag:"Miedos", text:"\u00bfQu\u00e9 miedo antiguo ya no tiene tanto poder sobre ti?"},
+  {tag:"Miedos", text:"\u00bfQu\u00e9 evitas hacer por miedo a hacerlo mal?"},
+  {tag:"Miedos", text:"\u00bfQu\u00e9 historia te cuentas sobre ti misma que quiz\u00e1s no es verdad?"},
+  {tag:"Miedos", text:"\u00bfQu\u00e9 pasar\u00eda si aceptaras que no puedes controlar eso que tanto te preocupa?"},
+  {tag:"Miedos", text:"\u00bfQu\u00e9 preocupaci\u00f3n real necesita un plan, y cu\u00e1l solo necesita ser escuchada?"},
+  {tag:"Miedos", text:"\u00bfQu\u00e9 miedo llevas disfrazado de excusa?"},
+  {tag:"Miedos", text:"\u00bfQu\u00e9 necesitas decirte esta noche antes de dormir para estar un poco m\u00e1s tranquila?"},
+  {tag:"Autoconocimiento", text:"\u00bfCu\u00e1ndo fue la \u00faltima vez que actuaste completamente como t\u00fa misma?"},
+  {tag:"Autoconocimiento", text:"\u00bfQu\u00e9 necesitas que raramente te das?"},
+  {tag:"Autoconocimiento", text:"\u00bfQu\u00e9 patr\u00f3n de comportamiento reconoces en ti que quisieras cambiar?"},
+  {tag:"Autoconocimiento", text:"\u00bfEn qu\u00e9 situaciones eres la mejor versi\u00f3n de ti misma?"},
+  {tag:"Autoconocimiento", text:"\u00bfQu\u00e9 creencia sobre ti misma te limita m\u00e1s?"},
+  {tag:"Autoconocimiento", text:"\u00bfEn qu\u00e9 eres m\u00e1s dura contigo misma que con los dem\u00e1s?"},
+  {tag:"Autoconocimiento", text:"\u00bfQu\u00e9 parte de ti misma sigues descubriendo?"},
+  {tag:"Autoconocimiento", text:"\u00bfC\u00f3mo ser\u00eda tu vida si te trataras con la misma amabilidad que tratas a tus amigos?"},
+  {tag:"Autoconocimiento", text:"\u00bfQu\u00e9 te gustar\u00eda perdonarte?"},
+  {tag:"Autoconocimiento", text:"\u00bfQu\u00e9 parte de quien eres hoy es resultado de haber resistido algo dif\u00edcil?"},
+  {tag:"F\u00edsico y emocional", text:"\u00bfD\u00f3nde sientes el estr\u00e9s de hoy en tu cuerpo?"},
+  {tag:"F\u00edsico y emocional", text:"\u00bfQu\u00e9 emoci\u00f3n domin\u00f3 el d\u00eda de hoy aunque no la hayas nombrado?"},
+  {tag:"F\u00edsico y emocional", text:"\u00bfC\u00f3mo est\u00e1 tu cabeza ahora mismo: clara, nublada, acelerada, vac\u00eda?"},
+  {tag:"F\u00edsico y emocional", text:"\u00bfQu\u00e9 necesita tu cuerpo ahora mismo que no le est\u00e1s dando?"},
+  {tag:"F\u00edsico y emocional", text:"\u00bfC\u00f3mo describir\u00edas tu estado de \u00e1nimo de hoy en una imagen o met\u00e1fora?"},
+  {tag:"F\u00edsico y emocional", text:"\u00bfQu\u00e9 emoci\u00f3n quieres soltar antes de ir a dormir?"},
+  {tag:"F\u00edsico y emocional", text:"\u00bfC\u00f3mo te trat\u00f3 tu cuerpo hoy, siendo honesta?"},
+  {tag:"F\u00edsico y emocional", text:"\u00bfQu\u00e9 cosa de hoy, f\u00edsica o emocional, merece que te des cr\u00e9dito?"},
+  {tag:"Reflexi\u00f3n", text:"\u00bfCu\u00e1l fue el momento m\u00e1s significativo de hoy, aunque sea peque\u00f1o?"},
+  {tag:"Reflexi\u00f3n", text:"\u00bfQu\u00e9 aprendiste de hoy que no sab\u00edas esta ma\u00f1ana?"},
+  {tag:"Reflexi\u00f3n", text:"\u00bfHubo alg\u00fan momento hoy en que fuiste amable contigo misma?"},
+  {tag:"Reflexi\u00f3n", text:"\u00bfQu\u00e9 cosa de hoy no sali\u00f3 como esperabas y c\u00f3mo respondiste?"},
+  {tag:"Reflexi\u00f3n", text:"\u00bfQu\u00e9 hiciste hoy que requiri\u00f3 valent\u00eda aunque nadie lo vio?"},
+  {tag:"Reflexi\u00f3n", text:"\u00bfCon qu\u00e9 sensaci\u00f3n quieres cerrar hoy?"},
+  {tag:"Reflexi\u00f3n", text:"\u00bfQu\u00e9 hiciste hoy con lo que ten\u00edas, aunque no fuera mucho?"},
+  {tag:"Creatividad", text:"Si tu vida fuera un libro, \u00bfen qu\u00e9 cap\u00edtulo estar\u00edas ahora y c\u00f3mo se llamar\u00eda?"},
+  {tag:"Creatividad", text:"\u00bfQu\u00e9 color representa c\u00f3mo te sientes esta semana y por qu\u00e9?"},
+  {tag:"Creatividad", text:"Si tu estado de \u00e1nimo fuera un clima, \u00bfqu\u00e9 tiempo har\u00eda hoy?"},
+  {tag:"Creatividad", text:"Escribe la primera l\u00ednea de una historia que empiece exactamente donde est\u00e1s ahora."},
+  {tag:"Creatividad", text:"Si tus emociones de esta semana fueran personajes, \u00bfc\u00f3mo ser\u00edan y qu\u00e9 har\u00edan?"},
+  {tag:"Creatividad", text:"\u00bfQu\u00e9 nombre le pondr\u00edas a esta etapa de tu vida si fuera un cap\u00edtulo?"},
+  {tag:"Creatividad", text:"Escribe una historia de tres frases que empiece con: \u00abNadie sab\u00eda que ella\u2026\u00bb"},
+  {tag:"Creatividad", text:"Si el silencio tuviera un color hoy, \u00bfcu\u00e1l ser\u00eda?"},
+];
+
+const MED_TIPS = [
+  "No tienes que vaciar la mente para meditar. Solo observar los pensamientos sin seguirlos ya es meditaci\u00f3n.",
+  "Cinco minutos de respiraci\u00f3n consciente activan el sistema nervioso parasimp\u00e1tico, reduciendo la percepci\u00f3n del dolor.",
+  "No hay una postura correcta. Si necesitas tumbarte, t\u00fambate. Lo que importa es la atenci\u00f3n, no la posici\u00f3n.",
+  "El dolor no desaparece con la meditaci\u00f3n, pero puedes cambiar tu relaci\u00f3n con \u00e9l. Eso ya es mucho.",
+  "Si tu mente se va mil veces, la traes de vuelta mil veces. Eso no es fallar, es exactamente el ejercicio.",
+  "La respiraci\u00f3n siempre est\u00e1 disponible. En cualquier momento dif\u00edcil, tres respiraciones profundas cambian el estado.",
+  "El cansancio no impide meditar. Al contrario, una meditaci\u00f3n corta puede ser m\u00e1s \u00fatil que una siesta.",
+  "No necesitas silencio perfecto. El ruido de fondo puede convertirse en parte de la pr\u00e1ctica.",
+  "La autocompasi\u00f3n es la base. Si durante la meditaci\u00f3n aparece frustraci\u00f3n, esa frustraci\u00f3n tambi\u00e9n merece atenci\u00f3n.",
+  "Meditar antes de dormir ayuda a procesar las emociones del d\u00eda sin necesidad de resolverlas.",
+];
+
+const MED_GUIAS = {
+  dolor: {
+    tipo: "Meditaci\u00f3n para el dolor \u2014 5 min",
+    texto: "Cierra los ojos o baja la mirada. Empieza notando el peso de tu cuerpo donde est\u00e1s sentada o tumbada.\n\nLleva la atenci\u00f3n al \u00e1rea de dolor, pero sin resistirte. Imagina que el dolor es una nube: tiene forma, temperatura, intensidad. Obs\u00e9rvala sin querer que desaparezca.\n\nAhora con cada exhalaci\u00f3n, visualiza que sueltas un poco de tensi\u00f3n alrededor de esa zona. No el dolor en s\u00ed, solo la tensi\u00f3n muscular que lo rodea.\n\nPermanece aqu\u00ed cinco minutos, respirando suavemente. Si la mente se va, es normal. Vuelve a la respiraci\u00f3n."
+  },
+  cansancio: {
+    tipo: "Meditaci\u00f3n para el cansancio \u2014 5 min",
+    texto: "Permite que tu cuerpo se rinda completamente al peso de la gravedad. No hay nada que sostener ahora.\n\nRespira sin controlar demasiado. Nota el ritmo natural de tu respiraci\u00f3n, que se ralentiza sola.\n\nSi sientes ganas de cerrar los ojos, ci\u00e9rralos. Si sientes ganas de dormir, eso tambi\u00e9n est\u00e1 bien. El descanso consciente es tan v\u00e1lido como la meditaci\u00f3n activa.\n\nDeja que tu cuerpo tome lo que necesita. T\u00fa no tienes que hacer nada en este momento."
+  },
+  ansiedad: {
+    tipo: "Meditaci\u00f3n para la ansiedad \u2014 5 min",
+    texto: "Coloca una mano en el pecho y otra en el abdomen. Respira hacia el abdomen, no hacia el pecho.\n\nCuenta mentalmente: inhala 1-2-3-4, mant\u00e9n 1-2, exhala 1-2-3-4-5-6. La exhalaci\u00f3n m\u00e1s larga que la inhalaci\u00f3n activa el freno de la ansiedad.\n\nNota que ahora mismo, en este momento exacto, est\u00e1s a salvo. El cuerpo reacciona a pensamientos como si fueran reales; recu\u00e9rdale que est\u00e1s aqu\u00ed, presente.\n\nRepite hasta completar cinco minutos. Es normal que la mente vuelva a las preocupaciones. Cada vez que vuelves a la respiraci\u00f3n, est\u00e1s practicando."
+  },
+  pausa: {
+    tipo: "Pausa consciente \u2014 5 min",
+    texto: "Esta es una pausa sin objetivo. No tienes que relajarte, ni sentir nada en particular.\n\nSimplemente nota cinco cosas que puedes ver ahora mismo. Cuatro que puedes tocar. Tres que puedes escuchar. Dos que puedes oler. Una que puedes saborear.\n\nEste ejercicio ancla la mente al presente cuando est\u00e1 dispersa entre mil cosas.\n\nAl terminar, t\u00f3mate un momento antes de volver a lo que estabas haciendo. Ese momento de transici\u00f3n tambi\u00e9n forma parte de la pausa."
+  }
 };
 
-const XP_TABLE = [100,200,350,550,800,1100,1500,2000,2600,3300];
-const xpNeeded = l => XP_TABLE[Math.min(l-1,9)]||3300;
-const CLASSES = [
-  {min:1,'name':'Estudiante Novata'},
-  {min:3,'name':'Aprendiz Dedicada'},
-  {min:5,'name':'Buscadora del Saber'},
-  {min:8,'name':'Maga del Conocimiento'},
-  {min:12,'name':'Gran Maestra'},
-];
-const getClass = l => { let c=CLASSES[0]; CLASSES.forEach(x=>{ if(l>=x.min) c=x; }); return c; };
+// \u2500\u2500\u2500 STATE \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+let state = JSON.parse(localStorage.getItem('mia_state') || '{}');
+if (!state.tramadolLog) state.tramadolLog = [];
+if (!state.tareas) state.tareas = [];
+if (!state.notas) state.notas = [];
+if (!state.habitos) state.habitos = {};
+if (!state.agua) state.agua = 0;
+if (!state.sesiones) state.sesiones = [];
+if (!state.journalEntries) state.journalEntries = [];
+if (!state.cimzia) state.cimzia = null;
+if (!state.ciclo) state.ciclo = null;
 
-// ─────────────────────────────────────────
-// HABITS
-// ─────────────────────────────────────────
-const H_EST = [
-  {id:'horas',   name:'Estudiar al menos 1 hora',     xp:20},
-  {id:'apuntes', name:'Repasar apuntes del día',       xp:15},
-  {id:'entrega', name:'Avanzar en entregas / tareas',  xp:20},
-  {id:'ejerc',   name:'Hacer ejercicios prácticos',    xp:15},
-  {id:'lectura', name:'Leer bibliografía',             xp:12},
-];
-const H_SAL = [
-  {id:'medita',  name:'Meditación (10 min)',           xp:15},
-  {id:'desayuno',name:'Desayunar bien',                xp:10},
-  {id:'salir',   name:'Salir al exterior',             xp:10},
-  {id:'estir_d', name:'Estiramientos articulares',     xp:12},
-  {id:'hidra',   name:'Beber agua regularmente',       xp:8 },
-];
-const H_NOC = [
-  {id:'estir_n', name:'Estiramientos nocturnos',       xp:12},
-  {id:'nopant',  name:'Sin pantallas 30 min antes',    xp:10},
-  {id:'diario',  name:'Escribir en el diario',         xp:10},
-  {id:'dormir',  name:'Dormir a tiempo',               xp:15},
-];
+function saveState() { localStorage.setItem('mia_state', JSON.stringify(state)); }
 
-// ─────────────────────────────────────────
-// SAVE
-// ─────────────────────────────────────────
-const save = () => localStorage.setItem('musgo_v1', JSON.stringify(S));
+// \u2500\u2500\u2500 INIT \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+function init() {
+  // Date
+  const now = new Date();
+  const dias = ['Domingo','Lunes','Martes','Mi\u00e9rcoles','Jueves','Viernes','S\u00e1bado'];
+  const meses = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+  document.getElementById('headerDate').innerHTML = `${dias[now.getDay()]}<br>${now.getDate()} de ${meses[now.getMonth()]}`;
 
-// ─────────────────────────────────────────
-// DATE
-// ─────────────────────────────────────────
-function setHeaderDate() {
-  const d = new Date();
-  const days = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
-  const months = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
-  document.getElementById('header-date').textContent =
-    `${days[d.getDay()]}, ${d.getDate()} de ${months[d.getMonth()]} de ${d.getFullYear()}`;
+  // Prompt del d\u00eda
+  const idx = Math.abs(now.getDate() * 7 + now.getMonth() * 31) % PROMPTS.length;
+  const p = PROMPTS[idx];
+  document.getElementById('promptText').textContent = p.text;
+  document.getElementById('promptTag').textContent = p.tag;
+  document.getElementById('dashPrompt').textContent = p.text;
+
+  // Tip meditaci\u00f3n
+  const tidx = now.getDate() % MED_TIPS.length;
+  document.getElementById('medTip').textContent = MED_TIPS[tidx];
+
+  // Gu\u00eda meditaci\u00f3n por defecto
+  setMedGuia('dolor');
+
+  // Water dots
+  buildWaterDots();
+
+  // Render todo
+  renderTramadolLog();
+  renderTareas();
+  renderNotas();
+  renderHabitos();
+  renderSesiones();
+  renderJournal();
+  renderCimzia();
+  renderCiclo();
+  renderWeek();
+  updateDashboard();
 }
 
-function checkDay() {
-  const today = new Date().toDateString();
-  if(S.lastDate !== today) {
-    if(S.lastDate) {
-      const yest = new Date(); yest.setDate(yest.getDate()-1);
-      S.streak = (S.lastDate===yest.toDateString()) ? S.streak+1 : 0;
-      if(S.lastDate!==yest.toDateString()) S.hp = Math.max(40, S.hp-10);
-    }
-    S.habits = {}; S.water = 0;
-    S.studySessions = (S.studySessions||[]).filter(e=>e.date===today);
-    S.medLog = S.medLog || [];
-    // keep medLog but reset daily — tag with date
-    S.medLog = S.medLog.filter(e=>e.date===today);
-    S.lastDate = today;
-    save();
-  }
+// \u2500\u2500\u2500 NAVIGATION \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+function showSection(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.bnav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('screen-' + id).classList.add('active');
+  document.querySelector(`.nav-btn[data-section="${id}"]`)?.classList.add('active');
+  document.querySelector(`.bnav-btn[data-bnav="${id}"]`)?.classList.add('active');
+  updateDashboard();
 }
 
-// ─────────────────────────────────────────
-// XP / LEVEL
-// ─────────────────────────────────────────
-function gainXP(amt) {
-  S.xp += amt; S.totalHabits++;
-  while(S.xp >= xpNeeded(S.level) && S.level < 15) {
-    S.xp -= xpNeeded(S.level); S.level++;
-    showToast(`Subiste al nivel ${S.level} — ${getClass(S.level).name}`);
-  }
-  save(); updateUI(); checkBadges(); floatXP(amt);
-}
-
-function floatXP(amt) {
-  const el = document.createElement('div');
-  el.className = 'xpf';
-  el.textContent = `+${amt} xp`;
-  el.style.left = (100+Math.random()*200)+'px';
-  el.style.top  = '120px';
-  document.body.appendChild(el);
-  setTimeout(()=>el.remove(), 1400);
-}
-
-// ─────────────────────────────────────────
-// TOAST
-// ─────────────────────────────────────────
-let tTimer;
-function showToast(msg, xp=null) {
+// \u2500\u2500\u2500 TOAST \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+function showToast(msg) {
   const t = document.getElementById('toast');
-  document.getElementById('toast-msg').innerHTML = msg + (xp?`<div class="toast-xp">+${xp} xp</div>`:'');
+  t.textContent = msg;
   t.classList.add('show');
-  clearTimeout(tTimer);
-  tTimer = setTimeout(()=>t.classList.remove('show'), 3200);
+  setTimeout(() => t.classList.remove('show'), 2200);
 }
 
-// ─────────────────────────────────────────
-// HABITS RENDER
-// ─────────────────────────────────────────
-const checkSVG = `<svg viewBox="0 0 12 10" fill="none"><polyline points="1,5 4.5,9 11,1" stroke="${'#faf7f2'}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+// \u2500\u2500\u2500 TOGGLE \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+function selectToggle(btn, groupId) {
+  document.querySelectorAll(`#${groupId} .toggle-btn`).forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+}
 
-function renderHabits(list, id) {
-  const el = document.getElementById(id); if(!el) return;
-  el.innerHTML = '';
-  list.forEach(h => {
-    const done = S.habits[h.id]?.done;
-    const str  = S.habits[h.id]?.streak||0;
-    const row  = document.createElement('div');
-    row.className = 'habit-row'+(done?' done':'');
-    row.innerHTML = `
-      <div class="h-check">${done?checkSVG:''}</div>
-      <span class="h-name">${h.name}</span>
-      <span class="h-xp">+${h.xp} xp</span>
-      ${str>1?`<span class="h-streak">${str}d</span>`:''}
-    `;
-    row.onclick = ()=>{
-      if(done) return;
-      S.habits[h.id] = {done:true, streak:(S.habits[h.id]?.streak||0)+1};
-      gainXP(h.xp);
-      showToast(`"${h.name}" completado`, h.xp);
-      renderAllHabits();
-    };
-    el.appendChild(row);
+// \u2500\u2500\u2500 TRAMADOL \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+function registrarTramadol() {
+  const gotas = document.getElementById('tramadolGotas').value;
+  if (!gotas) { showToast('Indica las gotas'); return; }
+  const con = document.querySelector('#tramadolCon .toggle-btn.selected')?.textContent || 'Solo';
+  const nota = document.getElementById('tramadolNota').value;
+  const now = new Date();
+  const entry = {
+    hora: now.toLocaleTimeString('es-ES', {hour:'2-digit',minute:'2-digit'}),
+    gotas, con, nota,
+    fecha: now.toLocaleDateString('es-ES')
+  };
+  state.tramadolLog.unshift(entry);
+  saveState();
+  renderTramadolLog();
+  updateDashboard();
+  document.getElementById('tramadolGotas').value = '';
+  document.getElementById('tramadolNota').value = '';
+  showToast('Toma registrada');
+}
+
+function renderTramadolLog() {
+  const today = new Date().toLocaleDateString('es-ES');
+  const todayEntries = state.tramadolLog.filter(e => e.fecha === today);
+  const el = document.getElementById('tramadolEntries');
+  if (!todayEntries.length) { el.innerHTML = '<p style="font-size:13px;color:var(--text-light);margin-top:10px;">Sin registros hoy.</p>'; return; }
+  el.innerHTML = todayEntries.map(e => `
+    <div class="log-entry">
+      <div class="log-dot log-dot-rose"></div>
+      <div>
+        <div class="log-time">${e.hora}</div>
+        <div class="log-text">${e.gotas} gotas \u00b7 ${e.con}</div>
+        ${e.nota ? `<div class="log-sub">${e.nota}</div>` : ''}
+      </div>
+    </div>
+  `).join('');
+}
+
+// \u2500\u2500\u2500 CIMZIA \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+function registrarCimzia() {
+  const now = new Date();
+  const next = new Date(now); next.setDate(next.getDate() + 14);
+  const recoger = new Date(now); recoger.setDate(recoger.getDate() + 11);
+  state.cimzia = { ultima: now.toLocaleDateString('es-ES'), proxima: next.toLocaleDateString('es-ES'), recoger: recoger.toLocaleDateString('es-ES') };
+  saveState();
+  renderCimzia();
+  updateDashboard();
+  showToast('Cimzia registrada');
+}
+
+function renderCimzia() {
+  if (!state.cimzia) return;
+  document.getElementById('cimziaUltima').textContent = state.cimzia.ultima;
+  document.getElementById('cimziaProxima').textContent = state.cimzia.proxima;
+  document.getElementById('cimziaRecoger').textContent = state.cimzia.recoger;
+  document.getElementById('dashCimzia').textContent = `Pr\u00f3xima dosis: ${state.cimzia.proxima}`;
+}
+
+// \u2500\u2500\u2500 TAREAS \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+function agregarTarea() {
+  const asig = document.getElementById('nuevaAsignatura').value;
+  const texto = document.getElementById('nuevaTarea').value;
+  const fecha = document.getElementById('nuevaFecha').value;
+  if (!texto) { showToast('Escribe la tarea'); return; }
+  state.tareas.push({ id: Date.now(), asig: asig || 'General', texto, fecha, done: false });
+  saveState();
+  renderTareas();
+  updateDashboard();
+  document.getElementById('nuevaTarea').value = '';
+  document.getElementById('nuevaFecha').value = '';
+  showToast('Tarea a\u00f1adida');
+}
+
+function toggleTarea(id) {
+  const t = state.tareas.find(t => t.id === id);
+  if (t) { t.done = !t.done; saveState(); renderTareas(); updateDashboard(); }
+}
+
+function renderTareas() {
+  const el = document.getElementById('tareasList');
+  const pending = state.tareas.filter(t => !t.done);
+  if (!pending.length) { el.innerHTML = '<p style="font-size:13px;color:var(--text-light);margin-top:10px;">Sin tareas pendientes.</p>'; return; }
+  el.innerHTML = pending.map(t => `
+    <div class="task-row">
+      <div class="task-check ${t.done?'done':''}" onclick="toggleTarea(${t.id})">${t.done?'\u2713':''}</div>
+      <div class="task-text">${t.texto}</div>
+      <div style="text-align:right;">
+        <div class="task-date">${t.fecha || ''}</div>
+        <div style="font-size:11px;color:var(--text-light);">${t.asig}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// \u2500\u2500\u2500 TIMER \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+let timerInterval = null, timerRunning = false, timerSeconds = 0, timerStart = null;
+
+function toggleTimer() {
+  if (!timerRunning) {
+    timerRunning = true;
+    timerStart = new Date();
+    document.getElementById('timerBtn').textContent = 'Pausar';
+    timerInterval = setInterval(() => {
+      timerSeconds++;
+      const m = String(Math.floor(timerSeconds/60)).padStart(2,'0');
+      const s = String(timerSeconds%60).padStart(2,'0');
+      document.getElementById('timerDisplay').textContent = `${m}:${s}`;
+    }, 1000);
+  } else {
+    timerRunning = false;
+    clearInterval(timerInterval);
+    document.getElementById('timerBtn').textContent = 'Continuar';
+  }
+}
+
+function resetTimer() {
+  if (timerSeconds > 30) {
+    const asig = document.getElementById('timerAsignatura').value;
+    const mins = Math.round(timerSeconds/60);
+    const hora = new Date().toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'});
+    state.sesiones.unshift({ asig, mins, hora, fecha: new Date().toLocaleDateString('es-ES') });
+    saveState();
+    renderSesiones();
+    showToast(`${mins} min de ${asig} guardados`);
+  }
+  clearInterval(timerInterval);
+  timerRunning = false;
+  timerSeconds = 0;
+  document.getElementById('timerDisplay').textContent = '00:00';
+  document.getElementById('timerBtn').textContent = 'Iniciar';
+}
+
+function renderSesiones() {
+  const today = new Date().toLocaleDateString('es-ES');
+  const hoy = state.sesiones.filter(s => s.fecha === today);
+  const el = document.getElementById('sesionesLog');
+  if (!hoy.length) { el.innerHTML = '<span style="font-size:13px;color:var(--text-light);">Sin sesiones hoy.</span>'; return; }
+  el.innerHTML = hoy.map(s => `<div style="font-size:13px;color:var(--text-mid);padding:4px 0;">${s.hora} \u00b7 ${s.asig} \u00b7 ${s.mins} min</div>`).join('');
+}
+
+// \u2500\u2500\u2500 NOTAS \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+function guardarNota() {
+  const texto = document.getElementById('notaRapida').value.trim();
+  if (!texto) return;
+  const hora = new Date().toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'});
+  state.notas.unshift({ texto, hora });
+  if (state.notas.length > 10) state.notas = state.notas.slice(0,10);
+  saveState();
+  renderNotas();
+  document.getElementById('notaRapida').value = '';
+  showToast('Nota guardada');
+}
+
+function renderNotas() {
+  const el = document.getElementById('notasGuardadas');
+  el.innerHTML = state.notas.slice(0,3).map(n => `
+    <div class="note-card">
+      <div class="note-card-time">${n.hora}</div>
+      ${n.texto}
+    </div>
+  `).join('');
+}
+
+// \u2500\u2500\u2500 HABITOS \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+const todayKey = new Date().toLocaleDateString('es-ES');
+
+function toggleHabito(id) {
+  if (!state.habitos[todayKey]) state.habitos[todayKey] = {};
+  state.habitos[todayKey][id] = !state.habitos[todayKey][id];
+  saveState();
+  renderHabitos();
+  updateDashboard();
+}
+
+function renderHabitos() {
+  const today = state.habitos[todayKey] || {};
+  ['agua','pausa','mind','sueno'].forEach(h => {
+    const btn = document.getElementById('habito' + h.charAt(0).toUpperCase() + h.slice(1));
+    if (btn) btn.className = 'check-btn' + (today[h] ? ' done' : '');
   });
 }
 
-function renderAllHabits() {
-  renderHabits(H_EST,'h-est-prev'); renderHabits(H_EST,'h-est-full');
-  renderHabits(H_SAL,'h-sal-prev'); renderHabits(H_SAL,'h-sal-full');
-  renderHabits(H_NOC,'h-noc-full');
-}
-
-// ─────────────────────────────────────────
-// WATER
-// ─────────────────────────────────────────
-function renderWater() {
-  const el = document.getElementById('water-dots'); if(!el) return;
+function buildWaterDots() {
+  const el = document.getElementById('waterDots');
   el.innerHTML = '';
-  for(let i=0;i<8;i++){
+  for (let i = 0; i < 8; i++) {
     const d = document.createElement('div');
-    d.className = 'wdot'+(S.water>i?' filled':'');
-    d.onclick = ()=>setWater(i+1);
+    d.className = 'water-dot' + (i < state.agua ? ' filled' : '');
+    d.onclick = () => { state.agua = i < state.agua ? i : i+1; saveState(); buildWaterDots(); updateDashboard(); document.getElementById('waterMeta').textContent = `${state.agua} de 8 vasos`; };
+    d.textContent = '\u25cb';
+    if (i < state.agua) { d.textContent = '\u2713'; }
     el.appendChild(d);
   }
-  const pct = Math.min(100,(S.water/8)*100);
-  const wb = document.getElementById('water-bar'); if(wb) wb.style.width=pct+'%';
-  const wl = document.getElementById('water-lbl'); if(wl) wl.textContent=S.water+' / 8';
-  const wm = document.getElementById('d-water'); if(wm) wm.textContent=S.water;
+  document.getElementById('waterMeta').textContent = `${state.agua} de 8 vasos`;
 }
 
-function setWater(n) {
-  const prev=S.water; S.water=n;
-  if(n===8&&prev<8){ gainXP(20); showToast('¡Meta de hidratación completada!',20); }
-  else if(n>prev) gainXP(2);
-  save(); renderWater();
+function registrarSueno() {
+  const a = document.getElementById('suenoAcoste').value;
+  const l = document.getElementById('suenoLevante').value;
+  if (!a || !l) { showToast('Rellena ambos campos'); return; }
+  document.getElementById('suenoMeta').textContent = `${a} \u2192 ${l}`;
+  if (!state.habitos[todayKey]) state.habitos[todayKey] = {};
+  state.habitos[todayKey].sueno = true;
+  saveState();
+  renderHabitos();
+  showToast('Sue\u00f1o registrado');
 }
 
-// ─────────────────────────────────────────
-// MEDICATION
-// ─────────────────────────────────────────
-let selectedMg = 50;
-
-function selMg(mg) {
-  selectedMg = mg;
-  document.querySelectorAll('.mg-btn').forEach(b=>b.classList.remove('sel'));
-  document.querySelectorAll('.mg-btn').forEach(b=>{ if(b.textContent===mg+' mg') b.classList.add('sel'); });
+function renderWeek() {
+  const el = document.getElementById('weekView');
+  const days = ['L','M','X','J','V','S','D'];
+  const now = new Date();
+  let html = '<div style="display:flex;gap:6px;">';
+  for (let i = 6; i >= 0; i--) {
+    const d = new Date(now); d.setDate(d.getDate() - i);
+    const key = d.toLocaleDateString('es-ES');
+    const h = state.habitos[key] || {};
+    const count = Object.values(h).filter(Boolean).length;
+    const colors = ['var(--border)','var(--amber-light)','var(--sage-light)','var(--sage)','var(--sage)'];
+    const color = colors[Math.min(count, 4)];
+    html += `<div style="flex:1;text-align:center;">
+      <div style="height:32px;border-radius:8px;background:${color};margin-bottom:4px;"></div>
+      <div style="font-size:10px;color:var(--text-light);">${days[d.getDay() === 0 ? 6 : d.getDay()-1]}</div>
+    </div>`;
+  }
+  html += '</div>';
+  el.innerHTML = html;
 }
 
-function takeMed() {
-  const today = new Date().toDateString();
-  const override = document.getElementById('med-time-override').value;
-  let timeStr;
-  if(override) {
-    timeStr = override;
+// \u2500\u2500\u2500 CICLO \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+function registrarCiclo() {
+  const fecha = document.getElementById('cicloFechaInicio').value;
+  const dur = parseInt(document.getElementById('cicloDuracion').value) || 28;
+  if (!fecha) { showToast('Selecciona una fecha'); return; }
+  state.ciclo = { inicio: fecha, duracion: dur };
+  saveState();
+  renderCiclo();
+  showToast('Ciclo guardado');
+}
+
+function renderCiclo() {
+  if (!state.ciclo) return;
+  const inicio = new Date(state.ciclo.inicio);
+  const hoy = new Date();
+  const diff = Math.floor((hoy - inicio) / (1000*60*60*24)) + 1;
+  const dur = state.ciclo.duracion;
+  const dia = ((diff - 1) % dur) + 1;
+  const prox = new Date(inicio); prox.setDate(prox.getDate() + dur * Math.ceil(diff/dur));
+  const pct = Math.round((dia / dur) * 100);
+  let fase = 'Folicular';
+  if (dia <= 5) fase = 'Menstruaci\u00f3n';
+  else if (dia <= 14) fase = 'Folicular';
+  else if (dia <= 16) fase = 'Ovulaci\u00f3n';
+  else fase = 'L\u00fatea';
+  document.getElementById('cicloDia').textContent = `D\u00eda ${dia}`;
+  document.getElementById('cicloFase').textContent = fase;
+  document.getElementById('cicloProximo').textContent = prox.toLocaleDateString('es-ES');
+  document.getElementById('cycleFill').style.width = pct + '%';
+  document.getElementById('dashCiclo').textContent = `D\u00eda ${dia}`;
+}
+
+// \u2500\u2500\u2500 JOURNAL \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+function guardarJournal() {
+  const texto = document.getElementById('journalText').value.trim();
+  if (!texto) return;
+  const now = new Date();
+  state.journalEntries.unshift({
+    fecha: now.toLocaleDateString('es-ES'),
+    hora: now.toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'}),
+    texto,
+    prompt: document.getElementById('promptText').textContent
+  });
+  if (state.journalEntries.length > 30) state.journalEntries = state.journalEntries.slice(0,30);
+  saveState();
+  renderJournal();
+  document.getElementById('journalText').value = '';
+  showToast('Entrada guardada');
+}
+
+function renderJournal() {
+  const idx = Math.abs(new Date().getDate() * 7 + new Date().getMonth() * 31) % PROMPTS.length;
+  const p = PROMPTS[idx];
+  document.getElementById('promptText').textContent = p.text;
+  document.getElementById('promptTag').textContent = p.tag;
+
+  const el = document.getElementById('journalEntries');
+  if (!state.journalEntries.length) { el.innerHTML = '<p style="font-size:13px;color:var(--text-light);">Sin entradas a\u00fan.</p>'; return; }
+  el.innerHTML = state.journalEntries.slice(0,5).map(e => `
+    <div style="padding:12px 0;border-bottom:1px solid var(--border);">
+      <div style="font-size:11px;color:var(--text-light);margin-bottom:4px;">${e.fecha} \u00b7 ${e.hora}</div>
+      <div style="font-size:13px;color:var(--text-dark);line-height:1.6;">${e.texto.slice(0,120)}${e.texto.length>120?'\u2026':''}</div>
+    </div>
+  `).join('');
+}
+
+// \u2500\u2500\u2500 MEDITACION \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+function setMedGuia(tipo) {
+  const g = MED_GUIAS[tipo] || MED_GUIAS.dolor;
+  document.getElementById('medGuiaTipo').textContent = g.tipo;
+  document.getElementById('medGuiaTexto').innerHTML = g.texto.replace(/\n\n/g,'<br><br>');
+}
+
+let breatheInterval = null, breatheRunning = false, breathePhase = 0;
+const breathePhases = [
+  {label:'Inhala', cls:'inhale', dur:4000},
+  {label:'Mant\u00e9n', cls:'', dur:4000},
+  {label:'Exhala', cls:'exhale', dur:6000},
+  {label:'Mant\u00e9n', cls:'', dur:2000},
+];
+
+function toggleBreathe() {
+  if (!breatheRunning) {
+    breatheRunning = true;
+    document.getElementById('breatheBtn').textContent = 'Parar';
+    runBreathe();
   } else {
-    const now = new Date();
-    timeStr = String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0');
-  }
-  S.medLog = S.medLog||[];
-  S.medLog.push({date:today, time:timeStr, mg:selectedMg, id:Date.now()});
-  S.totalMedTakes++;
-  gainXP(8);
-  showToast(`${selectedMg} mg de Adolonta registrados a las ${timeStr}`, 8);
-  save(); renderMedLog(); checkBadges();
-  document.getElementById('med-time-override').value='';
-}
-
-function delMedEntry(id) {
-  S.medLog = S.medLog.filter(e=>e.id!==id);
-  save(); renderMedLog();
-}
-
-function renderMedLog() {
-  const today = new Date().toDateString();
-  const todayLog = (S.medLog||[]).filter(e=>e.date===today);
-  const totalMg = todayLog.reduce((a,e)=>a+e.mg,0);
-  const el = document.getElementById('med-log'); if(!el) return;
-  const tt = document.getElementById('med-total-today'); if(tt) tt.textContent=totalMg+' mg';
-  if(!todayLog.length){
-    el.innerHTML='<div class="med-empty">Sin tomas registradas hoy.</div>';
-    return;
-  }
-  el.innerHTML='';
-  todayLog.sort((a,b)=>a.time.localeCompare(b.time)).forEach(e=>{
-    const row=document.createElement('div');
-    row.className='med-entry';
-    row.innerHTML=`
-      <span class="med-entry-time">${e.time}</span>
-      <span class="med-entry-mg">${e.mg} mg</span>
-      <button class="med-entry-del" onclick="delMedEntry(${e.id})">eliminar</button>
-    `;
-    el.appendChild(row);
-  });
-}
-
-// ─────────────────────────────────────────
-// POMODORO
-// ─────────────────────────────────────────
-// ─────────────────────────────────────────
-// STUDY SESSIONS
-// ─────────────────────────────────────────
-// ─────────────────────────────────────────
-// STUDY SESSIONS
-// ─────────────────────────────────────────
-let studyMode = 'range';
-
-function setStudyMode(mode){
-  studyMode = mode;
-  document.getElementById('study-mode-range').style.display = mode==='range' ? 'block' : 'none';
-  document.getElementById('study-mode-dur').style.display   = mode==='dur'   ? 'block' : 'none';
-  const rb = document.getElementById('mode-range-btn');
-  const db = document.getElementById('mode-dur-btn');
-  if(rb){ rb.style.background=mode==='range'?'var(--forest)':''; rb.style.borderColor=mode==='range'?'var(--forest)':'var(--cream3)'; rb.style.color=mode==='range'?'var(--cream)':''; }
-  if(db){ db.style.background=mode==='dur'?'var(--forest)':''; db.style.borderColor=mode==='dur'?'var(--forest)':'var(--cream3)'; db.style.color=mode==='dur'?'var(--cream)':''; }
-}
-
-function addStudySession(){
-  const label = (document.getElementById('study-label').value||'').trim();
-  const today = new Date().toDateString();
-  let mins = 0, fromStr = '', toStr = '';
-
-  if(studyMode === 'range'){
-    fromStr = document.getElementById('study-from').value;
-    toStr   = document.getElementById('study-to').value;
-    if(!fromStr || !toStr){ showToast('Indica la hora de inicio y fin.'); return; }
-    const [fh,fm] = fromStr.split(':').map(Number);
-    const [th,tm] = toStr.split(':').map(Number);
-    mins = (th*60+tm) - (fh*60+fm);
-    if(mins <= 0){ showToast('La hora de fin debe ser posterior al inicio.'); return; }
-  } else {
-    const h = parseInt(document.getElementById('study-dur-h').value)||0;
-    const m = parseInt(document.getElementById('study-dur-m').value)||0;
-    mins = h*60 + m;
-    if(mins <= 0){ showToast('Introduce una duración mayor que cero.'); return; }
-    fromStr = '—';
-    toStr   = `${h}h ${m}min`;
-  }
-
-  if(!S.studySessions) S.studySessions = [];
-  S.studySessions.push({id:Date.now(), date:today, from:fromStr, to:toStr, mins, label});
-
-  const xpGained = Math.min(40, Math.max(5, Math.floor(mins/10)*3));
-  gainXP(xpGained);
-  showToast(`Sesión registrada: ${Math.floor(mins/60)}h ${mins%60}min`, xpGained);
-
-  // clear fields
-  const sf = document.getElementById('study-from'); if(sf) sf.value='';
-  const st = document.getElementById('study-to');   if(st) st.value='';
-  const sl = document.getElementById('study-label'); if(sl) sl.value='';
-  const dh = document.getElementById('study-dur-h'); if(dh) dh.value='0';
-  const dm = document.getElementById('study-dur-m'); if(dm) dm.value='0';
-
-  save(); renderStudyLog(); updateStudyDash();
-}
-
-function delStudySession(id){
-  S.studySessions = (S.studySessions||[]).filter(e=>e.id!==id);
-  save(); renderStudyLog(); updateStudyDash();
-}
-
-function renderStudyLog(){
-  const today   = new Date().toDateString();
-  const sessions = (S.studySessions||[]).filter(e=>e.date===today);
-  const el = document.getElementById('study-log'); if(!el) return;
-  if(!sessions.length){
-    el.innerHTML='<div style="font-size:0.8rem;color:var(--ink4);font-style:italic;padding:6px 0">Sin sesiones registradas hoy.</div>';
-    return;
-  }
-  el.innerHTML='';
-  [...sessions].reverse().forEach(s=>{
-    const row = document.createElement('div');
-    row.style.cssText='display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--cream2);flex-wrap:wrap';
-    row.innerHTML=`
-      <span style="font-size:0.75rem;color:var(--ink4);white-space:nowrap;min-width:110px">${s.from!=='—'?s.from+' – '+s.to:''}</span>
-      <span style="flex:1;font-size:0.88rem;color:var(--ink2)">${s.label||'—'}</span>
-      <span style="font-size:0.82rem;color:var(--moss);font-weight:500;white-space:nowrap">${Math.floor(s.mins/60)}h ${s.mins%60}min</span>
-      <button onclick="delStudySession(${s.id})" style="background:none;border:none;color:var(--ink4);cursor:pointer;font-size:0.75rem;padding:2px 6px;border-radius:4px;transition:color 0.15s" onmouseover="this.style.color='var(--red-soft)'" onmouseout="this.style.color='var(--ink4)'">×</button>
-    `;
-    el.appendChild(row);
-  });
-}
-
-function updateStudyDash(){
-  const today    = new Date().toDateString();
-  const sessions = (S.studySessions||[]).filter(e=>e.date===today);
-  const totalMins = sessions.reduce((a,s)=>a+s.mins, 0);
-  const h = Math.floor(totalMins/60), m = totalMins%60;
-  const td = document.getElementById('study-total-disp'); if(td) td.textContent=`${h} h ${m} min`;
-  const dd = document.getElementById('d-study');          if(dd) dd.textContent=`${h}h ${m}m`;
-  const ds = document.getElementById('d-study-sessions'); if(ds) ds.textContent=sessions.length+(sessions.length===1?' sesión':' sesiones');
-  const allMins = (S.studySessions||[]).reduce((a,s)=>a+s.mins,0);
-  S.totalStudyHours = Math.floor(allMins/60);
-  const sp = document.getElementById('sg-pomos'); if(sp) sp.textContent=S.totalStudyHours||0;
-}
-
-// ─────────────────────────────────────────
-// CYCLE
-// ─────────────────────────────────────────
-function updateCycle(){
-  const v=document.getElementById('cycle-start').value;
-  if(!v){ showToast('Ingresa la fecha de inicio del período.'); return; }
-  S.cycleStart=v;
-  S.cycleLen=parseInt(document.getElementById('cycle-len').value)||28;
-  S.periodLen=parseInt(document.getElementById('period-len').value)||5;
-  save(); renderCycle();
-}
-
-function renderCycle(){
-  if(!S.cycleStart) return;
-  const start=new Date(S.cycleStart+'T12:00:00');
-  const today=new Date(); today.setHours(12,0,0,0);
-  const cL=S.cycleLen, pL=S.periodLen;
-  const ovD=cL-14, fS=ovD-5, fE=ovD+1;
-  const diff=Math.floor((today-start)/86400000);
-  const curD=((diff%cL)+cL)%cL+1;
-
-  let ptitle,pdesc;
-  if(curD<=pL){
-    ptitle=`Menstruación — día ${curD}`;
-    pdesc='Cuídate especialmente. El dolor articular puede intensificarse durante la menstruación. Recuerda el Tramadol según indicación si el dolor aumenta.';
-  } else if(curD<fS){
-    ptitle=`Fase folicular — día ${curD}`;
-    pdesc='La energía irá aumentando progresivamente. Buen momento para retomar hábitos de estudio intensivos.';
-  } else if(curD===ovD){
-    ptitle=`Ovulación — día ${curD}`;
-    pdesc='Pico de energía y concentración. Aprovecha para las tareas más exigentes.';
-  } else if(curD>=fS&&curD<=fE){
-    ptitle=`Ventana fértil — día ${curD}`;
-    pdesc='Energía y comunicación elevadas. Buen momento para trabajo colaborativo y presentaciones.';
-  } else {
-    ptitle=`Fase lútea — día ${curD}`;
-    pdesc='Puede aparecer tensión premenstrual. Prioriza el descanso, los estiramientos y la hidratación.';
-  }
-  document.getElementById('phase-title').textContent=ptitle;
-  document.getElementById('phase-desc').textContent=pdesc;
-
-  const cal=document.getElementById('cycle-cal'); cal.innerHTML='';
-  const calS=new Date(start); calS.setDate(calS.getDate()-calS.getDay());
-  for(let i=0;i<35;i++){
-    const d=new Date(calS); d.setDate(d.getDate()+i);
-    const df=Math.floor((d-start)/86400000);
-    const dc=((df%cL)+cL)%cL+1;
-    const cell=document.createElement('div');
-    cell.className='cday';
-    cell.textContent=d.getDate();
-    const isToday=d.toDateString()===today.toDateString();
-    if(isToday) cell.classList.add('today');
-    else if(dc>=1&&dc<=pL) cell.classList.add('period');
-    else if(dc===ovD) cell.classList.add('ovulation');
-    else if(dc>=fS&&dc<=fE) cell.classList.add('fertile');
-    cal.appendChild(cell);
+    breatheRunning = false;
+    clearTimeout(breatheInterval);
+    document.getElementById('breatheBtn').textContent = 'Iniciar';
+    document.getElementById('breatheRing').className = 'breathe-ring';
+    document.getElementById('breatheText').textContent = 'Inhala';
   }
 }
 
-const SYMPTOMS=['Cólicos','Cansancio','Irritabilidad','Náuseas','Hinchazón','Dolor de cabeza','Ansiedad','Con energía','Productiva','Dolor articular','Sensibilidad','Insomnio'];
-
-function renderSymptoms(){
-  const el=document.getElementById('sym-wrap'); if(!el) return;
-  const td=new Date().toDateString();
-  const sel=S.cycleSymptoms[td]||[];
-  el.innerHTML='';
-  SYMPTOMS.forEach(s=>{
-    const btn=document.createElement('span');
-    btn.className='sym-tag'+(sel.includes(s)?' active':'');
-    btn.textContent=s;
-    btn.onclick=()=>{
-      const i=sel.indexOf(s);
-      if(i>=0)sel.splice(i,1); else sel.push(s);
-      S.cycleSymptoms[td]=sel; save(); renderSymptoms();
-    };
-    el.appendChild(btn);
-  });
+function runBreathe() {
+  if (!breatheRunning) return;
+  const phase = breathePhases[breathePhase % breathePhases.length];
+  const ring = document.getElementById('breatheRing');
+  const txt = document.getElementById('breatheText');
+  ring.className = 'breathe-ring ' + phase.cls;
+  txt.textContent = phase.label;
+  breathePhase++;
+  breatheInterval = setTimeout(runBreathe, phase.dur);
 }
 
-// ─────────────────────────────────────────
-// TASKS
-// ─────────────────────────────────────────
-function addTask(section){
-  const inp=document.getElementById(`task-${section}-input`);
-  const cat=document.getElementById(`task-${section}-cat`).value;
-  const txt=inp.value.trim(); if(!txt) return;
-  if(!S.tasks[section]) S.tasks[section]=[];
-  S.tasks[section].unshift({id:Date.now(),text:txt,cat,done:false});
-  inp.value=''; save(); renderTasks(section);
+function toggleMedCheck() {
+  const btn = document.getElementById('medCheck');
+  btn.classList.toggle('done');
+  showToast(btn.classList.contains('done') ? 'Meditaci\u00f3n completada' : 'Desmarcado');
 }
 
-function toggleTask(section,id){
-  const t=S.tasks[section].find(x=>x.id===id); if(!t) return;
-  t.done=!t.done;
-  if(t.done){ S.totalTasks++; gainXP(5); showToast('Tarea completada.',5); }
-  save(); renderTasks(section); updateStats();
+// \u2500\u2500\u2500 DASHBOARD \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+function updateDashboard() {
+  // Tramadol
+  const today = new Date().toLocaleDateString('es-ES');
+  const todayT = state.tramadolLog.filter(e => e.fecha === today);
+  document.getElementById('dashTramadol').textContent = todayT.length ? todayT[0].hora : '\u2014';
+  // Habitos
+  const h = state.habitos[today] || {};
+  const count = Object.values(h).filter(Boolean).length;
+  document.getElementById('dashHabitos').textContent = `${count}/4`;
+  // Tareas
+  const pending = state.tareas.filter(t => !t.done).length;
+  document.getElementById('dashTareas').textContent = pending || '\u2014';
+  // Ciclo (ya se renderiza en renderCiclo)
 }
 
-function delTask(section,id){
-  S.tasks[section]=S.tasks[section].filter(x=>x.id!==id);
-  save(); renderTasks(section);
+// \u2500\u2500\u2500 DESCARGA \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+function descargarApp() {
+  const html = document.documentElement.outerHTML;
+  const blob = new Blob([html], {type:'text/html'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'mia-app.html';
+  a.click();
+  showToast('Descargando M\u00eda...');
 }
-
-function renderTasks(section){
-  const el=document.getElementById(`task-list-${section}`); if(!el) return;
-  const list=S.tasks[section]||[];
-  if(!list.length){
-    el.innerHTML='<div style="font-size:0.8rem;color:var(--ink4);padding:10px 0;font-style:italic">Sin tareas pendientes.</div>';
-    return;
-  }
-  el.innerHTML='';
-  list.forEach(t=>{
-    const row=document.createElement('div');
-    row.className='task-row'+(t.done?' done-t':'');
-    row.innerHTML=`
-      <div class="t-check" onclick="toggleTask('${section}',${t.id})">${t.done?checkSVG.replace('#faf7f2','#faf7f2'):''}</div>
-      <span class="task-cat-tag">${t.cat}</span>
-      <span class="task-text">${t.text}</span>
-      <button class="btn btn-danger btn-sm" onclick="delTask('${section}',${t.id})">×</button>
-    `;
-    el.appendChild(row);
-  });
-}
-
-// ─────────────────────────────────────────
-// BADGES
-// ─────────────────────────────────────────
-// SVG icons (no emoji)
-const ICONS = {
-  leaf:   `<svg viewBox="0 0 16 16" fill="none"><path d="M2 14c0 0 2-8 12-10C14 14 6 16 2 14z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><line x1="2" y1="14" x2="9" y2="7" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>`,
-  star:   `<svg viewBox="0 0 16 16" fill="none"><polygon points="8,1 10,6 15,6 11,10 13,15 8,12 3,15 5,10 1,6 6,6" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>`,
-  fire:   `<svg viewBox="0 0 16 16" fill="none"><path d="M8 14c-3 0-5-2-5-5 0-4 3-6 4-8 1 2 4 3 4 6 0 1-1 2-2 2 0-1 0-3-1-4-1 2-1 4 0 5 2 0 3-1 3-3 0 3-1 7-3 7z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>`,
-  book:   `<svg viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="10" height="12" rx="1" stroke="currentColor" stroke-width="1.2"/><line x1="5" y1="2" x2="5" y2="14" stroke="currentColor" stroke-width="1.2"/><line x1="7" y1="5" x2="11" y2="5" stroke="currentColor" stroke-width="1.2"/><line x1="7" y1="8" x2="11" y2="8" stroke="currentColor" stroke-width="1.2"/></svg>`,
-  drop:   `<svg viewBox="0 0 16 16" fill="none"><path d="M8 2L4 9a4 4 0 0 0 8 0L8 2z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>`,
-  moon:   `<svg viewBox="0 0 16 16" fill="none"><path d="M12 11A6 6 0 0 1 5 4a6 6 0 1 0 7 7z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>`,
-  check:  `<svg viewBox="0 0 16 16" fill="none"><polyline points="2,8 6,13 14,3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
-  clock:  `<svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.2"/><polyline points="8,4 8,8 11,10" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>`,
-  heart:  `<svg viewBox="0 0 16 16" fill="none"><path d="M8 13s-6-4-6-8a4 4 0 0 1 6-3.5A4 4 0 0 1 14 5c0 4-6 8-6 8z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>`,
-  crown:  `<svg viewBox="0 0 16 16" fill="none"><polyline points="1,12 3,5 8,9 11,3 13,5 15,12" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><line x1="1" y1="12" x2="15" y2="12" stroke="currentColor" stroke-width="1.2"/></svg>`,
-  sun:    `<svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="3" stroke="currentColor" stroke-width="1.2"/><line x1="8" y1="1" x2="8" y2="3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><line x1="8" y1="13" x2="8" y2="15" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><line x1="1" y1="8" x2="3" y2="8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><line x1="13" y1="8" x2="15" y2="8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><line x1="3" y1="3" x2="4.5" y2="4.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><line x1="11.5" y1="11.5" x2="13" y2="13" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><line x1="13" y1="3" x2="11.5" y2="4.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><line x1="4.5" y1="11.5" x2="3" y2="13" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>`,
-  seed:   `<svg viewBox="0 0 16 16" fill="none"><ellipse cx="8" cy="9" rx="4" ry="5" stroke="currentColor" stroke-width="1.2"/><line x1="8" y1="4" x2="8" y2="1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>`,
-  tree:   `<svg viewBox="0 0 16 16" fill="none"><polygon points="8,2 2,10 14,10" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><polygon points="8,6 3,13 13,13" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><line x1="8" y1="13" x2="8" y2="15" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>`,
-  bolt:   `<svg viewBox="0 0 16 16" fill="none"><polyline points="10,1 5,9 9,9 6,15 12,6 8,6 10,1" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>`,
-  pill:   `<svg viewBox="0 0 16 16" fill="none"><rect x="2" y="6" width="12" height="4" rx="2" stroke="currentColor" stroke-width="1.2"/><line x1="8" y1="6" x2="8" y2="10" stroke="currentColor" stroke-width="1.2"/></svg>`,
-};
-
-const BADGES_DEF = {
-  estudio: [
-    {id:'est_1',    name:'Primera hora',    icon:'book', check:()=>S.totalHabits>=1},
-    {id:'est_study1',  name:'1ª sesión',       icon:'clock',check:()=>(S.studySessions||[]).length>=1},
-    {id:'est_study5h', name:'5 horas',         icon:'clock',check:()=>(S.totalStudyHours||0)>=5},
-    {id:'est_study20h',name:'20 horas',        icon:'clock',check:()=>(S.totalStudyHours||0)>=20},
-    {id:'est_study50h',name:'50 horas',        icon:'clock',check:()=>(S.totalStudyHours||0)>=50},
-    {id:'est_hab10', name:'10 hábitos',     icon:'check',check:()=>S.totalHabits>=10},
-    {id:'est_hab50', name:'50 hábitos',     icon:'star', check:()=>S.totalHabits>=50},
-    {id:'est_hab200',name:'200 hábitos',    icon:'crown',check:()=>S.totalHabits>=200},
-    {id:'est_tarea10',name:'10 tareas',     icon:'book', check:()=>S.totalTasks>=10},
-    {id:'est_tarea50',name:'50 tareas',     icon:'star', check:()=>S.totalTasks>=50},
-  ],
-  salud: [
-    {id:'sal_agua1', name:'Hidratada',      icon:'drop', check:()=>S.water>=8},
-    {id:'sal_agua7', name:'7 días de agua', icon:'drop', check:()=>S.earnedBadges.filter(x=>x==='sal_agua1').length>0&&S.streak>=7},
-    {id:'sal_noc1',  name:'Rutina nocturna',icon:'moon', check:()=>S.habits['estir_n']?.done&&S.habits['dormir']?.done},
-    {id:'sal_med10', name:'10 tomas',       icon:'pill', check:()=>S.totalMedTakes>=10},
-    {id:'sal_med30', name:'30 tomas',       icon:'pill', check:()=>S.totalMedTakes>=30},
-    {id:'sal_estir', name:'Estiramientos',  icon:'sun',  check:()=>S.habits['estir_d']?.done&&S.habits['estir_n']?.done},
-    {id:'sal_medita',name:'Meditación',     icon:'moon', check:()=>S.habits['medita']?.done},
-    {id:'sal_full',  name:'Día completo',   icon:'heart',check:()=>H_SAL.every(h=>S.habits[h.id]?.done)},
-  ],
-  constancia: [
-    {id:'con_3',   name:'3 días',           icon:'leaf', check:()=>S.streak>=3},
-    {id:'con_7',   name:'1 semana',         icon:'leaf', check:()=>S.streak>=7},
-    {id:'con_14',  name:'2 semanas',        icon:'tree', check:()=>S.streak>=14},
-    {id:'con_30',  name:'1 mes',            icon:'tree', check:()=>S.streak>=30},
-    {id:'con_60',  name:'2 meses',          icon:'tree', check:()=>S.streak>=60},
-    {id:'con_100', name:'100 días',         icon:'crown',check:()=>S.streak>=100},
-    {id:'con_lvl3',name:'Nivel 3',          icon:'bolt', check:()=>S.level>=3},
-    {id:'con_lvl5',name:'Nivel 5',          icon:'bolt', check:()=>S.level>=5},
-    {id:'con_lvl10',name:'Nivel 10',        icon:'star', check:()=>S.level>=10},
-  ],
-  especiales: [
-    {id:'esp_all_est',name:'Estudio perfecto',icon:'star',check:()=>H_EST.every(h=>S.habits[h.id]?.done)},
-    {id:'esp_all_sal',name:'Bienestar pleno', icon:'heart',check:()=>H_SAL.concat(H_NOC).every(h=>S.habits[h.id]?.done)},
-    {id:'esp_all_day',name:'Día completo',    icon:'crown',check:()=>[...H_EST,...H_SAL,...H_NOC].every(h=>S.habits[h.id]?.done)},
-    {id:'esp_seed',   name:'Semilla',         icon:'seed', check:()=>S.level>=1&&S.streak>=1},
-    {id:'esp_brote',  name:'Brote',           icon:'leaf', check:()=>S.level>=5&&S.streak>=7},
-    {id:'esp_bosque', name:'Bosque',          icon:'tree', check:()=>S.level>=10&&S.streak>=30},
-    {id:'esp_agua_h', name:'Gran hidratación',icon:'drop', check:()=>S.water>=8&&S.streak>=7},
-  ],
-};
-
-function checkBadges(){
-  let got=false;
-  Object.values(BADGES_DEF).flat().forEach(b=>{
-    if(!S.earnedBadges.includes(b.id)&&b.check()){
-      S.earnedBadges.push(b.id); got=true;
-      showToast(`Logro desbloqueado: ${b.name}`);
-    }
-  });
-  if(got){ save(); renderBadges(); }
-}
-
-function renderBadges(){
-  ['estudio','salud','constancia','especiales'].forEach(cat=>{
-    const el=document.getElementById(`badges-${cat}`); if(!el) return;
-    el.innerHTML='';
-    BADGES_DEF[cat].forEach(b=>{
-      const earned=S.earnedBadges.includes(b.id);
-      const div=document.createElement('div');
-      div.className='badge-card '+(earned?'earned':'locked');
-      div.title=b.name;
-      div.innerHTML=`
-        <div class="badge-icon-wrap" style="color:${earned?'var(--forest)':'var(--ink4)'}">${ICONS[b.icon]||''}</div>
-        <div class="badge-name">${b.name}</div>
-      `;
-      el.appendChild(div);
-    });
-  });
-}
-
-// ─────────────────────────────────────────
-// STATS
-// ─────────────────────────────────────────
-function updateStats(){
-  const map={
-    'sg-habits':S.totalHabits,
-    'sg-pomos':S.totalStudyHours||0,
-    'sg-meds':S.totalMedTakes,
-    'sg-tasks':S.totalTasks,
-    'd-streak':S.streak,
-    'd-water':S.water,
-  };
-  Object.entries(map).forEach(([id,val])=>{ const el=document.getElementById(id); if(el) el.textContent=val||0; });
-}
-
-// ─────────────────────────────────────────
-// UPDATE UI
-// ─────────────────────────────────────────
-function updateUI(){
-  const need=xpNeeded(S.level);
-  const pct=Math.min(100,(S.xp/need)*100);
-  const xb=document.getElementById('xp-bar'); if(xb) xb.style.width=pct+'%';
-  const xt=document.getElementById('xp-text'); if(xt) xt.textContent=`${S.xp} / ${need}`;
-  const hb=document.getElementById('hp-bar'); if(hb) hb.style.width=S.hp+'%';
-  const ht=document.getElementById('hp-text'); if(ht) ht.textContent=`${S.hp} / 100`;
-  const cc=document.getElementById('c-class'); if(cc) cc.textContent=getClass(S.level).name;
-  const cl=document.getElementById('c-level'); if(cl) cl.textContent=S.level;
-  ['h-xp','h-lvl','h-str','h-hp'].forEach((id,i)=>{
-    const el=document.getElementById(id); if(!el) return;
-    el.textContent=[S.xp,S.level,S.streak,S.hp][i];
-  });
-  updateStats(); updateStudyDash();
-}
-
-// ─────────────────────────────────────────
-// PAGE NAV
-// ─────────────────────────────────────────
-const PAGE_LABELS = {inicio:'Inicio',estudio:'Estudio',salud:'Salud',medicacion:'Medicación',ciclo:'Ciclo',tareas:'Tareas',asignaturas:'Asignaturas',examenes:'Exámenes',proyectos:'Proyectos',logros:'Logros'};
-function showPage(id){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));
-  document.getElementById('page-'+id).classList.add('active');
-  document.querySelectorAll('.nb').forEach(b=>{ if(b.textContent===PAGE_LABELS[id]) b.classList.add('active'); });
-  if(id==='ciclo'){ renderCycle(); renderSymptoms(); }
-  if(id==='logros'){ renderBadges(); updateStats(); }
-  if(id==='medicacion'){ renderMedLog(); }
-  if(id==='asignaturas'){ renderAsignaturas(); }
-  if(id==='examenes'){ renderExamenes(); updateDatalist(); }
-  if(id==='proyectos'){ renderProyectos(); updateDatalist(); }
-}
-
-// ─────────────────────────────────────────
-// INIT
-// ─────────────────────────────────────────
-setHeaderDate();
-checkDay();
-renderAllHabits();
-renderWater();
-renderMedLog();
-renderStudyLog();
-updateStudyDash();
-selMg(50);
-['uni','casa','per'].forEach(s=>renderTasks(s));
-renderAsignaturas();
-renderExamenes();
-renderProyectos();
-updateDatalist();
-renderBadges();
-updateUI();
-checkBadges();
-
-// Autosave textareas
-document.addEventListener('DOMContentLoaded',()=>{
-  const na=document.getElementById('notas-area');
-  if(na){ na.value=S.notas||''; na.addEventListener('input',()=>{ S.notas=na.value; save(); }); }
-  const cn=document.getElementById('cycle-notes');
-  if(cn){
-    const td=new Date().toDateString();
-    cn.value=S.cycleNotes[td]||'';
-    cn.addEventListener('input',()=>{ S.cycleNotes[td]=cn.value; save(); });
-  }
-  if(S.cycleStart){
-    document.getElementById('cycle-start').value=S.cycleStart;
-    document.getElementById('cycle-len').value=S.cycleLen;
-    document.getElementById('period-len').value=S.periodLen;
-    renderCycle();
-  }
-});
-
-// ─────────────────────────────────────────
-// ASIGNATURAS
-// ─────────────────────────────────────────
-function addAsignatura(){
-  const nombre = document.getElementById('asig-nombre').value.trim();
-  if(!nombre){ showToast('Escribe el nombre de la asignatura.'); return; }
-  const asig = {
-    id: Date.now(),
-    nombre,
-    ects:   parseInt(document.getElementById('asig-ects').value)||6,
-    cuatri: document.getElementById('asig-cuatri').value,
-    eval:   document.getElementById('asig-eval').value,
-    notas:  document.getElementById('asig-notas').value.trim(),
-    nota_final: null
-  };
-  S.asignaturas.push(asig);
-  document.getElementById('asig-nombre').value='';
-  document.getElementById('asig-notas').value='';
-  gainXP(5);
-  save(); renderAsignaturas(); updateDatalist();
-  showToast(`"${nombre}" añadida.`);
-}
-
-function editAsignatura(id){
-  const a = S.asignaturas.find(x=>x.id===id); if(!a) return;
-  const nota = prompt(`Nota final de "${a.nombre}" (0-10):`);
-  if(nota===null) return;
-  const n = parseFloat(nota);
-  if(isNaN(n)||n<0||n>10){ showToast('Nota no válida.'); return; }
-  a.nota_final = n;
-  save(); renderAsignaturas();
-}
-
-function delAsignatura(id){
-  if(!confirm('¿Eliminar esta asignatura?')) return;
-  S.asignaturas = S.asignaturas.filter(x=>x.id!==id);
-  save(); renderAsignaturas(); updateDatalist();
-}
-
-function renderAsignaturas(){
-  const el = document.getElementById('asig-list'); if(!el) return;
-  if(!S.asignaturas.length){
-    el.innerHTML='<div style="font-size:0.82rem;color:var(--ink4);font-style:italic;padding:8px 0">Sin asignaturas añadidas.</div>';
-    return;
-  }
-  // group by cuatri
-  const groups = {};
-  S.asignaturas.forEach(a=>{
-    const k = a.cuatri==='anual'?'Anual':`${a.cuatri}er cuatrimestre`;
-    if(!groups[k]) groups[k]=[];
-    groups[k].push(a);
-  });
-  el.innerHTML='';
-  Object.entries(groups).forEach(([g, list])=>{
-    const gEl = document.createElement('div');
-    gEl.innerHTML=`<div class="slabel mb16">${g}</div>`;
-    el.appendChild(gEl);
-    list.forEach(a=>{
-      const notaColor = a.nota_final===null ? 'var(--ink4)' : a.nota_final>=5 ? 'var(--moss)' : 'var(--red-soft)';
-      const card = document.createElement('div');
-      card.className='card mb16';
-      card.style.padding='16px 20px';
-      card.innerHTML=`
-        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap">
-          <div style="flex:1">
-            <div style="font-family:'Playfair Display',serif;font-size:1rem;color:var(--ink);margin-bottom:4px">${a.nombre}</div>
-            <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:6px">
-              <span style="font-size:0.7rem;color:var(--ink4)">${a.ects} ECTS</span>
-              <span style="font-size:0.7rem;color:var(--ink4)">${a.eval}</span>
-            </div>
-            ${a.notas?`<div style="font-size:0.78rem;color:var(--ink3);line-height:1.5">${a.notas}</div>`:''}
-          </div>
-          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px">
-            <div style="font-family:'Playfair Display',serif;font-size:1.6rem;color:${notaColor};line-height:1">
-              ${a.nota_final!==null ? a.nota_final.toFixed(1) : '—'}
-            </div>
-            <div style="display:flex;gap:6px">
-              <button class="btn btn-sage btn-sm" onclick="editAsignatura(${a.id})">Nota</button>
-              <button class="btn btn-danger btn-sm" onclick="delAsignatura(${a.id})">×</button>
-            </div>
-          </div>
-        </div>
-      `;
-      el.appendChild(card);
-    });
-  });
-}
-
-// ─────────────────────────────────────────
-// EXÁMENES
-// ─────────────────────────────────────────
-function addExamen(){
-  const asig = document.getElementById('exam-asig').value.trim();
-  const fecha = document.getElementById('exam-fecha').value;
-  if(!asig||!fecha){ showToast('Asignatura y fecha son obligatorias.'); return; }
-  const notaVal = document.getElementById('exam-nota').value;
-  const exam = {
-    id: Date.now(),
-    asig,
-    fecha,
-    hora:  document.getElementById('exam-hora').value,
-    tipo:  document.getElementById('exam-tipo').value,
-    peso:  parseInt(document.getElementById('exam-peso').value)||0,
-    nota:  notaVal!=='' ? parseFloat(notaVal) : null,
-    temas: document.getElementById('exam-temas').value.trim()
-  };
-  S.examenes.push(exam);
-  document.getElementById('exam-asig').value='';
-  document.getElementById('exam-fecha').value='';
-  document.getElementById('exam-hora').value='';
-  document.getElementById('exam-nota').value='';
-  document.getElementById('exam-temas').value='';
-  gainXP(5);
-  save(); renderExamenes();
-  showToast(`Examen de "${asig}" guardado.`);
-}
-
-function setExamNota(id){
-  const e = S.examenes.find(x=>x.id===id); if(!e) return;
-  const nota = prompt(`Nota de "${e.asig} — ${e.tipo}" (0-10):`);
-  if(nota===null) return;
-  const n = parseFloat(nota);
-  if(isNaN(n)||n<0||n>10){ showToast('Nota no válida.'); return; }
-  e.nota=n; save(); renderExamenes();
-}
-
-function delExamen(id){
-  S.examenes=S.examenes.filter(x=>x.id!==id);
-  save(); renderExamenes();
-}
-
-function renderExamenes(){
-  const today = new Date(); today.setHours(0,0,0,0);
-  const upcoming = S.examenes.filter(e=>new Date(e.fecha+'T00:00:00')>=today && e.nota===null)
-    .sort((a,b)=>a.fecha.localeCompare(b.fecha));
-  const past = S.examenes.filter(e=>new Date(e.fecha+'T00:00:00')<today || e.nota!==null)
-    .sort((a,b)=>b.fecha.localeCompare(a.fecha));
-
-  function examCard(e){
-    const d = new Date(e.fecha+'T00:00:00');
-    const diff = Math.ceil((d-today)/(1000*60*60*24));
-    const diffStr = diff>0?`en ${diff} día${diff===1?'':'s'}`:(diff===0?'hoy':'—');
-    const notaColor = e.nota===null?'var(--ink4)':e.nota>=5?'var(--moss)':'var(--red-soft)';
-    const card = document.createElement('div');
-    card.className='card mb16';
-    card.style.cssText='padding:14px 18px;display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap';
-    card.innerHTML=`
-      <div style="flex:1">
-        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:4px">
-          <span style="font-family:'Playfair Display',serif;font-size:0.95rem;color:var(--ink)">${e.asig}</span>
-          <span style="font-size:0.65rem;background:var(--cream2);color:var(--ink4);padding:2px 8px;border-radius:10px">${e.tipo}</span>
-          ${e.peso?`<span style="font-size:0.65rem;color:var(--ink4)">${e.peso}%</span>`:''}
-        </div>
-        <div style="font-size:0.78rem;color:var(--ink4);margin-bottom:4px">
-          ${d.toLocaleDateString('es-ES',{weekday:'long',day:'numeric',month:'long'})}${e.hora?' · '+e.hora:''}
-          ${diff>0?`<span style="color:var(--amber);margin-left:6px">${diffStr}</span>`:''}
-        </div>
-        ${e.temas?`<div style="font-size:0.78rem;color:var(--ink3);line-height:1.5">${e.temas}</div>`:''}
-      </div>
-      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
-        <div style="font-family:'Playfair Display',serif;font-size:1.5rem;color:${notaColor};line-height:1">${e.nota!==null?e.nota.toFixed(1):'—'}</div>
-        <div style="display:flex;gap:6px">
-          <button class="btn btn-sage btn-sm" onclick="setExamNota(${e.id})">Nota</button>
-          <button class="btn btn-danger btn-sm" onclick="delExamen(${e.id})">×</button>
-        </div>
-      </div>
-    `;
-    return card;
-  }
-
-  const ep = document.getElementById('exam-proximos');
-  const ea = document.getElementById('exam-pasados');
-  if(ep){
-    ep.innerHTML='';
-    if(!upcoming.length) ep.innerHTML='<div style="font-size:0.82rem;color:var(--ink4);font-style:italic;padding:4px 0">Sin exámenes próximos.</div>';
-    else upcoming.forEach(e=>ep.appendChild(examCard(e)));
-  }
-  if(ea){
-    ea.innerHTML='';
-    if(!past.length) ea.innerHTML='<div style="font-size:0.82rem;color:var(--ink4);font-style:italic;padding:4px 0">Sin exámenes realizados.</div>';
-    else past.forEach(e=>ea.appendChild(examCard(e)));
-  }
-}
-
-// ─────────────────────────────────────────
-// PROYECTOS
-// ─────────────────────────────────────────
-const ESTADO_COLOR = {
-  'Sin empezar':'var(--ink4)',
-  'En progreso':'var(--amber)',
-  'Entregado':  'var(--blue-soft)',
-  'Calificado': 'var(--moss)'
-};
-
-function addProyecto(){
-  const nombre = document.getElementById('proy-nombre').value.trim();
-  if(!nombre){ showToast('Escribe el nombre del proyecto.'); return; }
-  const notaVal = '';
-  const proy = {
-    id:     Date.now(),
-    nombre,
-    asig:   document.getElementById('proy-asig').value.trim(),
-    fecha:  document.getElementById('proy-fecha').value,
-    tipo:   document.getElementById('proy-tipo').value,
-    peso:   parseInt(document.getElementById('proy-peso').value)||0,
-    estado: document.getElementById('proy-estado').value,
-    desc:   document.getElementById('proy-desc').value.trim(),
-    nota:   null
-  };
-  S.proyectos.push(proy);
-  document.getElementById('proy-nombre').value='';
-  document.getElementById('proy-asig').value='';
-  document.getElementById('proy-fecha').value='';
-  document.getElementById('proy-desc').value='';
-  gainXP(5);
-  save(); renderProyectos();
-  showToast(`"${nombre}" añadido.`);
-}
-
-function editProyecto(id, field){
-  const p = S.proyectos.find(x=>x.id===id); if(!p) return;
-  if(field==='estado'){
-    const estados=['Sin empezar','En progreso','Entregado','Calificado'];
-    const idx = estados.indexOf(p.estado);
-    p.estado = estados[(idx+1)%estados.length];
-  } else if(field==='nota'){
-    const nota = prompt(`Nota de "${p.nombre}" (0-10):`);
-    if(nota===null) return;
-    const n=parseFloat(nota);
-    if(isNaN(n)||n<0||n>10){ showToast('Nota no válida.'); return; }
-    p.nota=n; p.estado='Calificado';
-  }
-  save(); renderProyectos();
-}
-
-function delProyecto(id){
-  S.proyectos=S.proyectos.filter(x=>x.id!==id);
-  save(); renderProyectos();
-}
-
-function renderProyectos(){
-  const el = document.getElementById('proy-list'); if(!el) return;
-  if(!S.proyectos.length){
-    el.innerHTML='<div style="font-size:0.82rem;color:var(--ink4);font-style:italic;padding:4px 0">Sin proyectos añadidos.</div>';
-    return;
-  }
-  el.innerHTML='';
-  const sorted=[...S.proyectos].sort((a,b)=>{
-    const order={'Sin empezar':0,'En progreso':1,'Entregado':2,'Calificado':3};
-    return (order[a.estado]||0)-(order[b.estado]||0);
-  });
-  sorted.forEach(p=>{
-    const today=new Date(); today.setHours(0,0,0,0);
-    const dueDate=p.fecha?new Date(p.fecha+'T00:00:00'):null;
-    const diff=dueDate?Math.ceil((dueDate-today)/(1000*60*60*24)):null;
-    const notaColor=p.nota===null?'var(--ink4)':p.nota>=5?'var(--moss)':'var(--red-soft)';
-    const card=document.createElement('div');
-    card.className='card mb16';
-    card.style.padding='16px 20px';
-    card.innerHTML=`
-      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap">
-        <div style="flex:1">
-          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:4px">
-            <span style="font-family:'Playfair Display',serif;font-size:0.95rem;color:var(--ink)">${p.nombre}</span>
-            <span style="font-size:0.65rem;background:var(--cream2);color:var(--ink4);padding:2px 8px;border-radius:10px">${p.tipo}</span>
-            ${p.asig?`<span style="font-size:0.65rem;color:var(--ink4)">${p.asig}</span>`:''}
-          </div>
-          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px">
-            <button onclick="editProyecto(${p.id},'estado')" style="font-size:0.68rem;padding:2px 10px;border-radius:20px;border:1px solid;cursor:pointer;background:transparent;color:${ESTADO_COLOR[p.estado]||'var(--ink4)'};border-color:${ESTADO_COLOR[p.estado]||'var(--cream3)'};font-family:'DM Sans',sans-serif;transition:all 0.15s">${p.estado}</button>
-            ${p.peso?`<span style="font-size:0.65rem;color:var(--ink4)">${p.peso}%</span>`:''}
-            ${dueDate?`<span style="font-size:0.72rem;color:${diff!==null&&diff<3?'var(--red-soft)':'var(--ink4)'}">Entrega: ${dueDate.toLocaleDateString('es-ES',{day:'numeric',month:'short'})}${diff!==null&&diff>=0?' ('+diff+'d)':''}</span>`:''}
-          </div>
-          ${p.desc?`<div style="font-size:0.78rem;color:var(--ink3);line-height:1.5">${p.desc}</div>`:''}
-        </div>
-        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
-          <div style="font-family:'Playfair Display',serif;font-size:1.5rem;color:${notaColor};line-height:1">${p.nota!==null?p.nota.toFixed(1):'—'}</div>
-          <div style="display:flex;gap:6px">
-            <button class="btn btn-sage btn-sm" onclick="editProyecto(${p.id},'nota')">Nota</button>
-            <button class="btn btn-danger btn-sm" onclick="delProyecto(${p.id})">×</button>
-          </div>
-        </div>
-      </div>
-    `;
-    el.appendChild(card);
-  });
-}
-
-// ─────────────────────────────────────────
-// DATALIST (autocompletar asignaturas)
-// ─────────────────────────────────────────
-function updateDatalist(){
-  const dl=document.getElementById('asig-datalist'); if(!dl) return;
-  dl.innerHTML='';
-  S.asignaturas.forEach(a=>{
-    const opt=document.createElement('option'); opt.value=a.nombre; dl.appendChild(opt);
-  });
-}
-// ─────────────────────────────────────────
-(function setupPWA(){
-  // Generate SVG icon as data URL — a leaf on forest green background
-  const iconSVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-    <rect width="512" height="512" rx="112" fill="#2d5016"/>
-    <path d="M128 384c0 0 40-160 240-200C368 384 208 416 128 384z" fill="#8aab6a"/>
-    <line x1="128" y1="384" x2="284" y2="228" stroke="#c5dba8" stroke-width="14" stroke-linecap="round"/>
-    <path d="M256 160 Q290 120 320 100 Q310 140 280 168 Z" fill="#c5dba8"/>
-  </svg>`;
-  const iconURL = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(iconSVG);
-
-  // Set apple touch icon
-  const appleIcon = document.getElementById('pwa-icon');
-  if(appleIcon) appleIcon.href = iconURL;
-
-  // Inline manifest via blob
-  const manifest = {
-    name: 'Musgo',
-    short_name: 'Musgo',
-    description: 'Tu diario de hábitos universitarios',
-    start_url: '.',
-    display: 'standalone',
-    background_color: '#f5f0e8',
-    theme_color: '#2d5016',
-    orientation: 'portrait',
-    icons: [
-      { src: iconURL, sizes: '192x192', type: 'image/svg+xml', purpose: 'any maskable' },
-      { src: iconURL, sizes: '512x512', type: 'image/svg+xml', purpose: 'any maskable' }
-    ]
-  };
-  const manifestBlob = new Blob([JSON.stringify(manifest)], {type:'application/json'});
-  const manifestURL = URL.createObjectURL(manifestBlob);
-  const manifestLink = document.getElementById('pwa-manifest');
-  if(manifestLink) manifestLink.href = manifestURL;
-
-  // Service Worker (inline via blob)
-  if('serviceWorker' in navigator){
-    const swCode = `
-const CACHE='musgo-v1';
-const ASSETS=['./'];
-self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS))));
-self.addEventListener('fetch',e=>e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request))));
-`;
-    const swBlob = new Blob([swCode], {type:'application/javascript'});
-    const swURL = URL.createObjectURL(swBlob);
-    navigator.serviceWorker.register(swURL).catch(()=>{});
-  }
-})();
-
-// Install prompt
-let deferredInstallPrompt = null;
-window.addEventListener('beforeinstallprompt', e=>{
-  e.preventDefault();
-  deferredInstallPrompt = e;
-  const btn = document.getElementById('install-btn');
-  if(btn) btn.classList.add('visible');
-});
-window.addEventListener('appinstalled', ()=>{
-  const btn = document.getElementById('install-btn');
-  if(btn) btn.classList.remove('visible');
-  showToast('App instalada correctamente.');
-});
-
-function installPWA(){
-  if(!deferredInstallPrompt) return;
-  deferredInstallPrompt.prompt();
-  deferredInstallPrompt.userChoice.then(()=>{ deferredInstallPrompt=null; });
-}
-</script>
-</body>
-</html>
