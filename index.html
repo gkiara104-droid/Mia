@@ -750,6 +750,13 @@
         </div>
       </div>
       <div class="input-group">
+        <label class="input-label">Fecha y hora <span style="color:var(--text-light);font-weight:400;">(déjalo vacío para usar ahora mismo)</span></label>
+        <div style="display:flex;gap:8px;">
+          <input type="date" class="input" id="tramadolFecha" style="flex:1;">
+          <input type="time" class="input" id="tramadolHora" style="flex:1;">
+        </div>
+      </div>
+      <div class="input-group">
         <label class="input-label">Nota (opcional)</label>
         <textarea class="textarea" id="tramadolNota" rows="2" placeholder="Ej. dolor 7/10, antes de dormir..."></textarea>
       </div>
@@ -757,8 +764,8 @@
     </div>
 
     <div class="card" id="tramadolLog">
-      <div class="card-label">Historial de hoy</div>
-      <div id="tramadolEntries"><p style="font-size:13px;color:var(--text-light);margin-top:10px;">Sin registros hoy.</p></div>
+      <div class="card-label">Historial</div>
+      <div id="tramadolEntries"><p style="font-size:13px;color:var(--text-light);margin-top:10px;">Sin registros.</p></div>
     </div>
 
     <div class="divider"></div>
@@ -777,9 +784,12 @@
         <span class="info-key">Recoger en farmacia</span>
         <span class="info-val" id="cimziaRecoger">—</span>
       </div>
-      <div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap;">
-        <button class="btn btn-rose" onclick="registrarCimzia()">Marcar como puesto hoy</button>
-        <button class="btn btn-outline" onclick="alert('Recordatorio configurado para 2 dias antes')">Recordatorio farmacia</button>
+      <div class="input-group" style="margin-top:16px;">
+        <label class="input-label">Fecha del pinchazo <span style="color:var(--text-light);font-weight:400;">(déjalo vacío para hoy)</span></label>
+        <input type="date" class="input" id="cimziaFechaManual">
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button class="btn btn-rose" onclick="registrarCimzia()">Registrar pinchazo</button>
       </div>
     </div>
   </div>
@@ -1252,47 +1262,79 @@ function registrarTramadol() {
   if (!gotas) { showToast('Indica las gotas'); return; }
   const con = document.querySelector('#tramadolCon .toggle-btn.selected')?.textContent || 'Solo';
   const nota = document.getElementById('tramadolNota').value;
+  const fechaInput = document.getElementById('tramadolFecha').value;
+  const horaInput = document.getElementById('tramadolHora').value;
   const now = new Date();
-  const entry = {
-    hora: now.toLocaleTimeString('es-ES', {hour:'2-digit',minute:'2-digit'}),
-    gotas, con, nota,
-    fecha: now.toLocaleDateString('es-ES')
-  };
+  let fecha, hora;
+  if (fechaInput) {
+    fecha = new Date(fechaInput + 'T00:00').toLocaleDateString('es-ES');
+  } else {
+    fecha = now.toLocaleDateString('es-ES');
+  }
+  hora = horaInput || now.toLocaleTimeString('es-ES', {hour:'2-digit', minute:'2-digit'});
+  const entry = { id: Date.now(), hora, gotas, con, nota, fecha };
   state.tramadolLog.unshift(entry);
+  // Sort by fecha+hora descending
   saveState();
   renderTramadolLog();
   updateDashboard();
   document.getElementById('tramadolGotas').value = '';
   document.getElementById('tramadolNota').value = '';
+  document.getElementById('tramadolFecha').value = '';
+  document.getElementById('tramadolHora').value = '';
   showToast('Toma registrada');
 }
 
+function eliminarTramadol(id) {
+  state.tramadolLog = state.tramadolLog.filter(e => e.id !== id);
+  saveState();
+  renderTramadolLog();
+  updateDashboard();
+  showToast('Entrada eliminada');
+}
+
 function renderTramadolLog() {
-  const today = new Date().toLocaleDateString('es-ES');
-  const todayEntries = state.tramadolLog.filter(e => e.fecha === today);
   const el = document.getElementById('tramadolEntries');
-  if (!todayEntries.length) { el.innerHTML = '<p style="font-size:13px;color:var(--text-light);margin-top:10px;">Sin registros hoy.</p>'; return; }
-  el.innerHTML = todayEntries.map(e => `
-    <div class="log-entry">
-      <div class="log-dot log-dot-rose"></div>
-      <div>
-        <div class="log-time">${e.hora}</div>
-        <div class="log-text">${e.gotas} gotas · ${e.con}</div>
-        ${e.nota ? `<div class="log-sub">${e.nota}</div>` : ''}
-      </div>
+  if (!state.tramadolLog.length) { el.innerHTML = '<p style="font-size:13px;color:var(--text-light);margin-top:10px;">Sin registros.</p>'; return; }
+  // Group by date
+  const groups = {};
+  state.tramadolLog.forEach(e => {
+    if (!groups[e.fecha]) groups[e.fecha] = [];
+    groups[e.fecha].push(e);
+  });
+  el.innerHTML = Object.entries(groups).map(([fecha, entries]) => `
+    <div style="margin-bottom:12px;">
+      <div style="font-size:10px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-light);margin-bottom:4px;">${fecha}</div>
+      ${entries.map(e => `
+        <div class="log-entry" style="align-items:center;">
+          <div class="log-dot log-dot-rose"></div>
+          <div style="flex:1;">
+            <div class="log-time">${e.hora}</div>
+            <div class="log-text">${e.gotas} gotas · ${e.con}</div>
+            ${e.nota ? `<div class="log-sub">${e.nota}</div>` : ''}
+          </div>
+          <button onclick="eliminarTramadol(${e.id})" style="background:none;border:none;cursor:pointer;color:var(--text-light);font-size:16px;padding:4px 8px;line-height:1;" title="Eliminar">×</button>
+        </div>
+      `).join('')}
     </div>
   `).join('');
 }
 
 // ─── CIMZIA ──────────────────────────────────────────────
 function registrarCimzia() {
-  const now = new Date();
-  const next = new Date(now); next.setDate(next.getDate() + 14);
-  const recoger = new Date(now); recoger.setDate(recoger.getDate() + 11);
-  state.cimzia = { ultima: now.toLocaleDateString('es-ES'), proxima: next.toLocaleDateString('es-ES'), recoger: recoger.toLocaleDateString('es-ES') };
+  const fechaInput = document.getElementById('cimziaFechaManual').value;
+  const base = fechaInput ? new Date(fechaInput + 'T12:00') : new Date();
+  const next = new Date(base); next.setDate(next.getDate() + 14);
+  const recoger = new Date(base); recoger.setDate(recoger.getDate() + 11);
+  state.cimzia = {
+    ultima: base.toLocaleDateString('es-ES'),
+    proxima: next.toLocaleDateString('es-ES'),
+    recoger: recoger.toLocaleDateString('es-ES')
+  };
   saveState();
   renderCimzia();
   updateDashboard();
+  document.getElementById('cimziaFechaManual').value = '';
   showToast('Cimzia registrada');
 }
 
