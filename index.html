@@ -3,7 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#FAF7F2">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Mía">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='40' fill='%23FAF7F2'/%3E%3Cellipse cx='90' cy='72' rx='28' ry='36' fill='%23E8D5B0' opacity='0.7'/%3E%3Ccircle cx='90' cy='72' r='10' fill='%23EDD5D2'/%3E%3Cline x1='90' y1='108' x2='90' y2='130' stroke='%23C4B0A4' stroke-width='5' stroke-linecap='round'/%3E%3Cline x1='76' y1='126' x2='104' y2='126' stroke='%23C4B0A4' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E">
 <title>Mía</title>
+<link rel="manifest" id="pwaManifest">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -768,6 +775,69 @@
       <div id="tramadolEntries"><p style="font-size:13px;color:var(--text-light);margin-top:10px;">Sin registros.</p></div>
     </div>
 
+    <div class="card" id="proximasTomas" style="display:none;">
+      <div class="card-label">Próximas tomas disponibles</div>
+      <div style="margin-top:12px;display:flex;flex-direction:column;gap:10px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-radius:10px;background:var(--amber-pale);border:1px solid var(--amber-light);">
+          <div>
+            <div style="font-size:11px;color:var(--text-light);margin-bottom:2px;">Mínimo — cada 4 horas</div>
+            <div style="font-size:15px;font-family:'Fraunces',serif;font-weight:400;color:var(--text-dark);" id="proxima4h">—</div>
+          </div>
+          <div style="font-size:11px;color:var(--amber);font-weight:500;" id="proxima4hEstado"></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-radius:10px;background:var(--sage-pale);border:1px solid var(--sage-light);">
+          <div>
+            <div style="font-size:11px;color:var(--text-light);margin-bottom:2px;">Recomendado — cada 8 horas</div>
+            <div style="font-size:15px;font-family:'Fraunces',serif;font-weight:400;color:var(--text-dark);" id="proxima8h">—</div>
+          </div>
+          <div style="font-size:11px;color:var(--sage);font-weight:500;" id="proxima8hEstado"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Calculadora de conducción</div>
+      <p style="font-size:13px;color:var(--text-light);line-height:1.6;margin-top:8px;">Introduce cuándo vas a coger el coche y las gotas que tomaste. La app calcula la última hora a la que podrías tomar Tramadol según la ficha técnica del medicamento.</p>
+
+      <div style="margin-top:16px;display:flex;flex-direction:column;gap:12px;">
+        <div class="input-group" style="margin-bottom:0;">
+          <label class="input-label">Hora a la que coges el coche</label>
+          <input type="time" class="input" id="condHoraCoche">
+        </div>
+        <div class="input-group" style="margin-bottom:0;">
+          <label class="input-label">Gotas que vas a tomar (o tomaste)</label>
+          <input type="number" class="input" id="condGotas" placeholder="Ej. 10" min="1" max="40">
+        </div>
+        <button class="btn btn-amber btn-full" onclick="calcularConduccion()">Calcular</button>
+      </div>
+
+      <div id="condResultado" style="display:none;margin-top:16px;">
+        <div style="height:1px;background:var(--border);margin-bottom:16px;"></div>
+        <div style="font-size:11px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-light);margin-bottom:12px;">Resultado</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-radius:10px;" id="condFilaDosis">
+            <div>
+              <div style="font-size:11px;color:var(--text-light);margin-bottom:2px;">Dosis</div>
+              <div style="font-size:15px;font-family:'Fraunces',serif;font-weight:400;color:var(--text-dark);" id="condDosis">—</div>
+            </div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-radius:10px;background:var(--rose-pale);border:1px solid var(--rose-light);">
+            <div>
+              <div style="font-size:11px;color:var(--text-light);margin-bottom:2px;">Última toma recomendada</div>
+              <div style="font-size:15px;font-family:'Fraunces',serif;font-weight:400;color:var(--text-dark);" id="condUltimaRec">—</div>
+            </div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-radius:10px;background:var(--amber-pale);border:1px solid var(--amber-light);">
+            <div>
+              <div style="font-size:11px;color:var(--text-light);margin-bottom:2px;">Última toma máxima absoluta</div>
+              <div style="font-size:15px;font-family:'Fraunces',serif;font-weight:400;color:var(--text-dark);" id="condUltimaMax">—</div>
+            </div>
+          </div>
+        </div>
+        <p style="font-size:11px;color:var(--text-light);line-height:1.6;margin-top:12px;">Tiempos según ficha técnica. La DGT clasifica el Tramadol como incompatible con la conducción. La decisión final es tuya.</p>
+      </div>
+    </div>
+
     <div class="divider"></div>
 
     <div class="card">
@@ -1229,6 +1299,7 @@ function init() {
   renderCiclo();
   renderWeek();
   updateDashboard();
+  actualizarProximasTomas();
 }
 
 // ─── NAVIGATION ──────────────────────────────────────────
@@ -1277,6 +1348,7 @@ function registrarTramadol() {
   // Sort by fecha+hora descending
   saveState();
   renderTramadolLog();
+  actualizarProximasTomas();
   updateDashboard();
   document.getElementById('tramadolGotas').value = '';
   document.getElementById('tramadolNota').value = '';
@@ -1289,6 +1361,7 @@ function eliminarTramadol(id) {
   state.tramadolLog = state.tramadolLog.filter(e => e.id !== id);
   saveState();
   renderTramadolLog();
+  actualizarProximasTomas();
   updateDashboard();
   showToast('Entrada eliminada');
 }
@@ -1675,8 +1748,117 @@ function seleccionarAsig(nombre) {
   document.getElementById('nuevaAsignatura').value = nombre;
 }
 
+// ─── CALCULADORA CONDUCCIÓN ───────────────────────────────
+function calcularConduccion() {
+  const horaCoche = document.getElementById('condHoraCoche').value;
+  const gotas = parseInt(document.getElementById('condGotas').value);
+  if (!horaCoche || !gotas) { showToast('Rellena los dos campos'); return; }
+
+  const mg = gotas * 12.5;
+
+  // Horas de espera según ficha técnica (efecto ~9h, clasificación DGT Categoría III)
+  // Recomendado: tiempo hasta fin de efecto analgésico principal
+  // Máximo absoluto: mínimo intervalo posológico (cada 4-6h) pero con margen seguridad conducción
+  let horasRec, horasMax;
+  if (mg <= 50) {          // 1-4 gotas
+    horasRec = 9; horasMax = 6;
+  } else if (mg <= 100) {  // 5-8 gotas
+    horasRec = 9; horasMax = 7;
+  } else if (mg <= 150) {  // 9-12 gotas
+    horasRec = 10; horasMax = 8;
+  } else if (mg <= 200) {  // 13-16 gotas
+    horasRec = 11; horasMax = 9;
+  } else {                 // +16 gotas
+    horasRec = 12; horasMax = 10;
+  }
+
+  // Parse hora coche
+  const [hC, mC] = horaCoche.split(':').map(Number);
+  const hoyBase = new Date(); hoyBase.setHours(hC, mC, 0, 0);
+
+  function restarHoras(date, h) {
+    return new Date(date.getTime() - h * 60 * 60 * 1000);
+  }
+  function fmtHora(d) {
+    return d.toLocaleTimeString('es-ES', {hour:'2-digit', minute:'2-digit'});
+  }
+
+  const ultimaRec = restarHoras(hoyBase, horasRec);
+  const ultimaMax = restarHoras(hoyBase, horasMax);
+
+  document.getElementById('condDosis').textContent = `${gotas} gotas · ${mg} mg`;
+  document.getElementById('condFilaDosis').style.background = 'var(--earth-pale)';
+  document.getElementById('condFilaDosis').style.border = '1px solid var(--earth-light)';
+  document.getElementById('condUltimaRec').textContent = `antes de las ${fmtHora(ultimaRec)} (${horasRec}h antes)`;
+  document.getElementById('condUltimaMax').textContent = `antes de las ${fmtHora(ultimaMax)} (${horasMax}h antes)`;
+  document.getElementById('condResultado').style.display = 'block';
+}
+
 // ─── START ────────────────────────────────────────────────
 init();
+
+// ─── PWA MANIFEST ─────────────────────────────────────────
+(function() {
+  const iconSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="512" height="512" rx="112" fill="#FAF7F2"/><ellipse cx="256" cy="210" rx="80" ry="100" fill="#E8D5B0" opacity="0.8"/><circle cx="256" cy="210" r="30" fill="#EDD5D2"/><line x1="256" y1="310" x2="256" y2="370" stroke="#C4B0A4" stroke-width="18" stroke-linecap="round"/><line x1="216" y1="358" x2="296" y2="358" stroke="#C4B0A4" stroke-width="18" stroke-linecap="round"/></svg>`;
+  const svgBlob = new Blob([iconSvg], {type: 'image/svg+xml'});
+  const svgUrl = URL.createObjectURL(svgBlob);
+  const manifest = {
+    name: 'Mía',
+    short_name: 'Mía',
+    description: 'Tu app personal',
+    start_url: '.',
+    display: 'standalone',
+    background_color: '#FAF7F2',
+    theme_color: '#FAF7F2',
+    icons: [
+      { src: svgUrl, sizes: '512x512', type: 'image/svg+xml' }
+    ]
+  };
+  const blob = new Blob([JSON.stringify(manifest)], {type: 'application/json'});
+  document.getElementById('pwaManifest').href = URL.createObjectURL(blob);
+})();
+
+// ─── PROXIMAS TOMAS ───────────────────────────────────────
+function actualizarProximasTomas() {
+  const card = document.getElementById('proximasTomas');
+  if (!state.tramadolLog.length) { card.style.display = 'none'; return; }
+
+  // Find most recent entry regardless of date
+  const ultima = state.tramadolLog[0];
+  // Parse fecha + hora into a Date
+  const partes = ultima.fecha.split('/'); // dd/mm/yyyy
+  const [h, m] = ultima.hora.split(':');
+  const ultimaDate = new Date(partes[2], partes[1]-1, partes[0], parseInt(h), parseInt(m));
+
+  const next4 = new Date(ultimaDate.getTime() + 4*60*60*1000);
+  const next8 = new Date(ultimaDate.getTime() + 8*60*60*1000);
+  const now = new Date();
+
+  function formatHora(d) {
+    return d.toLocaleTimeString('es-ES', {hour:'2-digit', minute:'2-digit'});
+  }
+  function estadoPill(d) {
+    if (now >= d) return 'Disponible';
+    const mins = Math.round((d - now) / 60000);
+    if (mins < 60) return `En ${mins} min`;
+    const hrs = Math.floor(mins/60);
+    const rm = mins % 60;
+    return rm > 0 ? `En ${hrs}h ${rm}min` : `En ${hrs}h`;
+  }
+
+  const esMismaFecha = ultima.fecha === now.toLocaleDateString('es-ES');
+  const fechaLabel = esMismaFecha ? '' : ` (${next4.toLocaleDateString('es-ES')})`;
+  const fechaLabel8 = esMismaFecha ? '' : ` (${next8.toLocaleDateString('es-ES')})`;
+
+  document.getElementById('proxima4h').textContent = formatHora(next4) + fechaLabel;
+  document.getElementById('proxima8h').textContent = formatHora(next8) + fechaLabel8;
+  document.getElementById('proxima4hEstado').textContent = estadoPill(next4);
+  document.getElementById('proxima8hEstado').textContent = estadoPill(next8);
+  card.style.display = 'block';
+
+  // Update every minute
+  setTimeout(actualizarProximasTomas, 60000);
+}
 </script>
 </body>
 </html>
