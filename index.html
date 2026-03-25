@@ -732,6 +732,29 @@
       <div class="dash-wide-text" id="dashCimzia">Próxima dosis: sin registrar</div>
     </div>
 
+    <!-- Proximas tomas en dashboard -->
+    <div id="dashProximasTomas" style="display:none;margin-bottom:10px;">
+      <div style="font-size:10px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-light);margin-bottom:8px;padding:0 2px;">Próximas tomas Tramadol</div>
+      <div style="display:flex;gap:8px;">
+        <div style="flex:1;padding:12px;border-radius:14px;background:var(--amber-pale);border:1px solid var(--amber-light);">
+          <div style="font-size:10px;color:var(--text-light);margin-bottom:4px;">Cada 4h</div>
+          <div style="font-size:16px;font-family:'Fraunces',serif;font-weight:400;color:var(--text-dark);" id="dash4h">—</div>
+          <div style="font-size:11px;color:var(--amber);font-weight:500;margin-top:2px;" id="dash4hEstado"></div>
+        </div>
+        <div style="flex:1;padding:12px;border-radius:14px;background:var(--sage-pale);border:1px solid var(--sage-light);">
+          <div style="font-size:10px;color:var(--text-light);margin-bottom:4px;">Cada 8h</div>
+          <div style="font-size:16px;font-family:'Fraunces',serif;font-weight:400;color:var(--text-dark);" id="dash8h">—</div>
+          <div style="font-size:11px;color:var(--sage);font-weight:500;margin-top:2px;" id="dash8hEstado"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gráfica Tramadol -->
+    <div class="card" style="margin-bottom:10px;" onclick="showSection('medicacion')" id="dashGraficaCard" style="display:none;">
+      <div class="card-label">Tramadol — últimos 7 días (mg)</div>
+      <canvas id="dashChartTramadol" height="80" style="margin-top:12px;width:100%;"></canvas>
+    </div>
+
     <div class="dash-wide journal-tile" onclick="showSection('journal')">
       <div class="dash-wide-label">Prompt de hoy</div>
       <div class="dash-wide-text" id="dashPrompt">Cargando...</div>
@@ -770,35 +793,36 @@
       <button class="btn btn-rose btn-full" onclick="registrarTramadol()">Registrar toma</button>
     </div>
 
-    <div class="card" id="tramadolLog">
-      <div class="card-label">Historial</div>
-      <div id="tramadolEntries"><p style="font-size:13px;color:var(--text-light);margin-top:10px;">Sin registros.</p></div>
-    </div>
+    <div class="divider"></div>
 
-    <div class="card" id="proximasTomas" style="display:none;">
-      <div class="card-label">Próximas tomas disponibles</div>
-      <div style="margin-top:12px;display:flex;flex-direction:column;gap:10px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-radius:10px;background:var(--amber-pale);border:1px solid var(--amber-light);">
-          <div>
-            <div style="font-size:11px;color:var(--text-light);margin-bottom:2px;">Mínimo — cada 4 horas</div>
-            <div style="font-size:15px;font-family:'Fraunces',serif;font-weight:400;color:var(--text-dark);" id="proxima4h">—</div>
-          </div>
-          <div style="font-size:11px;color:var(--amber);font-weight:500;" id="proxima4hEstado"></div>
-        </div>
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-radius:10px;background:var(--sage-pale);border:1px solid var(--sage-light);">
-          <div>
-            <div style="font-size:11px;color:var(--text-light);margin-bottom:2px;">Recomendado — cada 8 horas</div>
-            <div style="font-size:15px;font-family:'Fraunces',serif;font-weight:400;color:var(--text-dark);" id="proxima8h">—</div>
-          </div>
-          <div style="font-size:11px;color:var(--sage);font-weight:500;" id="proxima8hEstado"></div>
-        </div>
+    <div class="card">
+      <div class="card-label">Cimzia — pinchazos</div>
+      <div class="info-row" style="padding-top:0;">
+        <span class="info-key">Última administración</span>
+        <span class="info-val" id="cimziaUltima">—</span>
+      </div>
+      <div class="info-row">
+        <span class="info-key">Próxima dosis</span>
+        <span class="info-val" id="cimziaProxima">—</span>
+      </div>
+      <div class="info-row">
+        <span class="info-key">Recoger en farmacia</span>
+        <span class="info-val" id="cimziaRecoger">—</span>
+      </div>
+      <div class="input-group" style="margin-top:16px;">
+        <label class="input-label">Fecha del pinchazo <span style="color:var(--text-light);font-weight:400;">(déjalo vacío para hoy)</span></label>
+        <input type="date" class="input" id="cimziaFechaManual">
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button class="btn btn-rose" onclick="registrarCimzia()">Registrar pinchazo</button>
       </div>
     </div>
+
+    <div class="divider"></div>
 
     <div class="card">
       <div class="card-label">Calculadora de conducción</div>
       <p style="font-size:13px;color:var(--text-light);line-height:1.6;margin-top:8px;">Introduce cuándo vas a coger el coche y las gotas que tomaste. La app calcula la última hora a la que podrías tomar Tramadol según la ficha técnica del medicamento.</p>
-
       <div style="margin-top:16px;display:flex;flex-direction:column;gap:12px;">
         <div class="input-group" style="margin-bottom:0;">
           <label class="input-label">Hora a la que coges el coche</label>
@@ -810,7 +834,6 @@
         </div>
         <button class="btn btn-amber btn-full" onclick="calcularConduccion()">Calcular</button>
       </div>
-
       <div id="condResultado" style="display:none;margin-top:16px;">
         <div style="height:1px;background:var(--border);margin-bottom:16px;"></div>
         <div style="font-size:11px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-light);margin-bottom:12px;">Resultado</div>
@@ -840,28 +863,41 @@
 
     <div class="divider"></div>
 
+    <!-- GRÁFICA -->
     <div class="card">
-      <div class="card-label">Cimzia — pinchazos</div>
-      <div class="info-row" style="padding-top:0;">
-        <span class="info-key">Última administración</span>
-        <span class="info-val" id="cimziaUltima">—</span>
-      </div>
-      <div class="info-row">
-        <span class="info-key">Próxima dosis</span>
-        <span class="info-val" id="cimziaProxima">—</span>
-      </div>
-      <div class="info-row">
-        <span class="info-key">Recoger en farmacia</span>
-        <span class="info-val" id="cimziaRecoger">—</span>
-      </div>
-      <div class="input-group" style="margin-top:16px;">
-        <label class="input-label">Fecha del pinchazo <span style="color:var(--text-light);font-weight:400;">(déjalo vacío para hoy)</span></label>
-        <input type="date" class="input" id="cimziaFechaManual">
-      </div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;">
-        <button class="btn btn-rose" onclick="registrarCimzia()">Registrar pinchazo</button>
+      <div class="card-label">Tramadol — mg por día (últimos 14 días)</div>
+      <canvas id="chartTramadol" height="100" style="margin-top:14px;width:100%;"></canvas>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- PRÓXIMAS TOMAS -->
+    <div class="card" id="proximasTomas" style="display:none;">
+      <div class="card-label">Próximas tomas disponibles</div>
+      <div style="margin-top:12px;display:flex;flex-direction:column;gap:10px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-radius:10px;background:var(--amber-pale);border:1px solid var(--amber-light);">
+          <div>
+            <div style="font-size:11px;color:var(--text-light);margin-bottom:2px;">Mínimo — cada 4 horas</div>
+            <div style="font-size:15px;font-family:'Fraunces',serif;font-weight:400;color:var(--text-dark);" id="proxima4h">—</div>
+          </div>
+          <div style="font-size:11px;color:var(--amber);font-weight:500;" id="proxima4hEstado"></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-radius:10px;background:var(--sage-pale);border:1px solid var(--sage-light);">
+          <div>
+            <div style="font-size:11px;color:var(--text-light);margin-bottom:2px;">Recomendado — cada 8 horas</div>
+            <div style="font-size:15px;font-family:'Fraunces',serif;font-weight:400;color:var(--text-dark);" id="proxima8h">—</div>
+          </div>
+          <div style="font-size:11px;color:var(--sage);font-weight:500;" id="proxima8hEstado"></div>
+        </div>
       </div>
     </div>
+
+    <!-- HISTORIAL AL FINAL -->
+    <div class="card" id="tramadolLog">
+      <div class="card-label">Historial completo</div>
+      <div id="tramadolEntries"><p style="font-size:13px;color:var(--text-light);margin-top:10px;">Sin registros.</p></div>
+    </div>
+
   </div>
 
   <!-- UNIVERSIDAD -->
@@ -1300,6 +1336,7 @@ function init() {
   renderWeek();
   updateDashboard();
   actualizarProximasTomas();
+  setTimeout(renderGraficaTramadol, 100);
 }
 
 // ─── NAVIGATION ──────────────────────────────────────────
@@ -1349,6 +1386,7 @@ function registrarTramadol() {
   saveState();
   renderTramadolLog();
   actualizarProximasTomas();
+  renderGraficaTramadol();
   updateDashboard();
   document.getElementById('tramadolGotas').value = '';
   document.getElementById('tramadolNota').value = '';
@@ -1362,6 +1400,7 @@ function eliminarTramadol(id) {
   saveState();
   renderTramadolLog();
   actualizarProximasTomas();
+  renderGraficaTramadol();
   updateDashboard();
   showToast('Entrada eliminada');
 }
@@ -1818,15 +1857,121 @@ init();
   document.getElementById('pwaManifest').href = URL.createObjectURL(blob);
 })();
 
+// ─── GRÁFICA TRAMADOL ─────────────────────────────────────
+let chartInstance = null;
+let dashChartInstance = null;
+
+function renderGraficaTramadol() {
+  const dias = 14;
+  const labels = [];
+  const data = [];
+  const now = new Date();
+
+  for (let i = dias - 1; i >= 0; i--) {
+    const d = new Date(now);
+    d.setDate(d.getDate() - i);
+    const key = d.toLocaleDateString('es-ES');
+    const entries = state.tramadolLog.filter(e => e.fecha === key);
+    const totalMg = entries.reduce((sum, e) => sum + (parseFloat(e.gotas) * 12.5), 0);
+    const dayLabel = d.getDate() + '/' + (d.getMonth() + 1);
+    labels.push(dayLabel);
+    data.push(totalMg || 0);
+  }
+
+  function drawChart(canvasId, existingInstance) {
+    const canvas = document.getElementById(canvasId);
+    if (!canvas) return existingInstance;
+    const ctx = canvas.getContext('2d');
+    const W = canvas.offsetWidth || 340;
+    canvas.width = W * window.devicePixelRatio;
+    canvas.height = canvas.height * window.devicePixelRatio;
+    ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+    const w = W;
+    const h = canvas.offsetHeight || 100;
+    const pad = { top: 16, right: 8, bottom: 24, left: 32 };
+    const chartW = w - pad.left - pad.right;
+    const chartH = h - pad.top - pad.bottom;
+    const maxVal = Math.max(...data, 100);
+    ctx.clearRect(0, 0, w, h);
+
+    // Grid lines
+    ctx.strokeStyle = '#E8E0D8';
+    ctx.lineWidth = 1;
+    [0, 0.5, 1].forEach(pct => {
+      const y = pad.top + chartH - pct * chartH;
+      ctx.beginPath(); ctx.moveTo(pad.left, y); ctx.lineTo(pad.left + chartW, y); ctx.stroke();
+    });
+
+    // Bars
+    const barW = Math.max(4, (chartW / labels.length) - 4);
+    labels.forEach((label, i) => {
+      const x = pad.left + (i / labels.length) * chartW + (chartW / labels.length - barW) / 2;
+      const barH = (data[i] / maxVal) * chartH;
+      const y = pad.top + chartH - barH;
+      const isToday = i === labels.length - 1;
+
+      ctx.fillStyle = isToday ? '#C8A96E' : '#E8D5B0';
+      const r = 4;
+      ctx.beginPath();
+      ctx.moveTo(x + r, y);
+      ctx.lineTo(x + barW - r, y);
+      ctx.quadraticCurveTo(x + barW, y, x + barW, y + r);
+      ctx.lineTo(x + barW, y + barH);
+      ctx.lineTo(x, y + barH);
+      ctx.lineTo(x, y + r);
+      ctx.quadraticCurveTo(x, y, x + r, y);
+      ctx.closePath();
+      ctx.fill();
+
+      // Label
+      if (i % 2 === 0 || i === labels.length - 1) {
+        ctx.fillStyle = '#9C8E88';
+        ctx.font = '9px DM Sans, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(label, x + barW / 2, h - 6);
+      }
+
+      // Value on top if > 0
+      if (data[i] > 0) {
+        ctx.fillStyle = isToday ? '#9C8070' : '#C4B0A4';
+        ctx.font = `${isToday ? 'bold ' : ''}9px DM Sans, sans-serif`;
+        ctx.textAlign = 'center';
+        ctx.fillText(data[i] + 'mg', x + barW / 2, y - 3);
+      }
+    });
+
+    // Y axis labels
+    ctx.fillStyle = '#9C8E88';
+    ctx.font = '9px DM Sans, sans-serif';
+    ctx.textAlign = 'right';
+    ctx.fillText('0', pad.left - 4, pad.top + chartH + 3);
+    ctx.fillText(Math.round(maxVal / 2) + '', pad.left - 4, pad.top + chartH / 2 + 3);
+    ctx.fillText(Math.round(maxVal) + '', pad.left - 4, pad.top + 3);
+
+    return true;
+  }
+
+  drawChart('chartTramadol', chartInstance);
+  drawChart('dashChartTramadol', dashChartInstance);
+
+  // Show/hide dashboard chart card
+  const anyData = data.some(v => v > 0);
+  const dc = document.getElementById('dashGraficaCard');
+  if (dc) dc.style.display = anyData ? 'block' : 'none';
+}
+
 // ─── PROXIMAS TOMAS ───────────────────────────────────────
 function actualizarProximasTomas() {
   const card = document.getElementById('proximasTomas');
-  if (!state.tramadolLog.length) { card.style.display = 'none'; return; }
+  const dashCard = document.getElementById('dashProximasTomas');
+  if (!state.tramadolLog.length) {
+    if (card) card.style.display = 'none';
+    if (dashCard) dashCard.style.display = 'none';
+    return;
+  }
 
-  // Find most recent entry regardless of date
   const ultima = state.tramadolLog[0];
-  // Parse fecha + hora into a Date
-  const partes = ultima.fecha.split('/'); // dd/mm/yyyy
+  const partes = ultima.fecha.split('/');
   const [h, m] = ultima.hora.split(':');
   const ultimaDate = new Date(partes[2], partes[1]-1, partes[0], parseInt(h), parseInt(m));
 
@@ -1849,14 +1994,29 @@ function actualizarProximasTomas() {
   const esMismaFecha = ultima.fecha === now.toLocaleDateString('es-ES');
   const fechaLabel = esMismaFecha ? '' : ` (${next4.toLocaleDateString('es-ES')})`;
   const fechaLabel8 = esMismaFecha ? '' : ` (${next8.toLocaleDateString('es-ES')})`;
+  const h4 = formatHora(next4) + fechaLabel;
+  const h8 = formatHora(next8) + fechaLabel8;
+  const e4 = estadoPill(next4);
+  const e8 = estadoPill(next8);
 
-  document.getElementById('proxima4h').textContent = formatHora(next4) + fechaLabel;
-  document.getElementById('proxima8h').textContent = formatHora(next8) + fechaLabel8;
-  document.getElementById('proxima4hEstado').textContent = estadoPill(next4);
-  document.getElementById('proxima8hEstado').textContent = estadoPill(next8);
-  card.style.display = 'block';
+  // Medicacion screen
+  if (card) {
+    document.getElementById('proxima4h').textContent = h4;
+    document.getElementById('proxima8h').textContent = h8;
+    document.getElementById('proxima4hEstado').textContent = e4;
+    document.getElementById('proxima8hEstado').textContent = e8;
+    card.style.display = 'block';
+  }
 
-  // Update every minute
+  // Dashboard
+  if (dashCard) {
+    document.getElementById('dash4h').textContent = h4;
+    document.getElementById('dash8h').textContent = h8;
+    document.getElementById('dash4hEstado').textContent = e4;
+    document.getElementById('dash8hEstado').textContent = e8;
+    dashCard.style.display = 'block';
+  }
+
   setTimeout(actualizarProximasTomas, 60000);
 }
 </script>
