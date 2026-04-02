@@ -127,7 +127,6 @@
   .nav-btn[data-section="habitos"].active { background: var(--sage-pale); border-color: var(--sage-light); }
   .nav-btn[data-section="journal"].active { background: var(--earth-pale); border-color: var(--earth-light); }
   .nav-btn[data-section="meditacion"].active { background: var(--amber-pale); border-color: var(--amber-light); }
-  .nav-btn[data-section="github"].active { background: var(--earth-pale); border-color: var(--earth-light); }
 
   /* SCREENS */
   .screen { display: none; padding: 0 28px 100px; animation: fadeIn 0.25s ease; }
@@ -498,8 +497,6 @@
   .breathe-ring.exhale { transform: scale(0.9); border-color: var(--amber-light); }
   .breathe-ring.exhale .breathe-inner { width: 70px; height: 70px; }
 
-
-
   /* NOTIFICATION */
   .toast {
     position: fixed;
@@ -696,8 +693,7 @@
     <button class="nav-btn" data-section="ciclo" onclick="showSection('ciclo')">Ciclo</button>
     <button class="nav-btn" data-section="habitos" onclick="showSection('habitos')">Hábitos</button>
     <button class="nav-btn" data-section="journal" onclick="showSection('journal')">Journal</button>
-    <button class="nav-btn" data-section="meditacion" onclick="showSection('meditacion')">Meditación</button>
-
+    <button class="nav-btn" data-section="meditacion" onclick="showSection('meditacion')">Terapia corporal</button>
   </div>
 
   <!-- DASHBOARD -->
@@ -1044,8 +1040,8 @@
         </div>
         <div class="habit-row">
           <div class="habit-info">
-            <div class="habit-name">Mindfulness</div>
-            <div class="habit-meta">5 minutos</div>
+            <div class="habit-name">Terapia corporal</div>
+            <div class="habit-meta" id="terapiaMeta">Puntos de liberación</div>
           </div>
           <button class="check-btn" id="habitoMind" onclick="toggleHabito('mind')">✓</button>
         </div>
@@ -1108,54 +1104,85 @@
     </div>
   </div>
 
-  <!-- MEDITACION -->
+  <!-- TERAPIA CORPORAL -->
   <div class="screen" id="screen-meditacion">
-    <p class="section-title">Meditación</p>
+    <p class="section-title">Terapia corporal</p>
 
+    <!-- Progreso -->
     <div class="card">
-      <div class="card-label">Consejo del día</div>
-      <div style="margin-top:10px;font-size:14px;color:var(--text-dark);line-height:1.6;" id="medTip"></div>
-    </div>
-
-    <div class="card">
-      <div class="card-label">¿Cómo estás ahora?</div>
-      <div class="toggle-group" style="margin-top:12px;" id="medEstado">
-        <button class="toggle-btn selected" onclick="selectToggle(this,'medEstado');setMedGuia('dolor')">Dolor</button>
-        <button class="toggle-btn" onclick="selectToggle(this,'medEstado');setMedGuia('cansancio')">Cansancio</button>
-        <button class="toggle-btn" onclick="selectToggle(this,'medEstado');setMedGuia('ansiedad')">Ansiedad</button>
-        <button class="toggle-btn" onclick="selectToggle(this,'medEstado');setMedGuia('pausa')">Solo pausar</button>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+        <div class="card-label" style="margin-bottom:0;">Progreso de hoy</div>
+        <div style="font-family:'Fraunces',serif;font-size:20px;font-weight:300;color:var(--text-dark);" id="terapiaCount">0 / 7</div>
+      </div>
+      <div class="progress-bar"><div class="progress-fill amber" id="terapiaProgress" style="width:0%"></div></div>
+      <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+        <button class="btn btn-outline" onclick="resetTerapia()" style="font-size:12px;padding:8px 14px;">Reiniciar</button>
+        <button class="btn btn-amber" onclick="completarTerapia()" style="font-size:12px;padding:8px 14px;" id="terapiaCompletarBtn">Marcar todo hecho</button>
       </div>
     </div>
 
-    <div class="card" id="medGuiaCard">
-      <div class="card-label" id="medGuiaTipo">Meditación para el dolor — 5 min</div>
-      <div style="font-size:13px;color:var(--text-mid);line-height:1.7;margin-top:10px;" id="medGuiaTexto"></div>
-    </div>
-
+    <!-- Bloque 1: Puntos de liberación -->
     <div class="card">
-      <div class="card-label">Respiración guiada</div>
-      <p style="font-size:13px;color:var(--text-light);margin:10px 0;">Sigue el ritmo. Inhala 4s, mantén 4s, exhala 4s.</p>
-      <div class="breathe-ring" id="breatheRing">
-        <div class="breathe-inner" id="breatheText">Inhala</div>
-      </div>
-      <div style="display:flex;gap:8px;justify-content:center;margin-top:8px;">
-        <button class="btn btn-amber" id="breatheBtn" onclick="toggleBreathe()">Iniciar</button>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-label">Registro</div>
-      <div class="habit-row" style="border:none;padding:12px 0 0;">
-        <div class="habit-info">
-          <div class="habit-name">Meditación de hoy</div>
-          <div class="habit-meta">5 minutos</div>
+      <div class="card-label">Puntos de liberación</div>
+      <div style="margin-top:4px;">
+        <div class="habit-row" id="row-itband">
+          <div class="habit-info">
+            <div class="habit-name">Banda iliotibial (IT band)</div>
+            <div class="habit-meta">Fascia cadera → rodilla</div>
+          </div>
+          <button class="check-btn" id="punto-itband" onclick="togglePunto('itband')">✓</button>
         </div>
-        <button class="check-btn" id="medCheck" onclick="toggleMedCheck()">✓</button>
+        <div class="habit-row" id="row-esternon">
+          <div class="habit-info">
+            <div class="habit-name">Esternón</div>
+            <div class="habit-meta">Centro del pecho</div>
+          </div>
+          <button class="check-btn" id="punto-esternon" onclick="togglePunto('esternon')">✓</button>
+        </div>
+        <div class="habit-row" id="row-pectoral">
+          <div class="habit-info">
+            <div class="habit-name">Punto pectoral</div>
+            <div class="habit-meta">4 dedos sobre el pezón</div>
+          </div>
+          <button class="check-btn" id="punto-pectoral" onclick="togglePunto('pectoral')">✓</button>
+        </div>
+        <div class="habit-row" id="row-trapecio">
+          <div class="habit-info">
+            <div class="habit-name">Trapecio / ECM</div>
+            <div class="habit-meta">Cuello → hombro</div>
+          </div>
+          <button class="check-btn" id="punto-trapecio" onclick="togglePunto('trapecio')">✓</button>
+        </div>
       </div>
     </div>
+
+    <!-- Bloque 2: Vicks VapoRub -->
+    <div class="card">
+      <div class="card-label">Vicks VapoRub — puntos faciales</div>
+      <div style="margin-top:4px;">
+        <div class="habit-row" id="row-sienes">
+          <div class="habit-info">
+            <div class="habit-name">Sienes</div>
+          </div>
+          <button class="check-btn" id="punto-sienes" onclick="togglePunto('sienes')">✓</button>
+        </div>
+        <div class="habit-row" id="row-entrecejo">
+          <div class="habit-info">
+            <div class="habit-name">Entrecejo</div>
+          </div>
+          <button class="check-btn" id="punto-entrecejo" onclick="togglePunto('entrecejo')">✓</button>
+        </div>
+        <div class="habit-row" id="row-cejas">
+          <div class="habit-info">
+            <div class="habit-name">Cejas</div>
+            <div class="habit-meta">Pellizco suave de dentro hacia afuera</div>
+          </div>
+          <button class="check-btn" id="punto-cejas" onclick="togglePunto('cejas')">✓</button>
+        </div>
+      </div>
+    </div>
+
   </div>
-
-
 
 </div><!-- end app -->
 
@@ -1187,9 +1214,9 @@
   </button>
   <button class="bnav-btn" data-bnav="meditacion" onclick="showSection('meditacion')">
     <div class="bnav-icon">
-      <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20A10 10 0 0012 2z"/><path d="M12 6v6l4 2"/></svg>
+      <svg viewBox="0 0 24 24"><path d="M12 22c4 0 7-2 7-5s-3-5-7-5-7 2-7 5 3 5 7 5z"/><path d="M12 12V7"/><path d="M8 9l4-4 4 4"/></svg>
     </div>
-    <span class="bnav-label">Calma</span>
+    <span class="bnav-label">Terapia</span>
   </button>
 </div>
 
@@ -1251,38 +1278,6 @@ const PROMPTS = [
   {tag:"Creatividad", text:"Si el silencio tuviera un color hoy, ¿cuál sería?"},
 ];
 
-const MED_TIPS = [
-  "No tienes que vaciar la mente para meditar. Solo observar los pensamientos sin seguirlos ya es meditación.",
-  "Cinco minutos de respiración consciente activan el sistema nervioso parasimpático, reduciendo la percepción del dolor.",
-  "No hay una postura correcta. Si necesitas tumbarte, túmbate. Lo que importa es la atención, no la posición.",
-  "El dolor no desaparece con la meditación, pero puedes cambiar tu relación con él. Eso ya es mucho.",
-  "Si tu mente se va mil veces, la traes de vuelta mil veces. Eso no es fallar, es exactamente el ejercicio.",
-  "La respiración siempre está disponible. En cualquier momento difícil, tres respiraciones profundas cambian el estado.",
-  "El cansancio no impide meditar. Al contrario, una meditación corta puede ser más útil que una siesta.",
-  "No necesitas silencio perfecto. El ruido de fondo puede convertirse en parte de la práctica.",
-  "La autocompasión es la base. Si durante la meditación aparece frustración, esa frustración también merece atención.",
-  "Meditar antes de dormir ayuda a procesar las emociones del día sin necesidad de resolverlas.",
-];
-
-const MED_GUIAS = {
-  dolor: {
-    tipo: "Meditación para el dolor — 5 min",
-    texto: "Cierra los ojos o baja la mirada. Empieza notando el peso de tu cuerpo donde estás sentada o tumbada.\n\nLleva la atención al área de dolor, pero sin resistirte. Imagina que el dolor es una nube: tiene forma, temperatura, intensidad. Obsérvala sin querer que desaparezca.\n\nAhora con cada exhalación, visualiza que sueltas un poco de tensión alrededor de esa zona. No el dolor en sí, solo la tensión muscular que lo rodea.\n\nPermanece aquí cinco minutos, respirando suavemente. Si la mente se va, es normal. Vuelve a la respiración."
-  },
-  cansancio: {
-    tipo: "Meditación para el cansancio — 5 min",
-    texto: "Permite que tu cuerpo se rinda completamente al peso de la gravedad. No hay nada que sostener ahora.\n\nRespira sin controlar demasiado. Nota el ritmo natural de tu respiración, que se ralentiza sola.\n\nSi sientes ganas de cerrar los ojos, ciérralos. Si sientes ganas de dormir, eso también está bien. El descanso consciente es tan válido como la meditación activa.\n\nDeja que tu cuerpo tome lo que necesita. Tú no tienes que hacer nada en este momento."
-  },
-  ansiedad: {
-    tipo: "Meditación para la ansiedad — 5 min",
-    texto: "Coloca una mano en el pecho y otra en el abdomen. Respira hacia el abdomen, no hacia el pecho.\n\nCuenta mentalmente: inhala 1-2-3-4, mantén 1-2, exhala 1-2-3-4-5-6. La exhalación más larga que la inhalación activa el freno de la ansiedad.\n\nNota que ahora mismo, en este momento exacto, estás a salvo. El cuerpo reacciona a pensamientos como si fueran reales; recuérdale que estás aquí, presente.\n\nRepite hasta completar cinco minutos. Es normal que la mente vuelva a las preocupaciones. Cada vez que vuelves a la respiración, estás practicando."
-  },
-  pausa: {
-    tipo: "Pausa consciente — 5 min",
-    texto: "Esta es una pausa sin objetivo. No tienes que relajarte, ni sentir nada en particular.\n\nSimplemente nota cinco cosas que puedes ver ahora mismo. Cuatro que puedes tocar. Tres que puedes escuchar. Dos que puedes oler. Una que puedes saborear.\n\nEste ejercicio ancla la mente al presente cuando está dispersa entre mil cosas.\n\nAl terminar, tómate un momento antes de volver a lo que estabas haciendo. Ese momento de transición también forma parte de la pausa."
-  }
-};
-
 // ─── STATE ───────────────────────────────────────────────
 let state = JSON.parse(localStorage.getItem('mia_state') || '{}');
 if (!state.tramadolLog) state.tramadolLog = [];
@@ -1312,19 +1307,14 @@ function init() {
   document.getElementById('promptTag').textContent = p.tag;
   document.getElementById('dashPrompt').textContent = p.text;
 
-  // Tip meditación
-  const tidx = now.getDate() % MED_TIPS.length;
-  document.getElementById('medTip').textContent = MED_TIPS[tidx];
-
-  // Guía meditación por defecto
-  setMedGuia('dolor');
-
   // Water dots
   buildWaterDots();
 
   // Render todo
   if (!state.asignaturas) state.asignaturas = [];
+  if (!state.terapia) state.terapia = {};
   renderAsignaturas();
+  renderTerapia();
   renderTramadolLog();
   renderTareas();
   renderNotas();
@@ -1382,7 +1372,6 @@ function registrarTramadol() {
   hora = horaInput || now.toLocaleTimeString('es-ES', {hour:'2-digit', minute:'2-digit'});
   const entry = { id: Date.now(), hora, gotas, con, nota, fecha };
   state.tramadolLog.unshift(entry);
-  // Sort by fecha+hora descending
   saveState();
   renderTramadolLog();
   actualizarProximasTomas();
@@ -1408,7 +1397,6 @@ function eliminarTramadol(id) {
 function renderTramadolLog() {
   const el = document.getElementById('tramadolEntries');
   if (!state.tramadolLog.length) { el.innerHTML = '<p style="font-size:13px;color:var(--text-light);margin-top:10px;">Sin registros.</p>'; return; }
-  // Group by date
   const groups = {};
   state.tramadolLog.forEach(e => {
     if (!groups[e.fecha]) groups[e.fecha] = [];
@@ -1695,69 +1683,81 @@ function renderJournal() {
   `).join('');
 }
 
-// ─── MEDITACION ──────────────────────────────────────────
-function setMedGuia(tipo) {
-  const g = MED_GUIAS[tipo] || MED_GUIAS.dolor;
-  document.getElementById('medGuiaTipo').textContent = g.tipo;
-  document.getElementById('medGuiaTexto').innerHTML = g.texto.replace(/\n\n/g,'<br><br>');
+// ─── TERAPIA CORPORAL ────────────────────────────────────
+const PUNTOS = ['itband','esternon','pectoral','trapecio','sienes','entrecejo','cejas'];
+
+function getTerapiaHoy() {
+  const key = new Date().toLocaleDateString('es-ES');
+  if (!state.terapia) state.terapia = {};
+  if (!state.terapia[key]) state.terapia[key] = {};
+  return state.terapia[key];
 }
 
-let breatheInterval = null, breatheRunning = false, breathePhase = 0;
-const breathePhases = [
-  {label:'Inhala', cls:'inhale', dur:4000},
-  {label:'Mantén', cls:'', dur:4000},
-  {label:'Exhala', cls:'exhale', dur:6000},
-  {label:'Mantén', cls:'', dur:2000},
-];
+function togglePunto(id) {
+  const hoy = getTerapiaHoy();
+  hoy[id] = !hoy[id];
+  saveState();
+  renderTerapia();
+}
 
-function toggleBreathe() {
-  if (!breatheRunning) {
-    breatheRunning = true;
-    document.getElementById('breatheBtn').textContent = 'Parar';
-    runBreathe();
+function resetTerapia() {
+  const key = new Date().toLocaleDateString('es-ES');
+  if (state.terapia) state.terapia[key] = {};
+  saveState();
+  renderTerapia();
+}
+
+function completarTerapia() {
+  const hoy = getTerapiaHoy();
+  PUNTOS.forEach(p => hoy[p] = true);
+  saveState();
+  renderTerapia();
+  showToast('Terapia completada');
+}
+
+function renderTerapia() {
+  const hoy = getTerapiaHoy();
+  const done = PUNTOS.filter(p => hoy[p]).length;
+  const total = PUNTOS.length;
+  const pct = Math.round((done / total) * 100);
+
+  const countEl = document.getElementById('terapiaCount');
+  const progEl = document.getElementById('terapiaProgress');
+  if (countEl) countEl.textContent = `${done} / ${total}`;
+  if (progEl) progEl.style.width = pct + '%';
+
+  PUNTOS.forEach(p => {
+    const btn = document.getElementById('punto-' + p);
+    if (btn) btn.className = 'check-btn' + (hoy[p] ? ' done' : '');
+  });
+
+  if (done === total) {
+    const todayKey = new Date().toLocaleDateString('es-ES');
+    if (!state.habitos[todayKey]) state.habitos[todayKey] = {};
+    state.habitos[todayKey].mind = true;
+    saveState();
+    renderHabitos();
+    const meta = document.getElementById('terapiaMeta');
+    if (meta) meta.textContent = `Completada — ${total}/${total} puntos`;
   } else {
-    breatheRunning = false;
-    clearTimeout(breatheInterval);
-    document.getElementById('breatheBtn').textContent = 'Iniciar';
-    document.getElementById('breatheRing').className = 'breathe-ring';
-    document.getElementById('breatheText').textContent = 'Inhala';
+    const meta = document.getElementById('terapiaMeta');
+    if (meta) meta.textContent = done > 0 ? `${done}/${total} puntos hoy` : 'Puntos de liberación';
   }
-}
-
-function runBreathe() {
-  if (!breatheRunning) return;
-  const phase = breathePhases[breathePhase % breathePhases.length];
-  const ring = document.getElementById('breatheRing');
-  const txt = document.getElementById('breatheText');
-  ring.className = 'breathe-ring ' + phase.cls;
-  txt.textContent = phase.label;
-  breathePhase++;
-  breatheInterval = setTimeout(runBreathe, phase.dur);
-}
-
-function toggleMedCheck() {
-  const btn = document.getElementById('medCheck');
-  btn.classList.toggle('done');
-  showToast(btn.classList.contains('done') ? 'Meditación completada' : 'Desmarcado');
 }
 
 // ─── DASHBOARD ───────────────────────────────────────────
 function updateDashboard() {
-  // Tramadol
   const today = new Date().toLocaleDateString('es-ES');
   const todayT = state.tramadolLog.filter(e => e.fecha === today);
   document.getElementById('dashTramadol').textContent = todayT.length ? todayT[0].hora : '—';
-  // Habitos
   const h = state.habitos[today] || {};
   const count = Object.values(h).filter(Boolean).length;
   document.getElementById('dashHabitos').textContent = `${count}/4`;
-  // Tareas
   const pending = state.tareas.filter(t => !t.done).length;
   document.getElementById('dashTareas').textContent = pending || '—';
-  // Ciclo (ya se renderiza en renderCiclo)
 }
 
-// ─── DESCARGA ────────────────────────────────────────────
+// ─── ASIGNATURAS ─────────────────────────────────────────
 function guardarAsignatura() {
   const input = document.getElementById('nuevaAsignatura');
   const val = input.value.trim();
@@ -1778,7 +1778,6 @@ function renderAsignaturas() {
   el.innerHTML = state.asignaturas.map(a => `
     <span style="padding:4px 10px;border-radius:20px;font-size:12px;background:var(--sage-pale);border:1px solid var(--sage-light);color:var(--text-dark);cursor:pointer;" onclick="seleccionarAsig('${a}')">${a}</span>
   `).join('');
-  // Update datalist for timer
   const dl = document.getElementById('asigList');
   if (dl) dl.innerHTML = state.asignaturas.map(a => `<option value="${a}">`).join('');
 }
@@ -1795,23 +1794,19 @@ function calcularConduccion() {
 
   const mg = gotas * 12.5;
 
-  // Horas de espera según ficha técnica (efecto ~9h, clasificación DGT Categoría III)
-  // Recomendado: tiempo hasta fin de efecto analgésico principal
-  // Máximo absoluto: mínimo intervalo posológico (cada 4-6h) pero con margen seguridad conducción
   let horasRec, horasMax;
-  if (mg <= 50) {          // 1-4 gotas
+  if (mg <= 50) {
     horasRec = 9; horasMax = 6;
-  } else if (mg <= 100) {  // 5-8 gotas
+  } else if (mg <= 100) {
     horasRec = 9; horasMax = 7;
-  } else if (mg <= 150) {  // 9-12 gotas
+  } else if (mg <= 150) {
     horasRec = 10; horasMax = 8;
-  } else if (mg <= 200) {  // 13-16 gotas
+  } else if (mg <= 200) {
     horasRec = 11; horasMax = 9;
-  } else {                 // +16 gotas
+  } else {
     horasRec = 12; horasMax = 10;
   }
 
-  // Parse hora coche
   const [hC, mC] = horaCoche.split(':').map(Number);
   const hoyBase = new Date(); hoyBase.setHours(hC, mC, 0, 0);
 
@@ -1832,30 +1827,6 @@ function calcularConduccion() {
   document.getElementById('condUltimaMax').textContent = `antes de las ${fmtHora(ultimaMax)} (${horasMax}h antes)`;
   document.getElementById('condResultado').style.display = 'block';
 }
-
-// ─── START ────────────────────────────────────────────────
-init();
-
-// ─── PWA MANIFEST ─────────────────────────────────────────
-(function() {
-  const iconSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="512" height="512" rx="112" fill="#FAF7F2"/><ellipse cx="256" cy="210" rx="80" ry="100" fill="#E8D5B0" opacity="0.8"/><circle cx="256" cy="210" r="30" fill="#EDD5D2"/><line x1="256" y1="310" x2="256" y2="370" stroke="#C4B0A4" stroke-width="18" stroke-linecap="round"/><line x1="216" y1="358" x2="296" y2="358" stroke="#C4B0A4" stroke-width="18" stroke-linecap="round"/></svg>`;
-  const svgBlob = new Blob([iconSvg], {type: 'image/svg+xml'});
-  const svgUrl = URL.createObjectURL(svgBlob);
-  const manifest = {
-    name: 'Mía',
-    short_name: 'Mía',
-    description: 'Tu app personal',
-    start_url: '.',
-    display: 'standalone',
-    background_color: '#FAF7F2',
-    theme_color: '#FAF7F2',
-    icons: [
-      { src: svgUrl, sizes: '512x512', type: 'image/svg+xml' }
-    ]
-  };
-  const blob = new Blob([JSON.stringify(manifest)], {type: 'application/json'});
-  document.getElementById('pwaManifest').href = URL.createObjectURL(blob);
-})();
 
 // ─── GRÁFICA TRAMADOL ─────────────────────────────────────
 let chartInstance = null;
@@ -1878,9 +1849,9 @@ function renderGraficaTramadol() {
     data.push(totalMg || 0);
   }
 
-  function drawChart(canvasId, existingInstance) {
+  function drawChart(canvasId) {
     const canvas = document.getElementById(canvasId);
-    if (!canvas) return existingInstance;
+    if (!canvas) return;
     const ctx = canvas.getContext('2d');
     const W = canvas.offsetWidth || 340;
     canvas.width = W * window.devicePixelRatio;
@@ -1894,7 +1865,6 @@ function renderGraficaTramadol() {
     const maxVal = Math.max(...data, 100);
     ctx.clearRect(0, 0, w, h);
 
-    // Grid lines
     ctx.strokeStyle = '#E8E0D8';
     ctx.lineWidth = 1;
     [0, 0.5, 1].forEach(pct => {
@@ -1902,7 +1872,6 @@ function renderGraficaTramadol() {
       ctx.beginPath(); ctx.moveTo(pad.left, y); ctx.lineTo(pad.left + chartW, y); ctx.stroke();
     });
 
-    // Bars
     const barW = Math.max(4, (chartW / labels.length) - 4);
     labels.forEach((label, i) => {
       const x = pad.left + (i / labels.length) * chartW + (chartW / labels.length - barW) / 2;
@@ -1923,7 +1892,6 @@ function renderGraficaTramadol() {
       ctx.closePath();
       ctx.fill();
 
-      // Label
       if (i % 2 === 0 || i === labels.length - 1) {
         ctx.fillStyle = '#9C8E88';
         ctx.font = '9px DM Sans, sans-serif';
@@ -1931,7 +1899,6 @@ function renderGraficaTramadol() {
         ctx.fillText(label, x + barW / 2, h - 6);
       }
 
-      // Value on top if > 0
       if (data[i] > 0) {
         ctx.fillStyle = isToday ? '#9C8070' : '#C4B0A4';
         ctx.font = `${isToday ? 'bold ' : ''}9px DM Sans, sans-serif`;
@@ -1940,21 +1907,17 @@ function renderGraficaTramadol() {
       }
     });
 
-    // Y axis labels
     ctx.fillStyle = '#9C8E88';
     ctx.font = '9px DM Sans, sans-serif';
     ctx.textAlign = 'right';
     ctx.fillText('0', pad.left - 4, pad.top + chartH + 3);
     ctx.fillText(Math.round(maxVal / 2) + '', pad.left - 4, pad.top + chartH / 2 + 3);
     ctx.fillText(Math.round(maxVal) + '', pad.left - 4, pad.top + 3);
-
-    return true;
   }
 
-  drawChart('chartTramadol', chartInstance);
-  drawChart('dashChartTramadol', dashChartInstance);
+  drawChart('chartTramadol');
+  drawChart('dashChartTramadol');
 
-  // Show/hide dashboard chart card
   const anyData = data.some(v => v > 0);
   const dc = document.getElementById('dashGraficaCard');
   if (dc) dc.style.display = anyData ? 'block' : 'none';
@@ -1999,7 +1962,6 @@ function actualizarProximasTomas() {
   const e4 = estadoPill(next4);
   const e8 = estadoPill(next8);
 
-  // Medicacion screen
   if (card) {
     document.getElementById('proxima4h').textContent = h4;
     document.getElementById('proxima8h').textContent = h8;
@@ -2008,7 +1970,6 @@ function actualizarProximasTomas() {
     card.style.display = 'block';
   }
 
-  // Dashboard
   if (dashCard) {
     document.getElementById('dash4h').textContent = h4;
     document.getElementById('dash8h').textContent = h8;
@@ -2019,6 +1980,30 @@ function actualizarProximasTomas() {
 
   setTimeout(actualizarProximasTomas, 60000);
 }
+
+// ─── START ────────────────────────────────────────────────
+init();
+
+// ─── PWA MANIFEST ─────────────────────────────────────────
+(function() {
+  const iconSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="512" height="512" rx="112" fill="#FAF7F2"/><ellipse cx="256" cy="210" rx="80" ry="100" fill="#E8D5B0" opacity="0.8"/><circle cx="256" cy="210" r="30" fill="#EDD5D2"/><line x1="256" y1="310" x2="256" y2="370" stroke="#C4B0A4" stroke-width="18" stroke-linecap="round"/><line x1="216" y1="358" x2="296" y2="358" stroke="#C4B0A4" stroke-width="18" stroke-linecap="round"/></svg>`;
+  const svgBlob = new Blob([iconSvg], {type: 'image/svg+xml'});
+  const svgUrl = URL.createObjectURL(svgBlob);
+  const manifest = {
+    name: 'Mía',
+    short_name: 'Mía',
+    description: 'Tu app personal',
+    start_url: '.',
+    display: 'standalone',
+    background_color: '#FAF7F2',
+    theme_color: '#FAF7F2',
+    icons: [
+      { src: svgUrl, sizes: '512x512', type: 'image/svg+xml' }
+    ]
+  };
+  const blob = new Blob([JSON.stringify(manifest)], {type: 'application/json'});
+  document.getElementById('pwaManifest').href = URL.createObjectURL(blob);
+})();
 </script>
 </body>
 </html>
